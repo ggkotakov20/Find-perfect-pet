@@ -76,7 +76,8 @@ class CategoryListItem extends StatelessWidget {
                  animal.title[language] != null
                  ? animal.title[language]!
                  : 'Not available',
-               style: TextStyle(color: Colors.black, fontSize: 25, fontWeight: FontWeight.w400),
+               style: GoogleFonts.baloo2(color: Colors.black, fontSize: 28, fontWeight: FontWeight.w400),
+              //  
                ),
              ),
            ),
