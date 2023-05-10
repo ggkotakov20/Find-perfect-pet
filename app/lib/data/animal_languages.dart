@@ -6,7 +6,7 @@ import 'package:app/pages/home/animal.dart';
 
 /// Original labels in german and bulgarian, english added as last value
 const labels = [
-  ["1", "100.50", "Mops", "мопс"],
+  ["1", "100", "Mops", "мопс"],
   ["2", "20", "Chihuahua", "цихуахуа"],
   ["3", "500", "Husky", "хъски"]
 ];

@@ -20,13 +20,14 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-          Positioned(
-            top: 35,
-            bottom: 35,
-            left: 30,
-            right: 30,
-            child: CategoryViewer(_language),
-          ),],
+        Positioned(
+          top: 0,
+          bottom: 0,
+          left: 30,
+          right: 30,
+          child: CategoryViewer(_language),
+        ),
+      ],
     );
   }
 }
@@ -44,45 +45,121 @@ class CategoryViewer extends StatelessWidget {
 
     print('$width X $height');
 
-      return ListView(
-        children: categories.map((categories){
-          return CategoryListItem(language, categories);
-        }).toList(),
-      );
-    
+    return ListView(
+      children: categories.map((categories) {
+        return AnimalListItem(language, categories);
+      }).toList(),
+    );
   }
 }
 
-class CategoryListItem extends StatelessWidget {
+class AnimalListItem extends StatelessWidget {
   final String language;
   final Animal animal;
 
-  const CategoryListItem(this.language, this.animal, {super.key});
+  const AnimalListItem(this.language, this.animal, {super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [ 
-         Container(
-           width: 200,
-           height: 200,
-           decoration: BoxDecoration(
-             image: DecorationImage(image: AssetImage(animal.image)),
-             ),
-           child: Padding(
-             padding: const EdgeInsets.fromLTRB(0, 125, 0, 0),
-             child: Center(
-               child: Text(
-                 animal.title[language] != null
-                 ? animal.title[language]!
-                 : 'Not available',
-               style: GoogleFonts.baloo2(color: Colors.black, fontSize: 28, fontWeight: FontWeight.w400),
-              //  
-               ),
-             ),
-           ),
-         )
-      ],
+    String Animalprice = animal.price.toString();
+    return Container(
+      margin: const EdgeInsets.only(top: 20, bottom: 0,),
+      child: Column(
+        children: [
+          //  Image section
+          Container(
+            width: 325,
+            height: 150,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(animal.image),
+                fit: BoxFit.cover,
+              ),
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(25.0),
+                  topRight: Radius.circular(25.0)),
+            ),
+          ),
+
+          // Information section
+          Container(
+            child: Row(
+              children: [
+                // Title and price 
+                Container(
+                  margin: const EdgeInsets.only(left:14),
+                  height: 75,
+                  width: 216,
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(25.0),
+                    ),
+                    color: Colors.white,
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 10, left: 25,),
+                    child: Column(
+                      children: [
+                        Text(
+                          animal.title[language] != null
+                              ? animal.title[language]!
+                              : 'Not available',
+                          style: const TextStyle(
+                            fontSize: 26,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                        Text(
+                          '$Animalprice \$',
+                          style: const TextStyle(
+                            fontSize: 18,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+
+                // Shopping and add to favourite buttons
+                Container(
+                  height: 75,
+                  width: 109,
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      bottomRight: Radius.circular(25.0),
+                    ),
+                    color: Colors.white,
+                  ),
+                  child: Row(
+                    children: [
+                      FloatingActionButton.small(
+                        backgroundColor: firstColor,
+                        onPressed: () {},
+                        child: Icon(
+                          FontAwesomeIcons.bagShopping,
+                          size: 20,
+                          color: Colors.white,
+                        ),
+                      ),
+                      FloatingActionButton.small(
+                        backgroundColor: firstColor,
+                        onPressed: () {},
+                        child: Icon(
+                          FontAwesomeIcons.heart,
+                          size: 20,
+                          color: Colors.white,
+                        ),
+                      ),
+                     ],
+                  ),
+                )
+              
+              ],
+            ),
+          ),
+        
+        ],
+      ),
     );
   }
 }

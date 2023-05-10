@@ -5,12 +5,13 @@ import 'package:app/colors.dart';
 
 import 'package:app/pages/home/home.dart';
 import 'package:app/pages/map/map.dart';
+import 'package:app/pages/bag.dart';
 
 void main() {
   runApp(MyApp());
 }
 
-int currentIndex = 1;
+int currentIndex = 2;
 
 class MyApp extends StatefulWidget {
   MyApp({super.key});
@@ -21,16 +22,20 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   final screen = [
+    HomePage(),
     MapPage(),
     HomePage(),
+    BagPage(),
     HomePage(),
   ];
+  
   @override
   Widget build(BuildContext context) {
     print('$currentIndex');
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+        backgroundColor: background,
         appBar: AppBar(
           //  To remove shadowes
           elevation: 0.0,
@@ -40,10 +45,6 @@ class _MyAppState extends State<MyApp> {
               image: AssetImage('images/logo.png'),
               height: 65,
             ),
-            // child: Text(
-            //   currentIndex == 0 ? 'SETTINGS' : currentIndex == 1 ? 'CATEGORY' : 'PROFILE',
-            //   style: TextStyle(color: 27),
-            // ),
           ),
           backgroundColor: background,
         ),
@@ -62,12 +63,20 @@ class _MyAppState extends State<MyApp> {
               items: const [
                 
                 BottomNavigationBarItem(
+                  label: 'Create',
+                  icon: Icon(FontAwesomeIcons.plus),
+                ),
+                BottomNavigationBarItem(
                   label: 'Map',
                   icon: Icon(FontAwesomeIcons.map),
                 ),
                 BottomNavigationBarItem(
                   label: 'Home',
                   icon: Icon(FontAwesomeIcons.house),
+                ),
+                BottomNavigationBarItem(
+                  label: 'Bag',
+                  icon: Icon(FontAwesomeIcons.bagShopping),
                 ),
                 BottomNavigationBarItem(
                   label: 'Profile',
