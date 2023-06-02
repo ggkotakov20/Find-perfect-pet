@@ -3,13 +3,14 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:app/colors.dart';
 
 import 'package:app/pages/home/home.dart';
+import 'package:app/pages/map/map.dart';
 import 'package:app/pages/error.dart';
 
 void main() {
   runApp(MyApp());
 }
 
-int currentIndex = 2;
+int currentIndex = 1;
 
 class MyApp extends StatefulWidget {
   MyApp({super.key});
@@ -20,7 +21,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   final screen = [
     ErrorPage(),
-    ErrorPage(),
+    MapPage(),
     HomePage(),
     ErrorPage(),
   ];
