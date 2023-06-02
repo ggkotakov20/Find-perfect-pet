@@ -1,8 +1,8 @@
-class Animal {
+class Pet {
   int id;
   double price;
   String image;
   Map<String, String> title;
 
-  Animal(this.id, this.price,this.image, this.title);
+  Pet(this.id, this.price,this.image, this.title);
 }

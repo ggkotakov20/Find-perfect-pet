@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:app/colors.dart';
 
 import 'package:app/pages/home/home.dart';
-import 'package:app/pages/map/map.dart';
-import 'package:app/pages/bag.dart';
+import 'package:app/pages/error.dart';
 
 void main() {
   runApp(MyApp());
@@ -19,16 +17,14 @@ class MyApp extends StatefulWidget {
   @override
   State<MyApp> createState() => _MyAppState();
 }
-
 class _MyAppState extends State<MyApp> {
   final screen = [
+    ErrorPage(),
+    ErrorPage(),
     HomePage(),
-    MapPage(),
-    HomePage(),
-    BagPage(),
-    HomePage(),
+    ErrorPage(),
   ];
-  
+
   @override
   Widget build(BuildContext context) {
     print('$currentIndex');
@@ -61,22 +57,17 @@ class _MyAppState extends State<MyApp> {
               selectedFontSize: 15,
               unselectedFontSize: 15,
               items: const [
-                
                 BottomNavigationBarItem(
                   label: 'Create',
                   icon: Icon(FontAwesomeIcons.plus),
                 ),
                 BottomNavigationBarItem(
                   label: 'Map',
-                  icon: Icon(FontAwesomeIcons.map),
+                  icon: Icon(FontAwesomeIcons.mapLocationDot),
                 ),
                 BottomNavigationBarItem(
                   label: 'Home',
                   icon: Icon(FontAwesomeIcons.house),
-                ),
-                BottomNavigationBarItem(
-                  label: 'Bag',
-                  icon: Icon(FontAwesomeIcons.bagShopping),
                 ),
                 BottomNavigationBarItem(
                   label: 'Profile',

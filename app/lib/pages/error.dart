@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class BagPage extends StatelessWidget {
-  const BagPage({super.key});
+class ErrorPage extends StatelessWidget {
+  const ErrorPage({super.key});
 
   @override
   Widget build(BuildContext context) {

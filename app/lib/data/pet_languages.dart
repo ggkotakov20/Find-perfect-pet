@@ -1,23 +1,26 @@
-import 'package:app/pages/home/animal.dart';
+import 'package:app/pages/home/pet.dart';
 
 ///
 /// This file provides the original category data
 ///
 
 /// Original labels in german and bulgarian, english added as last value
-const labels = [
-  ["1", "100", "Mops", "мопс"],
-  ["2", "20", "Chihuahua", "цихуахуа"],
-  ["3", "500", "Husky", "хъски"]
+const  _allPets = [
+  ["1", "100", "Mops", "Мопс"],
+  ["2", "20", "Chihuahua", "Чихуахуа"],
+  ["3", "500", "Husky", "Хъски"],
+  ["4", "300", "Labrador", 'Лабрадор']
 ];
+
+
 
 ///
 /// Labels transformed into BuboCategories
 ///
 /// This list can be used in the application for rendering the categories
 ///
-List<Animal> categories = labels.map((categoryLabels) {
-  return Animal(
+List<Pet> cards = _allPets.map((categoryLabels) {
+  return Pet(
       int.parse(categoryLabels[0]),
       double.parse(categoryLabels[1]),
       'images/pets/${categoryLabels[2].toLowerCase().replaceAll(' ', '_')}.jpg',

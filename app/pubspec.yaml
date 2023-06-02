@@ -28,15 +28,12 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
-  google_fonts: ^4.0.4
   flutter:
     sdk: flutter
-
+  font_awesome_flutter: ^10.4.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.2
-  font_awesome_flutter: ^10.4.0
 
 dev_dependencies:
   flutter_test:
@@ -64,6 +61,7 @@ flutter:
   assets:
     - images/
     - images/pets/
+    - images/map/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
