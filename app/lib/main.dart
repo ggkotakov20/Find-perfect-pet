@@ -53,7 +53,7 @@ class _MyAppState extends State<MyApp> {
               type: BottomNavigationBarType.fixed,
               backgroundColor: Colors.white,
               selectedItemColor: firstColor,
-              unselectedItemColor: darkColor,
+              unselectedItemColor: secondColor,
               selectedFontSize: 15,
               unselectedFontSize: 15,
               items: const [
