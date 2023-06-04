@@ -26,9 +26,9 @@ class _HomePageState extends State<HomePage> {
           padding: const EdgeInsets.all(15),
           child: TextField(
             style: TextStyle(fontSize: 18),
-            cursorColor: firstColor,
+            cursorColor: GREEN,
             decoration: InputDecoration(
-              prefixIcon: Icon(Icons.search, color: firstColor,),
+              prefixIcon: Icon(Icons.search, color: GREEN,),
               hintText: 'Search',
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(20),

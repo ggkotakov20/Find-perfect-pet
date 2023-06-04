@@ -92,11 +92,11 @@ class AnimalListItem extends StatelessWidget {
                   margin: const EdgeInsets.only(left: 14),
                   height: 75,
                   width: 216,
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
                     borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(25.0),
                     ),
-                    color: Colors.white,
+                    color: LGREY,
                   ),
                   child: Padding(
                     padding: const EdgeInsets.only(
@@ -109,15 +109,17 @@ class AnimalListItem extends StatelessWidget {
                           animal.title[language] != null
                               ? animal.title[language]!
                               : 'Not available',
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 26,
                             overflow: TextOverflow.ellipsis,
+                            color: BLACK,
                           ),
                         ),
                         Text(
                           '$Animalprice \$',
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 18,
+                            color: DGREY,
                           ),
                         ),
                       ],
@@ -129,30 +131,30 @@ class AnimalListItem extends StatelessWidget {
                 Container(
                   height: 75,
                   width: 109,
-                  decoration: const BoxDecoration(
+                  decoration:  BoxDecoration(
                     borderRadius: BorderRadius.only(
                       bottomRight: Radius.circular(25.0),
                     ),
-                    color: Colors.white,
+                    color: LGREY,
                   ),
                   child: Row(
                     children: [
                       FloatingActionButton.small(
-                        backgroundColor: firstColor,
+                        backgroundColor: GREEN,
                         onPressed: () {},
                         child: Icon(
                           FontAwesomeIcons.bagShopping,
                           size: 20,
-                          color: Colors.white,
+                          color: DGREEN,
                         ),
                       ),
                       FloatingActionButton.small(
-                        backgroundColor: firstColor,
+                        backgroundColor: GREEN,
                         onPressed: () {},
                         child: Icon(
                           FontAwesomeIcons.heart,
                           size: 20,
-                          color: Colors.white,
+                          color: DGREEN,
                         ),
                       ),
                     ],
