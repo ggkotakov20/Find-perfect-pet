@@ -6,7 +6,7 @@ import 'package:app/colors.dart';
 import 'package:app/pages/home/pet_card.dart';
 
 import 'package:app/pages/home/pet.dart';
-import 'package:app/data/pet_languages.dart';
+import 'package:app/data/pet_data.dart';
 
 String _language = 'us';
 
