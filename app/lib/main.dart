@@ -4,13 +4,14 @@ import 'package:app/colors.dart';
 
 import 'package:app/pages/home/home.dart';
 import 'package:app/pages/map/map.dart';
+import 'package:app/pages/profile/profile.dart';
 import 'package:app/pages/error.dart';
 
 void main() {
   runApp(MyApp());
 }
 
-int currentIndex = 1;
+int currentIndex = 3;
 
 class MyApp extends StatefulWidget {
   MyApp({super.key});
@@ -23,7 +24,7 @@ class _MyAppState extends State<MyApp> {
     ErrorPage(),
     MapPage(),
     HomePage(),
-    ErrorPage(),
+    ProfilePage(),
   ];
 
   @override
