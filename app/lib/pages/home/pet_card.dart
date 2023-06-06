@@ -86,10 +86,10 @@ class AnimalListItem extends StatelessWidget {
           // Information section
           Container(
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 // Title and price
                 Container(
-                  margin: const EdgeInsets.only(left: 14),
                   height: 75,
                   width: 216,
                   decoration: BoxDecoration(
@@ -138,6 +138,7 @@ class AnimalListItem extends StatelessWidget {
                     color: LGREY,
                   ),
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       FloatingActionButton.small(
                         backgroundColor: GREEN,
@@ -157,6 +158,7 @@ class AnimalListItem extends StatelessWidget {
                           color: DGREEN,
                         ),
                       ),
+                      SizedBox(width: 10,)
                     ],
                   ),
                 )

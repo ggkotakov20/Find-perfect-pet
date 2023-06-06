@@ -37,55 +37,34 @@ class UserInformation extends StatelessWidget {
               size: 120,
               color: BLACK,
             ),
-            SizedBox(
-              height: 10,
-            ),
+            SizedBox(height: 10),
             Text(
               'Georgi Kotakov',
               style: TextStyle(
                   fontSize: 22, color: BLACK, fontWeight: FontWeight.w500),
             ),
-
-
             Text(
-                  'Lacation - Burgas, Bulgaria',
-                  style: TextStyle(
-                    fontSize: 16,
-                  ),
-                ),
+              'ggkotakov20@codingburgas.bg',
+              style: TextStyle(
+                fontSize: 16,
+              ),
+            ),
+            SizedBox(height: 10),
 
-                
-
-
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Column(
-                  children: [
-                  Text(
-                  'Pet: ',
-                  style: TextStyle(fontSize: 16),
+            TextButton(
+              onPressed: null,
+              style: TextButton.styleFrom(
+                backgroundColor: GREEN,
+                fixedSize: Size(200, 10),
+                shape:  RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
                 ),
-                Text(
-                  'Location: ',
-                  style: TextStyle(fontSize: 16),
-                ),
-                ],)
-              ],
+              ),
+              child: Text('Edit Profile', style: TextStyle(color: DGREEN, fontWeight: FontWeight.w500),),
             )
-
           ],
         ),
       ),
     );
-  }
-}
-
-class MyWidget extends StatelessWidget {
-  const MyWidget({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
   }
 }
