@@ -13,6 +13,14 @@ void main() {
 
 int currentIndex = 3;
 
+final screen = [
+  ErrorPage(),
+  MapPage(),
+  HomePage(),
+  ProfilePage(),
+];
+
+
 class MyApp extends StatefulWidget {
   MyApp({super.key});
 
@@ -20,12 +28,6 @@ class MyApp extends StatefulWidget {
   State<MyApp> createState() => _MyAppState();
 }
 class _MyAppState extends State<MyApp> {
-  final screen = [
-    ErrorPage(),
-    MapPage(),
-    HomePage(),
-    ProfilePage(),
-  ];
 
   @override
   Widget build(BuildContext context) {
