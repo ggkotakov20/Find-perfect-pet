@@ -21,7 +21,9 @@ class _ProfilePageState extends State<ProfilePage> {
         children: [
           UserInformation(),
           SizedBox(height: 30),
-          Options(),
+          Center(
+            child: Options(),
+          )
         ],
       ),
     );
@@ -119,18 +121,22 @@ class Options extends StatelessWidget {
                     child: Text(
                       'Settings',
                       style: TextStyle(
-                          color: BLACK,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 16),
+                        color: BLACK,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 16,
+                      ),
                     ),
                   ),
-                  Container(
-                    child: Icon(
-                      FontAwesomeIcons.chevronRight,
-                      color: GREY,
-                      size: 20,
+                  Expanded(
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: Icon(
+                        FontAwesomeIcons.chevronRight,
+                        color: GREY,
+                        size: 20,
+                      ),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
@@ -162,13 +168,6 @@ class Options extends StatelessWidget {
                           TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
                     ),
                   ),
-                  Container(
-                    child: Icon(
-                      FontAwesomeIcons.chevronRight,
-                      color: GREY,
-                      size: 20,
-                    ),
-                  )
                 ],
               ),
             ),

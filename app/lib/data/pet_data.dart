@@ -1,4 +1,4 @@
-import 'package:app/pages/home/pet.dart';
+import 'package:app/classes/pet.dart';
 
 const _allPets = [
   ["1", "Mops", "Мопс"],

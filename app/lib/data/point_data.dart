@@ -1,4 +1,4 @@
-import 'package:app/pages/map/point.dart';
+import 'package:app/classes/point.dart';
 import 'package:flutter/material.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:intl/intl.dart';

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:app/data/point_data.dart';
-import 'package:app/pages/map/point.dart';
+import 'package:app/classes/point.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
