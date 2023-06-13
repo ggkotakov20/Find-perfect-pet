@@ -11,7 +11,7 @@ void main() {
   runApp(MyApp());
 }
 
-int currentIndex = 3;
+int currentIndex = 2;
 
 final screen = [
   ErrorPage(),

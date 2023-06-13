@@ -4,10 +4,14 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:app/classes/pet.dart';
 import 'package:app/data/pet_data.dart';
+import 'package:app/pages/home/pet_page.dart';
 
 import 'package:app/pages/home/home.dart';
 
 String _language = 'us';
+
+
+
 class AnimalCards extends StatefulWidget {
   const AnimalCards({super.key});
 
@@ -18,16 +22,15 @@ class AnimalCards extends StatefulWidget {
 class _AnimalCardsState extends State<AnimalCards> {
   @override
   Widget build(BuildContext context) {
-    return Stack(
-        children:[ Positioned(
-              top: 100,
-              bottom: 0,
-              left: 30,
-              right: 30,
-              child: AnimalViewer(_language),
-            ),
-        ]
-    );
+    return Stack(children: [
+    Positioned(
+      top: 100,
+      bottom: 0,
+      left: 30,
+      right: 30,
+      child: AnimalViewer(_language),
+    ),
+  ]);
   }
 }
 
@@ -46,7 +49,10 @@ class AnimalViewer extends StatelessWidget {
 
     return ListView(
       children: cards.map((cards) {
-        return AnimalListItem(language, cards);
+        return AnimalListItem(language, cards,
+            heroTag: cards.id
+                .toString() // Assign a unique tag based on the card's ID
+            );
       }).toList(),
     );
   }
@@ -55,12 +61,15 @@ class AnimalViewer extends StatelessWidget {
 class AnimalListItem extends StatelessWidget {
   final String language;
   final Pet animal;
+  final String heroTag; // Add a heroTag property
 
-  const AnimalListItem(this.language, this.animal, {super.key});
+  const AnimalListItem(this.language, this.animal,
+      {Key? key, required this.heroTag})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    String Animalprice = animal.price.toString();
+    String animalPrice = animal.price.toString();
     return Container(
       margin: const EdgeInsets.only(
         top: 20,
@@ -68,18 +77,27 @@ class AnimalListItem extends StatelessWidget {
       ),
       child: Column(
         children: [
-          //  Image section
-          Container(
-            width: 325,
-            height: 150,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage(animal.image),
-                fit: BoxFit.cover,
-              ),
-              borderRadius: BorderRadius.only(
+          // Image section
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => PetPage(language, animal)),
+              );
+            },
+            child: Container(
+              width: 325,
+              height: 150,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage(animal.image),
+                  fit: BoxFit.cover,
+                ),
+                borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(25.0),
-                  topRight: Radius.circular(25.0)),
+                  topRight: Radius.circular(25.0),
+                ),
+              ),
             ),
           ),
 
@@ -116,7 +134,7 @@ class AnimalListItem extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          '$Animalprice \$',
+                          '$animalPrice \$',
                           style: TextStyle(
                             fontSize: 18,
                             color: DGREY,
@@ -129,42 +147,42 @@ class AnimalListItem extends StatelessWidget {
 
                 // Shopping and add to favourite buttons
                 Container(
-                  height: 75,
-                  width: 109,
-                  decoration:  BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      bottomRight: Radius.circular(25.0),
+                height: 75,
+                width: 109,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    bottomRight: Radius.circular(25.0),
+                  ),
+                  color: LGREY,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    IconButton(
+                      onPressed: () {},
+                      icon: Icon(
+                        FontAwesomeIcons.bagShopping,
+                        size: 20,
+                        color: DGREEN,
+                      ),
                     ),
-                    color: LGREY,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      FloatingActionButton.small(
-                        backgroundColor: GREEN,
-                        onPressed: () {},
-                        child: Icon(
-                          FontAwesomeIcons.bagShopping,
-                          size: 20,
-                          color: DGREEN,
-                        ),
+                    IconButton(
+                      onPressed: () {},
+                      icon: Icon(
+                        FontAwesomeIcons.heart,
+                        size: 20,
+                        color: DGREEN,
                       ),
-                      FloatingActionButton.small(
-                        backgroundColor: GREEN,
-                        onPressed: () {},
-                        child: Icon(
-                          FontAwesomeIcons.heart,
-                          size: 20,
-                          color: DGREEN,
-                        ),
-                      ),
-                      SizedBox(width: 10,)
-                    ],
-                  ),
-                )
-              ],
+                    ),
+                    SizedBox(width: 10),
+                  ],
+                ),
+              )
+
+               ],
             ),
           ),
+        
         ],
       ),
     );
