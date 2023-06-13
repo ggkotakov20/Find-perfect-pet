@@ -9,13 +9,34 @@ import 'package:app/data/pet_data.dart';
 class PetPage extends StatelessWidget {
   final String language;
   final Pet animal;
-  const PetPage(this.language,this.animal, {Key? key}) : super(key: key);
+
+  const PetPage(this.language, this.animal, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('${animal.title[language]}'),
+        centerTitle: true,
+        foregroundColor: GREEN,
+        backgroundColor: background,
+        elevation: 0.0,
+        toolbarHeight: 80,
+        leading: IconButton(
+          icon: Icon(FontAwesomeIcons.chevronLeft,size: 18,),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        title: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Image(
+                image: AssetImage('images/logo.png'),
+                height: 65,
+              ),
+            ],
+          ),
       ),
       body: Container(
         child: Column(

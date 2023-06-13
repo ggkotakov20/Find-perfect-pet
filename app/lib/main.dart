@@ -35,6 +35,7 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: background,
+
         appBar: AppBar(
           //  To remove shadowes
           elevation: 0.0,
@@ -47,6 +48,7 @@ class _MyAppState extends State<MyApp> {
           ),
           backgroundColor: background,
         ),
+
         body: screen[currentIndex],
         bottomNavigationBar: SizedBox(
           height: 80,
