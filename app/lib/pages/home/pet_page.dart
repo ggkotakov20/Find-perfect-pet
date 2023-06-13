@@ -22,30 +22,88 @@ class PetPage extends StatelessWidget {
         elevation: 0.0,
         toolbarHeight: 80,
         leading: IconButton(
-          icon: Icon(FontAwesomeIcons.chevronLeft,size: 18,),
+          icon: Icon(
+            FontAwesomeIcons.chevronLeft,
+            size: 18,
+          ),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
         title: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Image(
-                image: AssetImage('images/logo.png'),
-                height: 65,
-              ),
-            ],
-          ),
-      ),
-      body: Container(
-        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
           children: [
-            Text('Pet Details Page ${animal.id}'),
-            // ...add more widgets for pet details
+            Image(
+              image: AssetImage('images/logo.png'),
+              height: 65,
+            ),
           ],
         ),
       ),
+      body: PetInformatopm(language, animal),
+    );
+  }
+}
+
+class PetInformatopm extends StatelessWidget {
+  final String language;
+  final Pet animal;
+  const PetInformatopm(this.language, this.animal, {super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          height: 250,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              fit: BoxFit.cover,
+              image: AssetImage(animal.image),
+            ),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.only(left: 15.0, top: 10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                '${animal.title[language]}',
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  fontSize: 26,
+                  fontWeight: FontWeight.w300,
+                ),
+              ),
+              Text(
+                '${animal.price} \$',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 24,
+                ),
+              ),
+              const Padding(
+                padding: const EdgeInsets.only(top: 20),
+                child: Text(
+                  'DESCRIPTION :',
+                  style: TextStyle(
+                    fontSize: 22,
+                  ),
+                ),
+              ),
+              Text(
+                '${animal.description}',
+                style: TextStyle(
+                  fontSize: 16
+                ),
+              )
+            ],
+          ),
+        ),
+      ],
     );
   }
 }

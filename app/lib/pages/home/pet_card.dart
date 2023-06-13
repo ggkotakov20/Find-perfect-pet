@@ -127,6 +127,7 @@ class AnimalListItem extends StatelessWidget {
                           animal.title[language] != null
                               ? animal.title[language]!
                               : 'Not available',
+                          overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                             fontSize: 26,
                             overflow: TextOverflow.ellipsis,
