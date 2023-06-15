@@ -7,10 +7,9 @@ import 'package:app/classes/pet.dart';
 import 'package:app/data/pet_data.dart';
 
 class PetPage extends StatelessWidget {
-  final String language;
   final Pet animal;
 
-  const PetPage(this.language, this.animal, {Key? key}) : super(key: key);
+  const PetPage(this.animal, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -41,15 +40,14 @@ class PetPage extends StatelessWidget {
           ],
         ),
       ),
-      body: PetInformatopm(language, animal),
+      body: PetInformatopm(animal),
     );
   }
 }
 
 class PetInformatopm extends StatelessWidget {
-  final String language;
   final Pet animal;
-  const PetInformatopm(this.language, this.animal, {super.key});
+  const PetInformatopm(this.animal, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +69,7 @@ class PetInformatopm extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                '${animal.title[language]}',
+                '${animal.title}',
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
                   fontSize: 26,

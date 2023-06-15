@@ -1,9 +1,9 @@
 class Pet {
   int id;
-  double price;
   String image;
-  Map<String, String> title;
+  String title;
+  double price;
   String description;
 
-  Pet(this.id, this.price,this.image, this.title, this.description);
+  Pet(this.id, this.image, this.title, this.price, this.description);
 }

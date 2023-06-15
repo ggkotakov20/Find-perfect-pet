@@ -2,41 +2,99 @@ import 'package:flutter/material.dart';
 import 'package:app/colors.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import 'package:app/classes/pet.dart';
-import 'package:app/data/pet_data.dart';
-import 'package:app/pages/home/pet_page.dart';
+import 'package:app/classes/food.dart';
+import 'package:app/data/food_data.dart';
+import 'package:app/pages/home/food/card_page.dart';
 
-import 'package:app/pages/home/home.dart';
-
-String _language = 'us';
-
-
-
-class AnimalCards extends StatefulWidget {
-  const AnimalCards({super.key});
+class FoodCardsPage extends StatefulWidget {
+  const FoodCardsPage({super.key});
 
   @override
-  State<AnimalCards> createState() => _AnimalCardsState();
+  State<FoodCardsPage> createState() => _FoodCardsPageState();
 }
 
-class _AnimalCardsState extends State<AnimalCards> {
+class _FoodCardsPageState extends State<FoodCardsPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        foregroundColor: GREEN,
+        backgroundColor: background,
+        elevation: 0.0,
+        toolbarHeight: 80,
+        leading: IconButton(
+          icon: Icon(
+            FontAwesomeIcons.chevronLeft,
+            size: 18,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Image(
+              image: AssetImage('images/logo.png'),
+              height: 65,
+            ),
+          ],
+        ),
+      ),
+      body: Cards()
+    );
+  }
+}
+
+class Cards extends StatefulWidget {
+  const Cards({super.key});
+
+  @override
+  State<Cards> createState() => _CardsState();
+}
+
+class _CardsState extends State<Cards> {
   @override
   Widget build(BuildContext context) {
     return Stack(children: [
-    Positioned(
-      top: 100,
-      bottom: 0,
-      left: 30,
-      right: 30,
-      child: AnimalViewer(_language),
-    ),
-  ]);
+      Positioned(
+        top: 100,
+        bottom: 0,
+        left: 30,
+        right: 30,
+        child: AnimalViewer(),
+      ),
+    ]);
+  }
+}
+
+class SearchBar extends StatelessWidget {
+  const SearchBar({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+          padding: const EdgeInsets.all(15),
+          child: TextField(
+            style: TextStyle(fontSize: 18),
+            cursorColor: GREEN,
+            decoration: InputDecoration(
+              prefixIcon: Icon(Icons.search, color: GREEN,),
+              hintText: 'Search',
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(20),
+                borderSide: BorderSide(color: Colors.red)
+              )
+            ),
+          ),
+        );
   }
 }
 
 class AnimalViewer extends StatelessWidget {
-  final String language;
-  AnimalViewer(this.language, {super.key});
+  AnimalViewer({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -48,9 +106,9 @@ class AnimalViewer extends StatelessWidget {
     print('$width X $height');
 
     return ListView(
-      children: cards.map((cards) {
-        return AnimalListItem(language, cards,
-            heroTag: cards.id
+      children: food.map((Card) {
+        return AnimalListItem(Card,
+            heroTag: Card.id
                 .toString() // Assign a unique tag based on the card's ID
             );
       }).toList(),
@@ -59,11 +117,10 @@ class AnimalViewer extends StatelessWidget {
 }
 
 class AnimalListItem extends StatelessWidget {
-  final String language;
-  final Pet animal;
+  final Food animal;
   final String heroTag; // Add a heroTag property
 
-  const AnimalListItem(this.language, this.animal,
+  const AnimalListItem(this.animal,
       {Key? key, required this.heroTag})
       : super(key: key);
 
@@ -82,7 +139,7 @@ class AnimalListItem extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => PetPage(language, animal)),
+                MaterialPageRoute(builder: (context) => FoodPage(animal)),
               );
             },
             child: Container(
@@ -124,9 +181,7 @@ class AnimalListItem extends StatelessWidget {
                     child: Column(
                       children: [
                         Text(
-                          animal.title[language] != null
-                              ? animal.title[language]!
-                              : 'Not available',
+                          animal.title ,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                             fontSize: 26,
