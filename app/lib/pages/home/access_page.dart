@@ -4,12 +4,12 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:app/colors.dart';
 
 import 'package:app/classes/product.dart';
-import 'package:app/data/pet_data.dart';
+import 'package:app/data/access_data.dart';
 
-class PetPage extends StatelessWidget {
-  final Product animal;
+class AccessPage extends StatelessWidget {
+  final Product access;
 
-  const PetPage(this.animal, {Key? key}) : super(key: key);
+  const AccessPage(this.access, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -42,15 +42,15 @@ class PetPage extends StatelessWidget {
         ),
       ),
       body: SingleChildScrollView(
-        child: PetInformation(animal),
+        child: AccessInformation(access),
       ),
     );
   }
 }
 
-class PetInformation extends StatelessWidget {
-  final Product animal;
-  const PetInformation(this.animal, {Key? key}) : super(key: key);
+class AccessInformation extends StatelessWidget {
+  final Product access;
+  const AccessInformation(this.access, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -58,11 +58,11 @@ class PetInformation extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          height: 250,
+          height: 300,
           decoration: BoxDecoration(
             image: DecorationImage(
-              fit: BoxFit.cover,
-              image: AssetImage(animal.image),
+              fit: BoxFit.contain,
+              image: AssetImage(access.image),
             ),
           ),
         ),
@@ -72,7 +72,7 @@ class PetInformation extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                '${animal.title}',
+                '${access.title}',
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
                   fontSize: 26,
@@ -80,7 +80,7 @@ class PetInformation extends StatelessWidget {
                 ),
               ),
               Text(
-                '${animal.price} \$',
+                '${access.price} \$',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 24,
@@ -97,7 +97,7 @@ class PetInformation extends StatelessWidget {
                 ),
               ),
               Text(
-                '${animal.description}',
+                '${access.description}',
                 style: TextStyle(
                   fontSize: 16,
                 ),

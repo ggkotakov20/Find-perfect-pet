@@ -4,17 +4,17 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:app/widgets.dart';
 
 import 'package:app/classes/product.dart';
-import 'package:app/data/pet_data.dart';
-import 'package:app/pages/home/pet_page.dart';
+import 'package:app/data/access_data.dart';
+import 'package:app/pages/home/access_page.dart';
 
-class PetCardsPage extends StatefulWidget {
-  const PetCardsPage({super.key});
+class AccessCardsPage extends StatefulWidget {
+  const AccessCardsPage({super.key});
 
   @override
-  State<PetCardsPage> createState() => _PetCardsPageState();
+  State<AccessCardsPage> createState() => _AccessCardsPageState();
 }
 
-class _PetCardsPageState extends State<PetCardsPage> {
+class _AccessCardsPageState extends State<AccessCardsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -77,8 +77,6 @@ class _CardsState extends State<Cards> {
   }
 }
 
-
-
 class AnimalViewer extends StatelessWidget {
   AnimalViewer({super.key});
 
@@ -92,7 +90,7 @@ class AnimalViewer extends StatelessWidget {
     print('$width X $height');
 
     return ListView(
-      children: pet.map((Card) {
+      children: access.map((Card) {
         return AnimalListItem(Card,
             heroTag: Card.id
                 .toString() // Assign a unique tag based on the card's ID
@@ -125,12 +123,12 @@ class AnimalListItem extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => PetPage(animal)),
+                MaterialPageRoute(builder: (context) => AccessPage(animal)),
               );
             },
             child: Container(
               width: 325,
-              height: 150,
+              height: 175,
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage(animal.image),
@@ -170,7 +168,7 @@ class AnimalListItem extends StatelessWidget {
                           animal.title ,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
-                            fontSize: 26,
+                            fontSize: 24,
                             overflow: TextOverflow.ellipsis,
                             color: BLACK,
                           ),

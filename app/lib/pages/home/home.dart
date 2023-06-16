@@ -3,11 +3,10 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:app/colors.dart';
 
 import 'package:app/data/pet_data.dart';
-import 'package:app/classes/pet.dart';
+import 'package:app/classes/product.dart';
 import 'package:app/pages/home/pet_card.dart';
 import 'package:app/pages/home/food_card.dart';
-
-String _language = 'us';
+import 'package:app/pages/home/access_card.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -145,7 +144,7 @@ class _HomePageState extends State<HomePage> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => PetCardsPage()),
+                      MaterialPageRoute(builder: (context) => AccessCardsPage()),
                     );
                   },
                   style: ElevatedButton.styleFrom(

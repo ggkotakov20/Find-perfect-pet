@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:app/colors.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:app/widgets.dart';
 
-import 'package:app/classes/food.dart';
+import 'package:app/classes/product.dart';
 import 'package:app/data/food_data.dart';
 import 'package:app/pages/home/food_page.dart';
+
 
 class FoodCardsPage extends StatefulWidget {
   const FoodCardsPage({super.key});
@@ -17,6 +19,7 @@ class _FoodCardsPageState extends State<FoodCardsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: background,
       appBar: AppBar(
         centerTitle: true,
         foregroundColor: GREEN,
@@ -43,7 +46,7 @@ class _FoodCardsPageState extends State<FoodCardsPage> {
           ],
         ),
       ),
-      body: Cards()
+      body: Cards(),
     );
   }
 }
@@ -59,42 +62,24 @@ class _CardsState extends State<Cards> {
   @override
   Widget build(BuildContext context) {
     return Stack(children: [
+      Column(
+        children: [
+          SearchBar(),
+        ],
+      ),
       Positioned(
         top: 100,
         bottom: 0,
         left: 30,
         right: 30,
-        child: AnimalViewer(),
+        child: FoodViewer(),
       ),
     ]);
   }
 }
 
-class SearchBar extends StatelessWidget {
-  const SearchBar({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-          padding: const EdgeInsets.all(15),
-          child: TextField(
-            style: TextStyle(fontSize: 18),
-            cursorColor: GREEN,
-            decoration: InputDecoration(
-              prefixIcon: Icon(Icons.search, color: GREEN,),
-              hintText: 'Search',
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(20),
-                borderSide: BorderSide(color: Colors.red)
-              )
-            ),
-          ),
-        );
-  }
-}
-
-class AnimalViewer extends StatelessWidget {
-  AnimalViewer({super.key});
+class FoodViewer extends StatelessWidget {
+  FoodViewer({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -107,7 +92,7 @@ class AnimalViewer extends StatelessWidget {
 
     return ListView(
       children: food.map((Card) {
-        return AnimalListItem(Card,
+        return FoodListItem(Card,
             heroTag: Card.id
                 .toString() // Assign a unique tag based on the card's ID
             );
@@ -116,17 +101,17 @@ class AnimalViewer extends StatelessWidget {
   }
 }
 
-class AnimalListItem extends StatelessWidget {
-  final Food animal;
+class FoodListItem extends StatelessWidget {
+  final Product food;
   final String heroTag; // Add a heroTag property
 
-  const AnimalListItem(this.animal,
+  const FoodListItem(this.food,
       {Key? key, required this.heroTag})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    String animalPrice = animal.price.toString();
+    String foodPrice = food.price.toString();
     return Container(
       margin: const EdgeInsets.only(
         top: 20,
@@ -139,7 +124,7 @@ class AnimalListItem extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => FoodPage(animal)),
+                MaterialPageRoute(builder: (context) => FoodPage(food)),
               );
             },
             child: Container(
@@ -147,7 +132,7 @@ class AnimalListItem extends StatelessWidget {
               height: 175,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage(animal.image),
+                  image: AssetImage(food.image),
                   fit: BoxFit.cover,
                 ),
                 borderRadius: BorderRadius.only(
@@ -181,16 +166,16 @@ class AnimalListItem extends StatelessWidget {
                     child: Column(
                       children: [
                         Text(
-                          animal.title ,
+                          food.title ,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
-                            fontSize: 26,
+                            fontSize: 24,
                             overflow: TextOverflow.ellipsis,
                             color: BLACK,
                           ),
                         ),
                         Text(
-                          '$animalPrice \$',
+                          '$foodPrice \$',
                           style: TextStyle(
                             fontSize: 18,
                             color: DGREY,

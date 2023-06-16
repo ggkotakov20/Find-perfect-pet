@@ -3,17 +3,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:app/colors.dart';
 
-import 'package:app/classes/food.dart';
+import 'package:app/classes/product.dart';
 import 'package:app/data/food_data.dart';
 
 class FoodPage extends StatelessWidget {
-  final Food animal;
+  final Product animal;
 
   const FoodPage(this.animal, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: background,
       appBar: AppBar(
         centerTitle: true,
         foregroundColor: GREEN,
@@ -40,14 +41,16 @@ class FoodPage extends StatelessWidget {
           ],
         ),
       ),
-      body: FoodInformatopm(animal),
+      body: SingleChildScrollView(
+        child: FoodInformation(animal),
+      ),
     );
   }
 }
 
-class FoodInformatopm extends StatelessWidget {
-  final Food animal;
-  const FoodInformatopm(this.animal, {super.key});
+class FoodInformation extends StatelessWidget {
+  final Product animal;
+  const FoodInformation(this.animal, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -81,6 +84,7 @@ class FoodInformatopm extends StatelessWidget {
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 24,
+                  color: GREEN
                 ),
               ),
               const Padding(
@@ -95,7 +99,7 @@ class FoodInformatopm extends StatelessWidget {
               Text(
                 '${animal.description}',
                 style: TextStyle(
-                  fontSize: 16
+                  fontSize: 16,
                 ),
               )
             ],

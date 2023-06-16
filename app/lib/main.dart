@@ -7,6 +7,7 @@ import 'package:app/pages/map/map.dart';
 import 'package:app/pages/profile/profile.dart';
 import 'package:app/pages/error.dart';
 
+
 void main() {
   runApp(MyApp());
 }
