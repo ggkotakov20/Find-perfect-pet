@@ -4,7 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:app/classes/pet.dart';
 import 'package:app/data/pet_data.dart';
-import 'package:app/pages/home/pet/card_page.dart';
+import 'package:app/pages/home/pet_page.dart';
 
 class PetCardsPage extends StatefulWidget {
   const PetCardsPage({super.key});

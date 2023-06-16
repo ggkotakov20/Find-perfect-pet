@@ -55,10 +55,10 @@ class FoodInformatopm extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          height: 250,
+          height: 300,
           decoration: BoxDecoration(
             image: DecorationImage(
-              fit: BoxFit.cover,
+              fit: BoxFit.contain,
               image: AssetImage(animal.image),
             ),
           ),

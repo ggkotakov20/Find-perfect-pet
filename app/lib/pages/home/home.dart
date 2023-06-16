@@ -4,8 +4,8 @@ import 'package:app/colors.dart';
 
 import 'package:app/data/pet_data.dart';
 import 'package:app/classes/pet.dart';
-import 'package:app/pages/home/pet/card.dart';
-import 'package:app/pages/home/food/card.dart';
+import 'package:app/pages/home/pet_card.dart';
+import 'package:app/pages/home/food_card.dart';
 
 String _language = 'us';
 
@@ -145,7 +145,7 @@ class _HomePageState extends State<HomePage> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => FoodCardsPage()),
+                      MaterialPageRoute(builder: (context) => PetCardsPage()),
                     );
                   },
                   style: ElevatedButton.styleFrom(

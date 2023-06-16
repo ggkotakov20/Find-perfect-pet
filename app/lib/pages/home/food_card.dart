@@ -4,7 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:app/classes/food.dart';
 import 'package:app/data/food_data.dart';
-import 'package:app/pages/home/food/card_page.dart';
+import 'package:app/pages/home/food_page.dart';
 
 class FoodCardsPage extends StatefulWidget {
   const FoodCardsPage({super.key});
@@ -144,7 +144,7 @@ class AnimalListItem extends StatelessWidget {
             },
             child: Container(
               width: 325,
-              height: 150,
+              height: 175,
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage(animal.image),
