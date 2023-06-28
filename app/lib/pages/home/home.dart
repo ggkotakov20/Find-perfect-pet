@@ -19,123 +19,12 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Stack(children: [
-      // SearchBar(),
-      // Cards()
-      //  Pets
-      Column(
-        children: [
-          SizedBox(height: 15,),
-          Padding(
-            padding: const EdgeInsets.only(left: 15, right: 15),
-            child: SizedBox(
-              height: 125,
-              width: 410,
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => PetCardsPage()),
-                  );
-                },
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(25.0),
-                  ),
-                  primary: LGREY,
-                ),
-                child: Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 20),
-                      child: Container(
-                        height: 85,
-                        width: 85,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(100.0),
-                          color: GREEN,
-                        ),
-                        child: Icon(
-                          FontAwesomeIcons.paw,
-                          size: 40,
-                          color: DGREEN,
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 25.0),
-                      child: Text(
-                        'Pets',
-                        style: TextStyle(
-                          color: BLACK,
-                          fontSize: 25,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            ),
-          ),
-          SizedBox(height: 30,),
-          //  Foods
-
-          Padding(
-            padding: const EdgeInsets.only(left: 15, right: 15),
-            child: SizedBox(
-              height: 125,
-              width: 410,
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => FoodCardsPage()),
-                  );
-                },
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(25.0),
-                  ),
-                  primary: LGREY,
-                ),
-                child: Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 20),
-                      child: Container(
-                        height: 85,
-                        width: 85,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(100.0),
-                          color: GREEN,
-                        ),
-                        child: Icon(
-                          FontAwesomeIcons.bowlFood,
-                          size: 40,
-                          color: DGREEN,
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 25.0),
-                      child: Text(
-                        'Foods',
-                        style: TextStyle(
-                          color: BLACK,
-                          fontSize: 25,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            ),
-          ),
-          SizedBox(height: 30,),
-          //  Accessories
-
-          Padding(
+      Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(height: 15,),
+            Padding(
               padding: const EdgeInsets.only(left: 15, right: 15),
               child: SizedBox(
                 height: 125,
@@ -144,7 +33,7 @@ class _HomePageState extends State<HomePage> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => AccessCardsPage()),
+                      MaterialPageRoute(builder: (context) => PetCardsPage()),
                     );
                   },
                   style: ElevatedButton.styleFrom(
@@ -165,7 +54,7 @@ class _HomePageState extends State<HomePage> {
                             color: GREEN,
                           ),
                           child: Icon(
-                            FontAwesomeIcons.baseball,
+                            FontAwesomeIcons.paw,
                             size: 40,
                             color: DGREEN,
                           ),
@@ -174,7 +63,7 @@ class _HomePageState extends State<HomePage> {
                       Padding(
                         padding: const EdgeInsets.only(left: 25.0),
                         child: Text(
-                          'Accessories',
+                          'Pets',
                           style: TextStyle(
                             color: BLACK,
                             fontSize: 25,
@@ -187,7 +76,118 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-        ],
+            SizedBox(height: 30,),
+            //  Foods
+      
+            Padding(
+              padding: const EdgeInsets.only(left: 15, right: 15),
+              child: SizedBox(
+                height: 125,
+                width: 410,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => FoodCardsPage()),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(25.0),
+                    ),
+                    primary: LGREY,
+                  ),
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 20),
+                        child: Container(
+                          height: 85,
+                          width: 85,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(100.0),
+                            color: GREEN,
+                          ),
+                          child: Icon(
+                            FontAwesomeIcons.bowlFood,
+                            size: 40,
+                            color: DGREEN,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 25.0),
+                        child: Text(
+                          'Foods',
+                          style: TextStyle(
+                            color: BLACK,
+                            fontSize: 25,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: 30,),
+            //  Accessories
+      
+            Padding(
+                padding: const EdgeInsets.only(left: 15, right: 15),
+                child: SizedBox(
+                  height: 125,
+                  width: 410,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => AccessCardsPage()),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25.0),
+                      ),
+                      primary: LGREY,
+                    ),
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 20),
+                          child: Container(
+                            height: 85,
+                            width: 85,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(100.0),
+                              color: GREEN,
+                            ),
+                            child: Icon(
+                              FontAwesomeIcons.baseball,
+                              size: 40,
+                              color: DGREEN,
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 25.0),
+                          child: Text(
+                            'Accessories',
+                            style: TextStyle(
+                              color: BLACK,
+                              fontSize: 25,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+          ],
+        ),
       ),
       
     ]);

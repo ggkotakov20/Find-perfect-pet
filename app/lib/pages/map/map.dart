@@ -75,6 +75,26 @@ class _MapPageState extends State<MapPage> {
                                 Text('  - Park'),
                               ],
                             ),
+                            SizedBox(height: 16),
+                            Row(
+                              children: [
+                                Icon(
+                                  FontAwesomeIcons.hotel,
+                                  color: GREEN,
+                                ),
+                                Text('  - Hotel'),
+                              ],
+                            ),
+                            SizedBox(height: 16),
+                            Row(
+                              children: [
+                                Icon(
+                                  FontAwesomeIcons.houseChimneyMedical,
+                                  color: GREEN,
+                                ),
+                                Text('  - Shelter'),
+                              ],
+                            ),
                           ],
                         ),
                         actions: [
@@ -105,7 +125,7 @@ class Map extends StatelessWidget {
           center: startLocation, // Specify the initial map center coordinates
           maxZoom: 16.0,
           minZoom: 2.0,
-          zoom: 15.0,
+          zoom: 14.0,
           interactiveFlags: InteractiveFlag.pinchZoom | InteractiveFlag.drag,
         ),
         layers: [
@@ -140,7 +160,11 @@ class Map extends StatelessWidget {
                             ? FontAwesomeIcons.basketShopping
                             : points.type == 3
                                 ? FontAwesomeIcons.paw
-                                : Icons.location_pin,
+                                : points.type == 4
+                                  ? FontAwesomeIcons.hotel
+                                    : points.type == 5
+                                      ? FontAwesomeIcons.houseChimneyMedical
+                                      : Icons.location_pin,
                     color: GREEN,
                   ),
                 ),
