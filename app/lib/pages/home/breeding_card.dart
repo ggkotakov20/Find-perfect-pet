@@ -4,17 +4,17 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:app/widgets.dart';
 
 import 'package:app/classes/product.dart';
-import 'package:app/data/pet_data.dart';
-import 'package:app/pages/home/pet_page.dart';
+import 'package:app/data/breeding_data.dart';
+import 'package:app/pages/home/breeding_page.dart';
 
-class PetCardsPage extends StatefulWidget {
-  const PetCardsPage({super.key});
+class BreedingCardsPage extends StatefulWidget {
+  const BreedingCardsPage({super.key});
 
   @override
-  State<PetCardsPage> createState() => _PetCardsPageState();
+  State<BreedingCardsPage> createState() => _BreedingCardsPageState();
 }
 
-class _PetCardsPageState extends State<PetCardsPage> {
+class _BreedingCardsPageState extends State<BreedingCardsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +45,8 @@ class _PetCardsPageState extends State<PetCardsPage> {
           ],
         ),
       ),
-      body: Cards()
+      body: Cards(),
+      
     );
   }
 }
@@ -92,7 +93,7 @@ class AnimalViewer extends StatelessWidget {
     print('$width X $height');
 
     return ListView(
-      children: pet.map((Card) {
+      children: breeding.map((Card) {
         return AnimalListItem(Card,
             heroTag: Card.id
                 .toString() // Assign a unique tag based on the card's ID
