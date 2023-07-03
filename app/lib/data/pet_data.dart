@@ -1,7 +1,7 @@
 import 'package:app/classes/product.dart';
 
 const _all = [
-  ["0", "Mops", "100"],
+  ["0", "Pug", "100"],
   ["1", "Chihuahua", "20"],
   ["2", "Husky", "500"],
   ["3", "Labrador", "300"],
