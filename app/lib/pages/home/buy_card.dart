@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:app/colors.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:app/widgets.dart';
 
 import 'package:app/classes/product.dart';
 import 'package:app/data/pet_data.dart';
@@ -63,7 +62,21 @@ class _CardsState extends State<Cards> {
     return Stack(children: [
       Column(
         children: [
-          SearchBar(),
+          Padding(
+            padding: const EdgeInsets.all(15),
+            child: TextField(
+              style: TextStyle(fontSize: 18),
+              cursorColor: GREEN,
+              decoration: InputDecoration(
+                prefixIcon: Icon(Icons.search, color: GREEN),
+                hintText: 'Search',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(20),
+                  borderSide: BorderSide(color: Colors.red),
+                ),
+              ),
+            ),
+          )
         ],
       ),
       Positioned(
