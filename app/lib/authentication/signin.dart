@@ -40,7 +40,7 @@ class _SignInState extends State<SignIn> {
           User userInfo = User.fromJson(resBodyOfSignIn["userData"]);
 
           //  Save userInfo to local Storage using Shared Preferences
-          await RememberUserPrefs.saveRememberUser(userInfo);
+          await RememberUserPrefs.saveUser(userInfo);
 
           Get.to(DashboardOfFragments());
         }
