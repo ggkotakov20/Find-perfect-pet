@@ -100,8 +100,6 @@ class AnimalViewer extends StatelessWidget {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
 
-    var widthPerCategory = 400;
-
     print('$width X $height');
 
     return ListView(

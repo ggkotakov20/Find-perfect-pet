@@ -4,7 +4,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:app/colors.dart';
 
 import 'package:app/classes/product.dart';
-import 'package:app/data/access_data.dart';
 
 class AccessPage extends StatelessWidget {
   final Product access;

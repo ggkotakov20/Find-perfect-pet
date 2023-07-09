@@ -1,3 +1,5 @@
+import 'package:app/fragments/dashboard_of_fragmens.dart';
+import 'package:app/model/user_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -16,8 +18,14 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       home: FutureBuilder(
+        future: RememberUserPrefs.readUserData(),
         builder: (context, dataSnapShot){
-          return SignIn();
+          if(dataSnapShot.data == null){
+            return SignIn();
+          }
+          else {
+            return DashboardOfFragments();
+          }
         }
       )
     );

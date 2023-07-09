@@ -4,7 +4,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:app/colors.dart';
 
 import 'package:app/classes/product.dart';
-import 'package:app/data/food_data.dart';
 
 class FoodPage extends StatelessWidget {
   final Product animal;

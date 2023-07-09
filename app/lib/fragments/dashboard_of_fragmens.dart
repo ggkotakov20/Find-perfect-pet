@@ -6,7 +6,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:app/pages/home/home.dart';
 import 'package:app/pages/map/map.dart';
-import 'package:app/authentication/signup.dart';
 import 'package:app/pages/profile/profile.dart';
 import 'package:app/pages/error.dart';
 
@@ -16,8 +15,7 @@ final screen = [
   ErrorPage(),
   MapPage(),
   HomePage(),
-  ErrorPage(),
-  //SignUp()
+  ProfilePage()
 ];
 
 class DashboardOfFragments extends StatefulWidget {
