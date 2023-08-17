@@ -38,7 +38,7 @@ class _HomePageState extends State<HomePage> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(25.0),
                     ),
-                    primary: LGREY,
+                    primary: CardBG,
                   ),
                   child: Row(
                     children: [
@@ -49,12 +49,12 @@ class _HomePageState extends State<HomePage> {
                           width: 85,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(100.0),
-                            color: GREEN,
+                            color: Color.fromRGBO(231, 244, 255, 1),
                           ),
                           child: Icon(
                             FontAwesomeIcons.paw,
                             size: 40,
-                            color: DGREEN,
+                            color: Color.fromRGBO(0, 134, 230, 1),
                           ),
                         ),
                       ),
@@ -93,7 +93,7 @@ class _HomePageState extends State<HomePage> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(25.0),
                     ),
-                    primary: LGREY,
+                    primary: CardBG,
                   ),
                   child: Row(
                     children: [
@@ -104,12 +104,12 @@ class _HomePageState extends State<HomePage> {
                           width: 85,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(100.0),
-                            color: GREEN,
+                            color: Color.fromRGBO(239, 240, 253, 1),
                           ),
                           child: Icon(
                             FontAwesomeIcons.bowlFood,
                             size: 40,
-                            color: DGREEN,
+                            color: Color.fromRGBO(98, 106, 208, 1),
                           ),
                         ),
                       ),
@@ -148,7 +148,7 @@ class _HomePageState extends State<HomePage> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(25.0),
                       ),
-                      primary: LGREY,
+                      primary: CardBG,
                     ),
                     child: Row(
                       children: [
@@ -159,12 +159,12 @@ class _HomePageState extends State<HomePage> {
                             width: 85,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(100.0),
-                              color: GREEN,
+                              color: Color.fromRGBO(242, 248, 233, 1),
                             ),
                             child: Icon(
                               FontAwesomeIcons.baseball,
                               size: 40,
-                              color: DGREEN,
+                              color: Color.fromRGBO(123, 188, 40, 1),
                             ),
                           ),
                         ),

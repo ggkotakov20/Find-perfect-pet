@@ -24,6 +24,7 @@ class RememberUserPrefs{
     return currentUserInfo;
   }
 
+  //  delete user info
   static Future<void> removeUseData() async{
     SharedPreferences preferences = await SharedPreferences.getInstance();
     await preferences.remove('currentUser');

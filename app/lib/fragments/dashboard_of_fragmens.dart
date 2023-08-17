@@ -5,17 +5,18 @@ import 'package:get/get.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:app/pages/home/home.dart';
-import 'package:app/pages/map/map.dart';
-import 'package:app/pages/profile/profile.dart';
-import 'package:app/pages/error.dart';
+import 'package:app/fragments/map/map.dart';
+import 'package:app/fragments/profile/profile.dart';
+import 'package:app/fragments/error.dart';
 
 int currentIndex = 2;
 
 final screen = [
-  ErrorPage(),
   MapPage(),
   HomePage(),
-  ProfilePage()
+  ProfilePage(),
+  ErrorPage(),
+  ErrorPage()
 ];
 
 class DashboardOfFragments extends StatefulWidget {
@@ -58,16 +59,12 @@ class _DashboardOfFragmentsState extends State<DashboardOfFragments> {
           child: Container(
             child: BottomNavigationBar(
               type: BottomNavigationBarType.fixed,
-              backgroundColor: background,
-              selectedItemColor: GREEN,
-              unselectedItemColor: BLACK,
+              backgroundColor: NavigationBarBG,
+              selectedItemColor: NavigationBarSel,
+              unselectedItemColor: NavigationBarUnSel,
               selectedFontSize: 15,
               unselectedFontSize: 15,
               items: const [
-                BottomNavigationBarItem(
-                  label: 'Create',
-                  icon: Icon(FontAwesomeIcons.plus),
-                ),
                 BottomNavigationBarItem(
                   label: 'Map',
                   icon: Icon(FontAwesomeIcons.mapLocationDot),
@@ -77,9 +74,17 @@ class _DashboardOfFragmentsState extends State<DashboardOfFragments> {
                   icon: Icon(FontAwesomeIcons.house),
                 ),
                 BottomNavigationBarItem(
-                  label: 'Profile',
-                  icon: Icon(FontAwesomeIcons.user),
+                  label: 'Hub',
+                  icon: Icon(Icons.dashboard),
                 ),
+                // BottomNavigationBarItem(
+                //   label: 'Profile',
+                //   icon: Icon(FontAwesomeIcons.user),
+                // ),
+                // BottomNavigationBarItem(
+                //   label: 'Cart',
+                //   icon: Icon(FontAwesomeIcons.cartShopping),
+                // ),
               ],
               currentIndex: currentIndex,
               onTap: (int index) {
