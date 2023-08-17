@@ -32,6 +32,7 @@
 <p align="center">
   <img src="https://img.shields.io/static/v1?style=for-the-badge&message=Visual+Studio+Code&color=1A1B27&logo=Visual+Studio+Code&label=">
   <img src="https://img.shields.io/static/v1?style=for-the-badge&message=Flutter&color=1A1B27&logo=Flutter&logoColor=3FADF2&label=">
+  <img src="https://img.shields.io/static/v1?style=for-the-badge&message=PHP&color=1A1B27&logo=PHP&logoColor=787CB4&label=">
   <img src="https://img.shields.io/static/v1?style=for-the-badge&message=Adobe+Illustrator&color=1A1B27&logo=Adobe+Illustrator&label=">
   <img src="https://img.shields.io/static/v1?style=for-the-badge&message=Adobe+PhotoShop&color=1A1B27&logo=Adobe+PhotoShop&label=">
   <img src="https://img.shields.io/static/v1?style=for-the-badge&message=Google+Maps&color=1A1B27&logo=Google+Maps&label=">
