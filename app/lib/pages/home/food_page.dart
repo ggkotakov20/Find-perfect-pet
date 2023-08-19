@@ -16,7 +16,7 @@ class FoodPage extends StatelessWidget {
       backgroundColor: background,
       appBar: AppBar(
         centerTitle: true,
-        foregroundColor: GREEN,
+        foregroundColor: NavigationBarSel,
         backgroundColor: background,
         elevation: 0.0,
         toolbarHeight: 80,

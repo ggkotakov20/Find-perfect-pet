@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:app/data/point_data.dart';
-import 'package:app/classes/point.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -70,7 +68,7 @@ class _MapPageState extends State<MapPage> {
         child: Align(
           alignment: Alignment.topRight,
           child: IconButton(
-            icon: Icon(FontAwesomeIcons.circleInfo, color: GREEN),
+            icon: Icon(FontAwesomeIcons.circleInfo, color: NavigationBarSel),
             onPressed: () {
               showDialog(
                   context: context,
@@ -86,7 +84,7 @@ class _MapPageState extends State<MapPage> {
                               children: [
                                 Icon(
                                   FontAwesomeIcons.squareH,
-                                  color: GREEN,
+                                  color: NavigationBarSel,
                                 ),
                                 Text('  - Veterinary Clinic'),
                               ],
@@ -96,7 +94,7 @@ class _MapPageState extends State<MapPage> {
                               children: [
                                 Icon(
                                   FontAwesomeIcons.basketShopping,
-                                  color: GREEN,
+                                  color: NavigationBarSel,
                                 ),
                                 Text('  - Pet Shop'),
                               ],
@@ -106,7 +104,7 @@ class _MapPageState extends State<MapPage> {
                               children: [
                                 Icon(
                                   FontAwesomeIcons.paw,
-                                  color: GREEN,
+                                  color: NavigationBarSel,
                                 ),
                                 Text('  - Park'),
                               ],
@@ -116,7 +114,7 @@ class _MapPageState extends State<MapPage> {
                               children: [
                                 Icon(
                                   FontAwesomeIcons.hotel,
-                                  color: GREEN,
+                                  color: NavigationBarSel,
                                 ),
                                 Text('  - Hotel'),
                               ],
@@ -126,7 +124,7 @@ class _MapPageState extends State<MapPage> {
                               children: [
                                 Icon(
                                   FontAwesomeIcons.houseChimneyMedical,
-                                  color: GREEN,
+                                  color: NavigationBarSel,
                                 ),
                                 Text('  - Shelter'),
                               ],
@@ -138,7 +136,7 @@ class _MapPageState extends State<MapPage> {
                             onPressed: () {
                               Navigator.of(context).pop();
                             },
-                            child: Text('OK', style: TextStyle(color: GREEN)),
+                            child: Text('OK', style: TextStyle(color: NavigationBarSel)),
                           ),
                         ],
                       ));
@@ -235,7 +233,7 @@ List<Marker> _buildMarkers(List<dynamic> data) {
                           : type == 'shelter'
                               ? FontAwesomeIcons.houseChimneyMedical
                               : Icons.location_pin,
-          color: GREEN,
+          color: NavigationBarSel,
         ),
       ),
     );

@@ -6,15 +6,16 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:app/pages/home/home.dart';
 import 'package:app/fragments/map/map.dart';
-import 'package:app/fragments/profile/profile.dart';
+// import 'package:app/fragments/profile/profile.dart';
+import 'package:app/fragments/hub.dart';
 import 'package:app/fragments/error.dart';
 
-int currentIndex = 2;
+int currentIndex = 1;
 
 final screen = [
   MapPage(),
   HomePage(),
-  ProfilePage(),
+  Hub(),
   ErrorPage(),
   ErrorPage()
 ];

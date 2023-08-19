@@ -20,7 +20,7 @@ class _AccessCardsPageState extends State<AccessCardsPage> {
       backgroundColor: background,
       appBar: AppBar(
         centerTitle: true,
-        foregroundColor: GREEN,
+        foregroundColor: NavigationBarSel,
         backgroundColor: background,
         elevation: 0.0,
         toolbarHeight: 80,
@@ -66,9 +66,9 @@ class _CardsState extends State<Cards> {
             padding: const EdgeInsets.all(15),
             child: TextField(
               style: TextStyle(fontSize: 18),
-              cursorColor: GREEN,
+              cursorColor: NavigationBarSel,
               decoration: InputDecoration(
-                prefixIcon: Icon(Icons.search, color: GREEN),
+                prefixIcon: Icon(Icons.search, color: NavigationBarSel),
                 hintText: 'Search',
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(20),
