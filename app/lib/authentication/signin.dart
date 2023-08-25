@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:app/colors.dart';
 import 'package:get/get.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:app/model/user_preferences.dart';
 import 'package:app/api/api_connection.dart';
@@ -36,14 +35,6 @@ class _SignInState extends State<SignIn> {
     if(res.statusCode == 200){
         var resBodyOfSignIn = jsonDecode(res.body);
         if(resBodyOfSignIn['success'] == true){
-          Fluttertoast.showToast(
-            msg: "Sign in Successfully",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.BOTTOM,
-            timeInSecForIosWeb: 1,
-            textColor: Colors.white,
-            fontSize: 16.0
-          );
           print('Sign in Successfully');
 
           User userInfo = User.fromJson(resBodyOfSignIn["userData"]);
@@ -54,14 +45,6 @@ class _SignInState extends State<SignIn> {
           Get.to(DashboardOfFragments());
         }
         else{
-          Fluttertoast.showToast(
-            msg: "Please write correct password or email. Try again",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.BOTTOM,
-            timeInSecForIosWeb: 1,
-            textColor: Colors.white,
-            fontSize: 16.0
-          );
           print('Please write correct password or email, Try again');
         }
       }
