@@ -95,11 +95,6 @@ class AnimalViewer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var width = MediaQuery.of(context).size.width;
-    var height = MediaQuery.of(context).size.height;
-
-    print('$width X $height');
-
     return ListView(
       children: access.map((Card) {
         return AnimalListItem(Card,
