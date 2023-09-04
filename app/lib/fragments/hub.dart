@@ -6,8 +6,6 @@ import 'package:app/authentication/signin.dart';
 import 'package:app/model/user_preferences.dart';
 
 import 'package:app/fragments/profile/profile.dart';
-import 'package:app/fragments/advert/add_advert.dart';
-
 
 class Hub extends StatefulWidget {
   const Hub({super.key});
@@ -26,7 +24,7 @@ class _HubState extends State<Hub> {
         SizedBox(height: 10,),
         Adverts(),
         SizedBox(height: 10,),
-        LogOut(),
+        LogOut()
       ],
     );
   }
@@ -320,7 +318,7 @@ class _AdvertsState extends State<Adverts> {
                         onPressed: () {
                           Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => AddAdvert()),
+                              MaterialPageRoute(builder: (context) => ProfilePage()),
                             );
                         },
                         style: ElevatedButton.styleFrom(
