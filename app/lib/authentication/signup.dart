@@ -3,11 +3,14 @@ import 'package:app/authentication/signin.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+
 
 import 'package:app/api/api_connection.dart';
 import 'package:app/colors.dart';
 import 'package:http/http.dart' as http;
 import 'package:app/model/user.dart';
+
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -35,14 +38,14 @@ class _SignUpState extends State<SignUp> {
       if(res.statusCode == 200){ // checks if it was successful to connect to the server
         var resBoyOfCalidateEmail = jsonDecode(res.body);
         if(resBoyOfCalidateEmail['emailFound']){
-          // Fluttertoast.showToast(
-          //   msg: "Email is already exist. Try another one.",
-          //   toastLength: Toast.LENGTH_SHORT,
-          //   gravity: ToastGravity.CENTER,
-          //   timeInSecForIosWeb: 1,
-          //   textColor: Colors.white,
-          //   fontSize: 16.0
-          // );
+          Fluttertoast.showToast(
+            msg: "Email is already exist. Try another one.",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            textColor: Colors.white,
+            fontSize: 16.0
+          );
           print('Email is already exist. Try another one.');
         }
         else{
@@ -74,14 +77,14 @@ class _SignUpState extends State<SignUp> {
       if(res.statusCode == 200){
         var resBodyOfSignUp = jsonDecode(res.body);
         if(resBodyOfSignUp['success'] == true){
-          // Fluttertoast.showToast(
-          //   msg: "Sign up Successfully",
-          //   toastLength: Toast.LENGTH_SHORT,
-          //   gravity: ToastGravity.CENTER,
-          //   timeInSecForIosWeb: 1,
-          //   textColor: Colors.white,
-          //   fontSize: 16.0
-          // );
+          Fluttertoast.showToast(
+            msg: "Sign up Successfully",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            textColor: Colors.white,
+            fontSize: 16.0
+          );
           print('Sign up Successfully');
           setState(() {
             firstNameController.clear();
@@ -92,14 +95,14 @@ class _SignUpState extends State<SignUp> {
           });
         }
         else{
-          // Fluttertoast.showToast(
-          //   msg: "Error, Try again",
-          //   toastLength: Toast.LENGTH_SHORT,
-          //   gravity: ToastGravity.CENTER,
-          //   timeInSecForIosWeb: 1,
-          //   textColor: Colors.white,
-          //   fontSize: 16.0
-          // );
+          Fluttertoast.showToast(
+            msg: "Error, Try again",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            textColor: Colors.white,
+            fontSize: 16.0
+          );
           print('Error, Try again');
         }
       }
@@ -137,8 +140,9 @@ class _SignUpState extends State<SignUp> {
                   children: [
                     SizedBox(height: 10,),
                     Text('Sign up',style: TextStyle(
-                      color: GREEN,
-                      fontSize: 30
+                      color: NavigationBarSel,
+                      fontSize: 30,
+                      fontWeight: FontWeight.w500
                       ),
                     ),
                     Container(
@@ -159,36 +163,36 @@ class _SignUpState extends State<SignUp> {
                                     decoration: InputDecoration(
                                       prefixIcon: Icon(
                                         FontAwesomeIcons.user,
-                                        color: GREEN,
+                                        color: NavigationBarSel,
                                         size: 19,
                                       ),
                                       hintText: "First name",
                                       border: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(30),
                                         borderSide:  BorderSide(
-                                          color: GREY,
+                                          color: CardBG,
                                         ),
                                       ),
                                       enabledBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(30),
                                         borderSide: BorderSide(
-                                          color: GREY,
+                                          color: CardBG,
                                         ),
                                       ),
                                       focusedBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(30),
                                         borderSide:  BorderSide(
-                                          color: GREY,
+                                          color: CardBG,
                                         ),
                                       ),
                                       disabledBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(30),
                                         borderSide:  BorderSide(
-                                          color: GREY,
+                                          color: CardBG,
                                         ),
                                       ),
                                       contentPadding: const EdgeInsets.symmetric(horizontal: 14,vertical: 6,),
-                                      fillColor: WHITE,
+                                      fillColor: CardBG,
                                       filled: true
                                   ),
                                   ),
@@ -205,36 +209,36 @@ class _SignUpState extends State<SignUp> {
                                     decoration: InputDecoration(
                                       prefixIcon: Icon(
                                         FontAwesomeIcons.user,
-                                        color: GREEN,
+                                        color: NavigationBarSel,
                                         size: 19,
                                       ),
                                       hintText: "Last name",
                                       border: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(30),
                                         borderSide:  BorderSide(
-                                          color: GREY,
+                                          color: CardBG,
                                         ),
                                       ),
                                       enabledBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(30),
                                         borderSide: BorderSide(
-                                          color: GREY,
+                                          color: CardBG,
                                         ),
                                       ),
                                       focusedBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(30),
                                         borderSide:  BorderSide(
-                                          color: GREY,
+                                          color: CardBG,
                                         ),
                                       ),
                                       disabledBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(30),
                                         borderSide:  BorderSide(
-                                          color: GREY,
+                                          color: CardBG,
                                         ),
                                       ),
                                       contentPadding: const EdgeInsets.symmetric(horizontal: 14,vertical: 6,),
-                                      fillColor: WHITE,
+                                      fillColor: CardBG,
                                       filled: true
                                   ),
                                   ),
@@ -251,36 +255,36 @@ class _SignUpState extends State<SignUp> {
                                     decoration: InputDecoration(
                                       prefixIcon: Icon(
                                         FontAwesomeIcons.phone,
-                                        color: GREEN,
+                                        color: NavigationBarSel,
                                         size: 19,
                                       ),
                                       hintText: "Phone",
                                       border: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(30),
                                         borderSide:  BorderSide(
-                                          color: GREY,
+                                          color: CardBG,
                                         ),
                                       ),
                                       enabledBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(30),
                                         borderSide: BorderSide(
-                                          color: GREY,
+                                          color: CardBG,
                                         ),
                                       ),
                                       focusedBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(30),
                                         borderSide:  BorderSide(
-                                          color: GREY,
+                                          color: CardBG,
                                         ),
                                       ),
                                       disabledBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(30),
                                         borderSide:  BorderSide(
-                                          color: GREY,
+                                          color: CardBG,
                                         ),
                                       ),
                                       contentPadding: const EdgeInsets.symmetric(horizontal: 14,vertical: 6,),
-                                      fillColor: WHITE,
+                                      fillColor: CardBG,
                                       filled: true
                                   ),
                                   ),
@@ -297,36 +301,36 @@ class _SignUpState extends State<SignUp> {
                                     decoration: InputDecoration(
                                       prefixIcon: Icon(
                                         FontAwesomeIcons.envelope,
-                                        color: GREEN,
+                                        color: NavigationBarSel,
                                         size: 19,
                                       ),
                                       hintText: "Email",
                                       border: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(30),
                                         borderSide:  BorderSide(
-                                          color: GREY,
+                                          color: CardBG,
                                         ),
                                       ),
                                       enabledBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(30),
                                         borderSide: BorderSide(
-                                          color: GREY,
+                                          color: CardBG,
                                         ),
                                       ),
                                       focusedBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(30),
                                         borderSide:  BorderSide(
-                                          color: GREY,
+                                          color: CardBG,
                                         ),
                                       ),
                                       disabledBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(30),
                                         borderSide:  BorderSide(
-                                          color: GREY,
+                                          color: CardBG,
                                         ),
                                       ),
                                       contentPadding: const EdgeInsets.symmetric(horizontal: 14,vertical: 6,),
-                                      fillColor: WHITE,
+                                      fillColor: CardBG,
                                       filled: true
                                   ),
                                   ),
@@ -344,36 +348,36 @@ class _SignUpState extends State<SignUp> {
                                     decoration: InputDecoration(
                                       prefixIcon: Icon(
                                         FontAwesomeIcons.key,
-                                        color: GREEN,
+                                        color: NavigationBarSel,
                                         size: 19,
                                       ),
                                       hintText: "Password",
                                       border: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(30),
                                         borderSide:  BorderSide(
-                                          color: GREY,
+                                          color: CardBG,
                                         ),
                                       ),
                                       enabledBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(30),
                                         borderSide: BorderSide(
-                                          color: GREY,
+                                          color: CardBG,
                                         ),
                                       ),
                                       focusedBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(30),
                                         borderSide:  BorderSide(
-                                          color: GREY,
+                                          color: CardBG,
                                         ),
                                       ),
                                       disabledBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(30),
                                         borderSide:  BorderSide(
-                                          color: GREY,
+                                          color: CardBG,
                                         ),
                                       ),
                                       contentPadding: const EdgeInsets.symmetric(horizontal: 14,vertical: 6,),
-                                      fillColor: WHITE,
+                                      fillColor: CardBG,
                                       filled: true
                                   ),
                                   ),
@@ -389,7 +393,7 @@ class _SignUpState extends State<SignUp> {
                     // Sing up btn
 
                     Material(
-                      color: GREEN,
+                      color: NavigationBarSel,
                       borderRadius: BorderRadius.circular(30),
                       child: InkWell(
                         onTap: (){
@@ -416,7 +420,7 @@ class _SignUpState extends State<SignUp> {
                             Get.to(SignIn());
                           },
                           child: Text("Sign up Here", style: TextStyle(
-                            color: GREEN
+                            color: NavigationBarSel
                           ),),
                         ),
                       ],

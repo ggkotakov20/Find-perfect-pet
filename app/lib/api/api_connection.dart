@@ -7,4 +7,5 @@ class API{
   static const signIn = "$hostConnection/user/signin.php";
   
   static const mapPoint = "$hostConnection/map-point.php";
+  static const addAdvert = "$hostConnection/advert/add_advert.php";
 }
