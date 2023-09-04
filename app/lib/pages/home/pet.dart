@@ -1,26 +1,53 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:app/colors.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import 'package:app/pages/home/pet.dart';
-import 'package:app/pages/home/food_card.dart';
-import 'package:app/pages/home/access_card.dart';
+import 'package:app/pages/home/buy_card.dart';
+import 'package:app/pages/home/breeding_card.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class PetPage extends StatefulWidget {
+  const PetPage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<PetPage> createState() => _PetPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _PetPageState extends State<PetPage> {
   @override
   Widget build(BuildContext context) {
-    return Stack(children: [
-      Center(
+    return Scaffold(
+      backgroundColor: background,
+      appBar: AppBar(
+        centerTitle: true,
+        foregroundColor: GREEN,
+        backgroundColor: background,
+        elevation: 0.0,
+        toolbarHeight: 80,
+        leading: IconButton(
+          icon: Icon(
+            FontAwesomeIcons.chevronLeft,
+            size: 18,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Image(
+              image: AssetImage('images/logo.png'),
+              height: 65,
+            ),
+          ],
+        ),
+      ),
+      body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            //  Buy
             SizedBox(height: 15,),
             Padding(
               padding: const EdgeInsets.only(left: 15, right: 15),
@@ -31,14 +58,14 @@ class _HomePageState extends State<HomePage> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => PetPage()),
+                      MaterialPageRoute(builder: (context) => PetCardsPage()),
                     );
                   },
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(25.0),
                     ),
-                    primary: CardBG,
+                    primary: LGREY,
                   ),
                   child: Row(
                     children: [
@@ -49,19 +76,19 @@ class _HomePageState extends State<HomePage> {
                           width: 85,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(100.0),
-                            color: Color.fromRGBO(231, 244, 255, 1),
+                            color: GREEN,
                           ),
                           child: Icon(
-                            FontAwesomeIcons.paw,
+                            FontAwesomeIcons.cartShopping,
                             size: 40,
-                            color: Color.fromRGBO(0, 134, 230, 1),
+                            color: DGREEN,
                           ),
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(left: 25.0),
                         child: Text(
-                          'Pets',
+                          'Buy',
                           style: TextStyle(
                             color: BLACK,
                             fontSize: 25,
@@ -75,8 +102,8 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             SizedBox(height: 30,),
-            //  Foods
-      
+
+            //  Breeding
             Padding(
               padding: const EdgeInsets.only(left: 15, right: 15),
               child: SizedBox(
@@ -86,14 +113,14 @@ class _HomePageState extends State<HomePage> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => FoodCardsPage()),
+                      MaterialPageRoute(builder: (context) => BreedingCardsPage()),
                     );
                   },
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(25.0),
                     ),
-                    primary: CardBG,
+                    primary: LGREY,
                   ),
                   child: Row(
                     children: [
@@ -104,19 +131,19 @@ class _HomePageState extends State<HomePage> {
                           width: 85,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(100.0),
-                            color: Color.fromRGBO(239, 240, 253, 1),
+                            color: GREEN,
                           ),
                           child: Icon(
-                            FontAwesomeIcons.bowlFood,
+                            FontAwesomeIcons.circlePlus,
                             size: 40,
-                            color: Color.fromRGBO(98, 106, 208, 1),
+                            color: DGREEN,
                           ),
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(left: 25.0),
                         child: Text(
-                          'Foods',
+                          'Breeding',
                           style: TextStyle(
                             color: BLACK,
                             fontSize: 25,
@@ -129,66 +156,10 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-            SizedBox(height: 30,),
-            //  Accessories
-      
-            Padding(
-                padding: const EdgeInsets.only(left: 15, right: 15),
-                child: SizedBox(
-                  height: 125,
-                  width: 410,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => AccessCardsPage()),
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(25.0),
-                      ),
-                      primary: CardBG,
-                    ),
-                    child: Row(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 20),
-                          child: Container(
-                            height: 85,
-                            width: 85,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(100.0),
-                              color: Color.fromRGBO(242, 248, 233, 1),
-                            ),
-                            child: Icon(
-                              FontAwesomeIcons.baseball,
-                              size: 40,
-                              color: Color.fromRGBO(123, 188, 40, 1),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 25.0),
-                          child: Text(
-                            'Accessories',
-                            style: TextStyle(
-                              color: BLACK,
-                              fontSize: 25,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-              ),
             
           ],
         ),
       ),
-      
-    ]);
+    );
   }
 }

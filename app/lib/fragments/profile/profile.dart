@@ -16,37 +16,9 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   @override
-  Widget build(BuildContext context) {;
-    return Scaffold(
-      backgroundColor: background,
-      appBar: AppBar(
-        centerTitle: true,
-        foregroundColor: NavigationBarSel,
-        backgroundColor: background,
-        elevation: 0.0,
-        toolbarHeight: 80,
-        leading: IconButton(
-          icon: const Icon(
-            FontAwesomeIcons.chevronLeft,
-            size: 18,
-          ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-        title: const Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Image(
-              image: AssetImage('images/logo.png'),
-              height: 65,
-            ),
-          ],
-        ),
-      ),
-      body: Container(
-      child: const Column(
+  Widget build(BuildContext context) {
+    return Container(
+      child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           UserInformation(),
@@ -56,7 +28,6 @@ class _ProfilePageState extends State<ProfilePage> {
           )
         ],
       ),
-    )
     );
   }
 }

@@ -20,7 +20,7 @@ class _PetCardsPageState extends State<PetCardsPage> {
       backgroundColor: background,
       appBar: AppBar(
         centerTitle: true,
-        foregroundColor: NavigationBarSel,
+        foregroundColor: GREEN,
         backgroundColor: background,
         elevation: 0.0,
         toolbarHeight: 80,
@@ -66,9 +66,9 @@ class _CardsState extends State<Cards> {
             padding: const EdgeInsets.all(15),
             child: TextField(
               style: TextStyle(fontSize: 18),
-              cursorColor: NavigationBarSel,
+              cursorColor: GREEN,
               decoration: InputDecoration(
-                prefixIcon: Icon(Icons.search, color: NavigationBarSel),
+                prefixIcon: Icon(Icons.search, color: GREEN),
                 hintText: 'Search',
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(20),
@@ -168,7 +168,7 @@ class AnimalListItem extends StatelessWidget {
                     borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(25.0),
                     ),
-                    color: CardBG,
+                    color: LGREY,
                   ),
                   child: Padding(
                     padding: const EdgeInsets.only(
@@ -206,7 +206,7 @@ class AnimalListItem extends StatelessWidget {
                   borderRadius: BorderRadius.only(
                     bottomRight: Radius.circular(25.0),
                   ),
-                  color: CardBG,
+                  color: LGREY,
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -216,7 +216,7 @@ class AnimalListItem extends StatelessWidget {
                       icon: Icon(
                         FontAwesomeIcons.bagShopping,
                         size: 20,
-                        color: NavigationBarSel,
+                        color: DGREEN,
                       ),
                     ),
                     IconButton(
@@ -224,7 +224,7 @@ class AnimalListItem extends StatelessWidget {
                       icon: Icon(
                         FontAwesomeIcons.heart,
                         size: 20,
-                        color: Color.fromRGBO(249, 108, 124, 1),
+                        color: DGREEN,
                       ),
                     ),
                     SizedBox(width: 10),

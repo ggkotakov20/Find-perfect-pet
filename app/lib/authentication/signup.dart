@@ -137,9 +137,8 @@ class _SignUpState extends State<SignUp> {
                   children: [
                     SizedBox(height: 10,),
                     Text('Sign up',style: TextStyle(
-                      color: NavigationBarSel,
-                      fontSize: 30,
-                      fontWeight: FontWeight.w500
+                      color: GREEN,
+                      fontSize: 30
                       ),
                     ),
                     Container(
@@ -160,36 +159,36 @@ class _SignUpState extends State<SignUp> {
                                     decoration: InputDecoration(
                                       prefixIcon: Icon(
                                         FontAwesomeIcons.user,
-                                        color: NavigationBarSel,
+                                        color: GREEN,
                                         size: 19,
                                       ),
                                       hintText: "First name",
                                       border: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(30),
                                         borderSide:  BorderSide(
-                                          color: CardBG,
+                                          color: GREY,
                                         ),
                                       ),
                                       enabledBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(30),
                                         borderSide: BorderSide(
-                                          color: CardBG,
+                                          color: GREY,
                                         ),
                                       ),
                                       focusedBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(30),
                                         borderSide:  BorderSide(
-                                          color: CardBG,
+                                          color: GREY,
                                         ),
                                       ),
                                       disabledBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(30),
                                         borderSide:  BorderSide(
-                                          color: CardBG,
+                                          color: GREY,
                                         ),
                                       ),
                                       contentPadding: const EdgeInsets.symmetric(horizontal: 14,vertical: 6,),
-                                      fillColor: CardBG,
+                                      fillColor: WHITE,
                                       filled: true
                                   ),
                                   ),
@@ -206,36 +205,36 @@ class _SignUpState extends State<SignUp> {
                                     decoration: InputDecoration(
                                       prefixIcon: Icon(
                                         FontAwesomeIcons.user,
-                                        color: NavigationBarSel,
+                                        color: GREEN,
                                         size: 19,
                                       ),
                                       hintText: "Last name",
                                       border: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(30),
                                         borderSide:  BorderSide(
-                                          color: CardBG,
+                                          color: GREY,
                                         ),
                                       ),
                                       enabledBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(30),
                                         borderSide: BorderSide(
-                                          color: CardBG,
+                                          color: GREY,
                                         ),
                                       ),
                                       focusedBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(30),
                                         borderSide:  BorderSide(
-                                          color: CardBG,
+                                          color: GREY,
                                         ),
                                       ),
                                       disabledBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(30),
                                         borderSide:  BorderSide(
-                                          color: CardBG,
+                                          color: GREY,
                                         ),
                                       ),
                                       contentPadding: const EdgeInsets.symmetric(horizontal: 14,vertical: 6,),
-                                      fillColor: CardBG,
+                                      fillColor: WHITE,
                                       filled: true
                                   ),
                                   ),
@@ -252,36 +251,36 @@ class _SignUpState extends State<SignUp> {
                                     decoration: InputDecoration(
                                       prefixIcon: Icon(
                                         FontAwesomeIcons.phone,
-                                        color: NavigationBarSel,
+                                        color: GREEN,
                                         size: 19,
                                       ),
                                       hintText: "Phone",
                                       border: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(30),
                                         borderSide:  BorderSide(
-                                          color: CardBG,
+                                          color: GREY,
                                         ),
                                       ),
                                       enabledBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(30),
                                         borderSide: BorderSide(
-                                          color: CardBG,
+                                          color: GREY,
                                         ),
                                       ),
                                       focusedBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(30),
                                         borderSide:  BorderSide(
-                                          color: CardBG,
+                                          color: GREY,
                                         ),
                                       ),
                                       disabledBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(30),
                                         borderSide:  BorderSide(
-                                          color: CardBG,
+                                          color: GREY,
                                         ),
                                       ),
                                       contentPadding: const EdgeInsets.symmetric(horizontal: 14,vertical: 6,),
-                                      fillColor: CardBG,
+                                      fillColor: WHITE,
                                       filled: true
                                   ),
                                   ),
@@ -298,36 +297,36 @@ class _SignUpState extends State<SignUp> {
                                     decoration: InputDecoration(
                                       prefixIcon: Icon(
                                         FontAwesomeIcons.envelope,
-                                        color: NavigationBarSel,
+                                        color: GREEN,
                                         size: 19,
                                       ),
                                       hintText: "Email",
                                       border: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(30),
                                         borderSide:  BorderSide(
-                                          color: CardBG,
+                                          color: GREY,
                                         ),
                                       ),
                                       enabledBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(30),
                                         borderSide: BorderSide(
-                                          color: CardBG,
+                                          color: GREY,
                                         ),
                                       ),
                                       focusedBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(30),
                                         borderSide:  BorderSide(
-                                          color: CardBG,
+                                          color: GREY,
                                         ),
                                       ),
                                       disabledBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(30),
                                         borderSide:  BorderSide(
-                                          color: CardBG,
+                                          color: GREY,
                                         ),
                                       ),
                                       contentPadding: const EdgeInsets.symmetric(horizontal: 14,vertical: 6,),
-                                      fillColor: CardBG,
+                                      fillColor: WHITE,
                                       filled: true
                                   ),
                                   ),
@@ -345,36 +344,36 @@ class _SignUpState extends State<SignUp> {
                                     decoration: InputDecoration(
                                       prefixIcon: Icon(
                                         FontAwesomeIcons.key,
-                                        color: NavigationBarSel,
+                                        color: GREEN,
                                         size: 19,
                                       ),
                                       hintText: "Password",
                                       border: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(30),
                                         borderSide:  BorderSide(
-                                          color: CardBG,
+                                          color: GREY,
                                         ),
                                       ),
                                       enabledBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(30),
                                         borderSide: BorderSide(
-                                          color: CardBG,
+                                          color: GREY,
                                         ),
                                       ),
                                       focusedBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(30),
                                         borderSide:  BorderSide(
-                                          color: CardBG,
+                                          color: GREY,
                                         ),
                                       ),
                                       disabledBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(30),
                                         borderSide:  BorderSide(
-                                          color: CardBG,
+                                          color: GREY,
                                         ),
                                       ),
                                       contentPadding: const EdgeInsets.symmetric(horizontal: 14,vertical: 6,),
-                                      fillColor: CardBG,
+                                      fillColor: WHITE,
                                       filled: true
                                   ),
                                   ),
@@ -390,7 +389,7 @@ class _SignUpState extends State<SignUp> {
                     // Sing up btn
 
                     Material(
-                      color: NavigationBarSel,
+                      color: GREEN,
                       borderRadius: BorderRadius.circular(30),
                       child: InkWell(
                         onTap: (){
@@ -417,7 +416,7 @@ class _SignUpState extends State<SignUp> {
                             Get.to(SignIn());
                           },
                           child: Text("Sign up Here", style: TextStyle(
-                            color: NavigationBarSel
+                            color: GREEN
                           ),),
                         ),
                       ],

@@ -20,7 +20,7 @@ class _BreedingCardsPageState extends State<BreedingCardsPage> {
       backgroundColor: background,
       appBar: AppBar(
         centerTitle: true,
-        foregroundColor: NavigationBarSel,
+        foregroundColor: GREEN,
         backgroundColor: background,
         elevation: 0.0,
         toolbarHeight: 80,

@@ -82,9 +82,8 @@ class _SignInState extends State<SignIn> {
                 children: [
                   SizedBox(height: 10,),
                   Text('Sign in',style: TextStyle(
-                    color: NavigationBarSel,
-                    fontSize: 30,
-                    fontWeight: FontWeight.w500
+                    color: GREEN,
+                    fontSize: 30
                     ),
                   ),
                   Container(
@@ -105,36 +104,36 @@ class _SignInState extends State<SignIn> {
                                   decoration: InputDecoration(
                                     prefixIcon: Icon(
                                       FontAwesomeIcons.envelope,
-                                      color: NavigationBarSel,
+                                      color: GREEN,
                                       size: 19,
                                     ),
                                     hintText: "Email",
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(30),
                                       borderSide:  BorderSide(
-                                        color: CardBG,
+                                        color: GREY,
                                       ),
                                     ),
                                     enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(30),
                                       borderSide: BorderSide(
-                                        color: CardBG,
+                                        color: GREY,
                                       ),
                                     ),
                                     focusedBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(30),
                                       borderSide:  BorderSide(
-                                        color: CardBG,
+                                        color: GREY,
                                       ),
                                     ),
                                     disabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(30),
                                       borderSide:  BorderSide(
-                                        color: CardBG,
+                                        color: GREY,
                                       ),
                                     ),
                                     contentPadding: const EdgeInsets.symmetric(horizontal: 14,vertical: 6,),
-                                    fillColor: CardBG,
+                                    fillColor: WHITE,
                                     filled: true
                                 ),
                                 ),
@@ -152,36 +151,36 @@ class _SignInState extends State<SignIn> {
                                   decoration: InputDecoration(
                                     prefixIcon: Icon(
                                       FontAwesomeIcons.key,
-                                      color: NavigationBarSel,
+                                      color: GREEN,
                                       size: 19,
                                     ),
                                     hintText: "Password",
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(30),
                                       borderSide:  BorderSide(
-                                        color: CardBG,
+                                        color: GREY,
                                       ),
                                     ),
                                     enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(30),
                                       borderSide: BorderSide(
-                                        color: CardBG,
+                                        color: GREY,
                                       ),
                                     ),
                                     focusedBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(30),
                                       borderSide:  BorderSide(
-                                        color: CardBG,
+                                        color: GREY,
                                       ),
                                     ),
                                     disabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(30),
                                       borderSide:  BorderSide(
-                                        color: CardBG,
+                                        color: GREY,
                                       ),
                                     ),
                                     contentPadding: const EdgeInsets.symmetric(horizontal: 14,vertical: 6,),
-                                    fillColor: CardBG,
+                                    fillColor: WHITE,
                                     filled: true
                                 ),
                                 ),
@@ -197,7 +196,7 @@ class _SignInState extends State<SignIn> {
                   // Sing up btn
           
                   Material(
-                    color: NavigationBarSel,
+                    color: GREEN,
                     borderRadius: BorderRadius.circular(30),
                     child: InkWell(
                       onTap: (){
@@ -224,7 +223,7 @@ class _SignInState extends State<SignIn> {
                           Get.to(SignUp());
                         },
                         child: Text("Sign up Here", style: TextStyle(
-                          color: NavigationBarSel
+                          color: GREEN
                         ),),
                       ),
                     ],
