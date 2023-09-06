@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:app/colors.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -68,8 +69,10 @@ class _AddAdvertBodyState extends State<AddAdvertBody> {
   var titleController = TextEditingController();
   var priceController = TextEditingController();
   var descriptionController = TextEditingController();
-  
-  String categoryChoose= 'buy';
+  ValueNotifier<String?> categoryNotifier = ValueNotifier<String?>(''); // Initialize with your default value
+
+
+  String categoryChoose = 'buy';
   List categoryItem = [
     'buy', 'breeding', 'accessories', 'food' 
   ];
@@ -79,6 +82,7 @@ class _AddAdvertBodyState extends State<AddAdvertBody> {
       1,
       _currentUser.user.id,
       titleController.text.trim(),
+      categoryNotifier.value?.trim() ?? 'buy',
       priceController.text.trim(),
       descriptionController.text.trim(),
     );
@@ -124,10 +128,7 @@ class _AddAdvertBodyState extends State<AddAdvertBody> {
       print(e.toString());
     }
   }
-
-
   @override
-  
   Widget build(BuildContext context) {
     return LayoutBuilder(
         builder: (context, cons) {
@@ -191,6 +192,56 @@ class _AddAdvertBodyState extends State<AddAdvertBody> {
                                   ),
                                   ),
                                 ),
+
+                                //  Category
+                                SizedBox(height: 10,),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 15, right: 15),
+                                  child: Container(
+                                    padding: const EdgeInsets.only(left: 15, right: 15),
+                                    decoration: BoxDecoration(
+                                      border: Border.all(color: CardBG, width: 1),
+                                      borderRadius: BorderRadius.circular(30),
+                                      color: CardBG,
+                                    ),
+                                    child: ValueListenableBuilder<String?>(
+                                      valueListenable: categoryNotifier,
+                                      builder: (context, selectedValue, child) {
+                                        return DropdownButton<String>(
+                                          hint: Text('Select category: '),
+                                          isExpanded: true,
+                                          underline: SizedBox(),
+                                          dropdownColor: CardBG,
+                                          value: categoryChoose,
+                                          onChanged: (String? newValue) {
+                                            setState(() {
+                                              categoryChoose = newValue ?? 'buy'; // Use 'buy' or any default value if newValue is null
+                                            });
+                                          },
+                                          items: const [
+                                            DropdownMenuItem(
+                                              value: 'buy',
+                                              child: Text('buy'),
+                                            ),
+                                            DropdownMenuItem(
+                                              value: 'breeding',
+                                              child: Text('breeding'),
+                                            ),
+                                            DropdownMenuItem(
+                                              value: 'accessories',
+                                              child: Text('accessories'),
+                                            ),
+                                            DropdownMenuItem(
+                                              value: 'food',
+                                              child: Text('food'),
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ),
+
 
                                 // Price
                                 SizedBox(height: 10,),
@@ -272,8 +323,6 @@ class _AddAdvertBodyState extends State<AddAdvertBody> {
                                   ),
                                   ),
                                 ),
-                              
-                                //  Category
                               ],
                             ),
                           )

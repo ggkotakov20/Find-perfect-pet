@@ -160,7 +160,7 @@ class _UserState extends State<User> {
     );
   }
 
-  Widget _buildButtonWithText(BuildContext context, IconData icon, String text, List<Color> gradientColors, VoidCallback onPressed) {
+  Widget _buildButtonWithText(BuildContext context, IconData icon, String text, List<Color> gradientColors, VoidCallback onPressed,) {
     return Stack(
       children: [
         Padding(
@@ -199,7 +199,7 @@ class _UserState extends State<User> {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(top: 70, left: 22),
+          padding: const EdgeInsets.only(top: 70, left: 28),
           child: Text(text),
         )
       ],

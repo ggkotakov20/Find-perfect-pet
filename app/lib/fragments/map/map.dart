@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:app/api/api_connection.dart';
 
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
@@ -23,7 +24,7 @@ class MapPage extends StatefulWidget {
 class _MapPageState extends State<MapPage> {
 
   Future getMapPointData() async {
-  var url = Uri.parse("https://api.kremito.com/map-point.php"); // Convert the URL string to Uri
+  var url = Uri.parse(API.mapPoint); // Convert the URL string to Uri
   var response = await http.get(url);
   return json.decode(response.body);
 }
@@ -344,7 +345,7 @@ class SheetModal extends StatelessWidget {
     // }
 
     return Container(
-      color: LGREY,
+      color: CardBG,
       child: SizedBox(
           child: Stack(
         children: [
@@ -384,14 +385,14 @@ class SheetModal extends StatelessWidget {
                   SizedBox(width: 20),
                   Container(
                     decoration: BoxDecoration(
-                      color: WHITE,
+                      color: Color.fromRGBO(242, 248, 233, 1),
                       borderRadius: BorderRadius.circular(5),
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(4.0),
                       child: Icon(
                         Icons.location_pin,
-                        color: BLACK,
+                        color: Color.fromRGBO(131, 197, 85, 1),
                       ),
                     ),
                   ),
@@ -410,14 +411,14 @@ class SheetModal extends StatelessWidget {
                   SizedBox(width: 20),
                   Container(
                     decoration: BoxDecoration(
-                      color: WHITE,
+                      color: Color.fromRGBO(238, 239, 252, 1),
                       borderRadius: BorderRadius.circular(5),
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(6.0),
                       child: Icon(
                         FontAwesomeIcons.solidClock,
-                        color: BLACK,
+                        color: Color.fromRGBO(110, 118, 215, 1),
                         size: 20,
                       ),
                     ),
@@ -740,14 +741,14 @@ class SheetModal extends StatelessWidget {
             child: TextButton(
               child: Container(
                 decoration: BoxDecoration(
-                  color: GREEN,
+                  color: Color.fromRGBO(252, 235, 235, 1),
                   borderRadius: BorderRadius.circular(50),
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(6.0),
                   child: Icon(
                     FontAwesomeIcons.xmark,
-                    color: DGREEN,
+                    color: Color.fromRGBO(242, 60, 60, 1),
                   ),
                 ),
               ),
