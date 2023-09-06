@@ -67,41 +67,43 @@ class PetInformation extends StatelessWidget {
         ),
         Padding(
           padding: EdgeInsets.only(left: 15.0, top: 10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                '${animal.title}',
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                  fontSize: 26,
-                  fontWeight: FontWeight.w300,
-                ),
-              ),
-              Text(
-                '${animal.price} \$',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 24,
-                  color: GREEN
-                ),
-              ),
-              const Padding(
-                padding: const EdgeInsets.only(top: 20),
-                child: Text(
-                  'DESCRIPTION :',
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  '${animal.title}',
+                  overflow: TextOverflow.ellipsis,
                   style: TextStyle(
-                    fontSize: 22,
+                    fontSize: 26,
+                    fontWeight: FontWeight.w300,
                   ),
                 ),
-              ),
-              Text(
-                '${animal.description}',
-                style: TextStyle(
-                  fontSize: 16,
+                Text(
+                  '${animal.price} \$',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 24,
+                    color: GREEN
+                  ),
                 ),
-              )
-            ],
+                const Padding(
+                  padding: const EdgeInsets.only(top: 20),
+                  child: Text(
+                    'DESCRIPTION :',
+                    style: TextStyle(
+                      fontSize: 22,
+                    ),
+                  ),
+                ),
+                Text(
+                  '${animal.description}',
+                  style: TextStyle(
+                    fontSize: 16,
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ],

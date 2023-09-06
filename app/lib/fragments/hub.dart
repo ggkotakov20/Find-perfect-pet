@@ -9,6 +9,9 @@ import 'package:app/fragments/profile/profile.dart';
 import 'package:app/fragments/advert/add_advert.dart';
 
 
+import 'package:geolocator/geolocator.dart';
+import 'package:permission_handler/permission_handler.dart';
+
 class Hub extends StatefulWidget {
   const Hub({super.key});
 
@@ -45,6 +48,7 @@ class User extends StatefulWidget {
 class _UserState extends State<User> {
   @override
   Widget build(BuildContext context) {
+    
     final isWideScreen = MediaQuery.of(context).size.width >= 400;
 
     return Stack(

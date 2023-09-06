@@ -140,7 +140,7 @@ class AnimalListItem extends StatelessWidget {
               );
             },
             child: Container(
-              width: 325,
+              width: 300,
               height: 150,
               decoration: BoxDecoration(
                 image: DecorationImage(
@@ -162,8 +162,8 @@ class AnimalListItem extends StatelessWidget {
               children: [
                 // Title and price
                 Container(
+                  width: 191,
                   height: 75,
-                  width: 216,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(25.0),
@@ -181,7 +181,7 @@ class AnimalListItem extends StatelessWidget {
                           animal.title ,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
-                            fontSize: 26,
+                            fontSize: 22,
                             overflow: TextOverflow.ellipsis,
                             color: BLACK,
                           ),
@@ -189,7 +189,7 @@ class AnimalListItem extends StatelessWidget {
                         Text(
                           '$animalPrice \$',
                           style: TextStyle(
-                            fontSize: 18,
+                            fontSize: 17,
                             color: DGREY,
                           ),
                         ),
@@ -200,8 +200,8 @@ class AnimalListItem extends StatelessWidget {
 
                 // Shopping and add to favourite buttons
                 Container(
-                height: 75,
                 width: 109,
+                height: 75,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(
                     bottomRight: Radius.circular(25.0),

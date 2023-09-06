@@ -4,13 +4,14 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:geolocator/geolocator.dart';
+
 
 import 'package:app/colors.dart';
 
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-final LatLng startLocation = LatLng(42.459154076868465, 27.41478978649106);
 
 class MapPage extends StatefulWidget {
   const MapPage({super.key});
@@ -149,14 +150,32 @@ class _MapPageState extends State<MapPage> {
 }
 
 class Map1 extends StatelessWidget {
-  const Map1({super.key});
-  Future getMapPointData() async {
-  var url = Uri.parse("https://api.kremito.com/map-point.php"); // Convert the URL string to Uri
-  var response = await http.get(url);
-  return json.decode(response.body);
+  Map1({super.key});
+    Future getMapPointData() async {
+      var url = Uri.parse("https://api.kremito.com/map-point.php"); // Convert the URL string to Uri
+      var response = await http.get(url);
+      return json.decode(response.body);
+    }
+  
+    LatLng startLocation = LatLng(42.459154076868465, 27.41478978649106);
+
+    Future<LatLng> _getCurrentLocation(BuildContext context, LatLng startLoc) async {
+  try {
+    Position position = await Geolocator.getCurrentPosition(
+      desiredAccuracy: LocationAccuracy.high,
+    );
+
+    double latitude = position.latitude;
+    double longitude = position.longitude;
+
+    return LatLng(latitude, longitude);
+  } catch (e) {
+    print("Error getting location: $e");
+    return startLoc; // Return the original value in case of an error
+  }
 }
 
-  Container _buildMapContainer(BuildContext context) {
+Container _buildMapContainer(BuildContext context) {
   return Container(
     height: 100,
     child: FutureBuilder(
@@ -178,28 +197,40 @@ class Map1 extends StatelessWidget {
         Map<String, dynamic> dataMap = snapshot.data;
         List<dynamic> dataPoints = dataMap['mapPoints'];
 
-        return FlutterMap(
-          options: MapOptions(
-            center: startLocation,
-            maxZoom: 16.0,
-            minZoom: 2.0,
-            zoom: 14.0,
-            interactiveFlags: InteractiveFlag.pinchZoom | InteractiveFlag.drag,
-          ),
-          layers: [
-            TileLayerOptions(
-              urlTemplate: "https://cartodb-basemaps-{s}.global.ssl.fastly.net/rastertiles/voyager/{z}/{x}/{y}.png",
-              subdomains: ['a', 'b', 'c'],
-            ),
-            MarkerLayerOptions(
-              markers: _buildMarkers(dataPoints),
-            ),
-          ],
+        return FutureBuilder(
+          future: _getCurrentLocation(context, startLocation),
+          builder: (context, locationSnapshot) {
+            if (locationSnapshot.connectionState == ConnectionState.waiting) {
+              return Center(child: CircularProgressIndicator());
+            }
+
+            LatLng updatedLocation = locationSnapshot.data ?? startLocation;
+
+            return FlutterMap(
+              options: MapOptions(
+                center: updatedLocation,
+                maxZoom: 16.0,
+                minZoom: 2.0,
+                zoom: 14.0,
+                interactiveFlags: InteractiveFlag.pinchZoom | InteractiveFlag.drag,
+              ),
+              layers: [
+                TileLayerOptions(
+                  urlTemplate: "https://cartodb-basemaps-{s}.global.ssl.fastly.net/rastertiles/voyager/{z}/{x}/{y}.png",
+                  subdomains: ['a', 'b', 'c'],
+                ),
+                MarkerLayerOptions(
+                  markers: _buildMarkers(dataPoints),
+                ),
+              ],
+            );
+          },
         );
       },
     ),
   );
 }
+
 
 List<Marker> _buildMarkers(List<dynamic> data) {
   return data.map((point) {
