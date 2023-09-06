@@ -19,16 +19,19 @@ class Hub extends StatefulWidget {
 class _HubState extends State<Hub> {
   @override
   Widget build(BuildContext context) {
-    return const Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        User(),
-        SizedBox(height: 10,),
-        Adverts(),
-        SizedBox(height: 10,),
-        LogOut(),
-      ],
-    );
+    return SingleChildScrollView(
+  child: Column(
+    mainAxisAlignment: MainAxisAlignment.start,
+    children: [
+      User(),
+      SizedBox(height: 10),
+      Adverts(),
+      SizedBox(height: 10),
+      LogOut(),
+      SizedBox(height: 10),
+    ],
+  ),
+);
   }
 }
 
@@ -40,241 +43,166 @@ class User extends StatefulWidget {
 }
 
 class _UserState extends State<User> {
-
-  
   @override
   Widget build(BuildContext context) {
-    return Stack(children: [
-      const Padding(
-        padding: const EdgeInsets.only(top: 10,left: 30),
-        child: Text('User', 
-          style: TextStyle(
-            color: Color.fromRGBO(134, 141, 154, 1),
-            fontSize: 15
+    final isWideScreen = MediaQuery.of(context).size.width >= 400;
+
+    return Stack(
+      children: [
+        const Padding(
+          padding: EdgeInsets.only(top: 10, left: 30),
+          child: Text(
+            'User',
+            style: TextStyle(
+              color: Color.fromRGBO(134, 141, 154, 1),
+              fontSize: 15,
+            ),
           ),
         ),
-      ),
-      Center(
-        child: Column(
-          children: [
-            // First row
-            SizedBox(height: 40,),
-            Row(
-              children: [
-                //  Profile
-                Stack(
-                  children: [
+        Center(
+          child: Column(
+            children: [
+              // First row
+              SizedBox(height: 40,),
+              Row(
+                children: [
+                  // Profile
                   Padding(
-                    padding: const EdgeInsets.only(left: 30, right: 15),
-                    child: SizedBox(
-                      height: 65,
-                      width: 65,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => ProfilePage()),
-                            );
-                        },
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.transparent,
-                          padding: EdgeInsets.zero,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(18.0),
-                          ),
-                          elevation: 0,
-                        ),
-                        child: Container(
-                          width: 65,
-                          height: 65,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(18.0),
-                            gradient: LinearGradient(
-                              colors: CardBgBlue, // Define your gradient colors
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                            ),
-                          ),
-                          child: Icon(
-                            FontAwesomeIcons.user,
-                            size: 25,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
+                    padding: const EdgeInsets.only(left: 15),
+                    child: _buildButtonWithText(
+                      context,
+                      FontAwesomeIcons.user,
+                      'Profile',
+                      CardBgBlue,
+                      () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => ProfilePage()),
+                        );
+                      },
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 70, left: 41),
-                    child: Text('Profile'),
-                  )
-                  ]
-                ),
-                
-                //  Settings
-                Stack(
-                children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 15, right: 15),
-                  child: SizedBox(
-                    height: 65,
-                    width: 65,
-                    child: ElevatedButton(
-                      onPressed: () {
+
+                  // Settings
+                  _buildButtonWithText(
+                    context,
+                    FontAwesomeIcons.gear,
+                    'Settings',
+                    CardBgPink,
+                    () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => ProfilePage()),
+                      );
+                    },
+                  ),
+
+                  // Favorite
+                  _buildButtonWithText(
+                    context,
+                    FontAwesomeIcons.heart,
+                    'Favorite',
+                    CardBgPink,
+                    () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => ProfilePage()),
+                      );
+                    },
+                  ),
+
+                  if (isWideScreen)
+                    // Cart
+                    _buildButtonWithText(
+                      context,
+                      FontAwesomeIcons.shoppingCart,
+                      'Cart',
+                      CardBgBlue,
+                      () {
                         Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => ProfilePage()),
+                        );
+                      },
+                    ),
+                ],
+              ),
+              SizedBox(height: 20,),
+              Row(
+                children: [
+                  if (!isWideScreen)
+                    // Cart
+                    Padding(
+                      padding: const EdgeInsets.only(left: 15),
+                      child: _buildButtonWithText(
+                        context,
+                        FontAwesomeIcons.shoppingCart,
+                        'Cart',
+                        CardBgBlue,
+                        () {
+                          Navigator.push(
                             context,
                             MaterialPageRoute(builder: (context) => ProfilePage()),
                           );
-                      },
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.transparent,
-                        padding: EdgeInsets.zero,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(18.0),
-                        ),
-                        elevation: 0,
-                      ),
-                      child: Container(
-                        width: 65,
-                        height: 65,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(18.0),
-                          gradient: LinearGradient(
-                            colors: CardBgPink, // Define your gradient colors
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                          ),
-                        ),
-                        child: Icon(
-                          FontAwesomeIcons.gear,
-                          size: 25,
-                          color: Colors.white,
-                        ),
-                      ),
-                    )
-
-                  ),
-                ),
-                
-                Padding(
-                  padding: const EdgeInsets.only(top: 70, left: 22),
-                  child: Text('Settings'),
-                )
-                ]
-              ),
-              
-                //  Favorite
-                Stack(
-                  children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 15, right: 15),
-                    child: SizedBox(
-                      height: 65,
-                      width: 65,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => ProfilePage()),
-                            );
                         },
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.transparent,
-                          padding: EdgeInsets.zero,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(18.0),
-                          ),
-                          elevation: 0,
-                        ),
-                        child: Container(
-                          width: 65,
-                          height: 65,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(18.0),
-                            gradient: LinearGradient(
-                              colors: CardBgPink, // Define your gradient colors
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                            ),
-                          ),
-                          child: Icon(
-                            FontAwesomeIcons.heart,
-                            size: 25,
-                            color: Colors.white,
-                          ),
-                        ),
-                      )
-
+                      ),
                     ),
-                  ),
-                  
-                  Padding(
-                    padding: const EdgeInsets.only(top: 70, left: 22),
-                    child: Text('Favorite'),
-                  )
-                  ]
-                ),
-              
-                //  Cart
-                Stack(
-                  children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 15, right: 15),
-                    child: SizedBox(
-                      height: 65,
-                      width: 65,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => ProfilePage()),
-                            );
-                        },
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.transparent,
-                          padding: EdgeInsets.zero,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(18.0),
-                          ),
-                          elevation: 0,
-                        ),
-                        child: Container(
-                          width: 65,
-                          height: 65,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(18.0),
-                            gradient: LinearGradient(
-                              colors: CardBgBlue, // Define your gradient colors
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                            ),
-                          ),
-                          child: Icon(
-                            FontAwesomeIcons.shoppingCart,
-                            size: 25,
-                            color: Colors.white,
-                          ),
-                        ),
-                      )
-
-                    ),
-                  ),
-                  
-                  Padding(
-                    padding: const EdgeInsets.only(top: 70, left: 22),
-                    child: Text('Favorite'),
-                  )
-                  ]
-                ),
-              ],
-            ),
-          ],
+                ],
+              )
+            ],
+          ),
         ),
-      ),
-      
-    ]);
+      ],
+    );
+  }
+
+  Widget _buildButtonWithText(BuildContext context, IconData icon, String text, List<Color> gradientColors, VoidCallback onPressed) {
+    return Stack(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 15, right: 15),
+          child: SizedBox(
+            height: 65,
+            width: 65,
+            child: ElevatedButton(
+              onPressed: onPressed,
+              style: ElevatedButton.styleFrom(
+                primary: Colors.transparent,
+                padding: EdgeInsets.zero,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(18.0),
+                ),
+                elevation: 0,
+              ),
+              child: Container(
+                width: 65,
+                height: 65,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(18.0),
+                  gradient: LinearGradient(
+                    colors: gradientColors,
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                  ),
+                ),
+                child: Icon(
+                  icon,
+                  size: 25,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 70, left: 22),
+          child: Text(text),
+        )
+      ],
+    );
   }
 }
+
 
 class Adverts extends StatefulWidget {
   const Adverts({super.key});
@@ -286,10 +214,12 @@ class Adverts extends StatefulWidget {
 class _AdvertsState extends State<Adverts> {
   @override
   Widget build(BuildContext context) {
+    final isWideScreen = MediaQuery.of(context).size.width >= 400;
+
     return Stack(
       children: [
         const Align(
-          alignment: Alignment.centerLeft, // Adjust alignment as needed
+          alignment: Alignment.centerLeft,
           child: Padding(
             padding: const EdgeInsets.only(top: 10, left: 30),
             child: Text(
@@ -302,117 +232,89 @@ class _AdvertsState extends State<Adverts> {
           ),
         ),
         Center(
-        child: Column(
-          children: [
-            // First row
-            SizedBox(height: 40,),
-            Row(
-              children: [
-                //  Add advert
-                Stack(
-                  children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 30, right: 15),
-                    child: SizedBox(
-                      height: 65,
-                      width: 65,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => AddAdvert()),
-                            );
-                        },
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.transparent,
-                          padding: EdgeInsets.zero,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(18.0),
-                          ),
-                          elevation: 0,
-                        ),
-                        child: Container(
-                          width: 65,
-                          height: 65,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(18.0),
-                            gradient: LinearGradient(
-                              colors: CardBgYellow, // Define your gradient colors
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                            ),
-                          ),
-                          child: Icon(
-                            FontAwesomeIcons.plus,
-                            size: 25,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ),
+          child: Column(
+            children: [
+              SizedBox(height: 40,),
+              Row(
+                children: [
+                  // Add advert
+                  _buildButtonWithText(
+                    context,
+                    FontAwesomeIcons.plus,
+                    'Add advert',
+                    CardBgYellow,
+                    () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => AddAdvert()),
+                      );
+                    },
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 70, left: 28),
-                    child: Text('Add advert'),
-                  )
-                  ]
-                ),
-                
-                //  Your addverts
-                Stack(
-                  children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 30, right: 15),
-                    child: SizedBox(
-                      height: 65,
-                      width: 65,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => ProfilePage()),
-                            );
-                        },
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.transparent,
-                          padding: EdgeInsets.zero,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(18.0),
-                          ),
-                          elevation: 0,
-                        ),
-                        child: Container(
-                          width: 65,
-                          height: 65,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(18.0),
-                            gradient: LinearGradient(
-                              colors: CardBgYellow, // Define your gradient colors
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                            ),
-                          ),
-                          child: Icon(
-                            FontAwesomeIcons.layerGroup,
-                            size: 25,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ),
+
+                  // Your adverts
+                  _buildButtonWithText(
+                    context,
+                    FontAwesomeIcons.layerGroup,
+                    'Your adverts',
+                    CardBgYellow,
+                    () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => ProfilePage()),
+                      );
+                    },
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 70, left: 28),
-                    child: Text('Your adverts'),
-                  )
-                  ]
-                ),
-                
                 ],
-            ),
-          ],
+              ),
+            ],
+          ),
         ),
-      ),
+      ],
+    );
+  }
+
+  Widget _buildButtonWithText(BuildContext context, IconData icon, String text, List<Color> gradientColors, VoidCallback onPressed) {
+    return Stack(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 30, right: 15),
+          child: SizedBox(
+            height: 65,
+            width: 65,
+            child: ElevatedButton(
+              onPressed: onPressed,
+              style: ElevatedButton.styleFrom(
+                primary: Colors.transparent,
+                padding: EdgeInsets.zero,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(18.0),
+                ),
+                elevation: 0,
+              ),
+              child: Container(
+                width: 65,
+                height: 65,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(18.0),
+                  gradient: LinearGradient(
+                    colors: gradientColors,
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                  ),
+                ),
+                child: Icon(
+                  icon,
+                  size: 25,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 70, left: 28),
+          child: Text(text),
+        ),
       ],
     );
   }
