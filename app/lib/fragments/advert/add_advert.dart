@@ -69,23 +69,20 @@ class _AddAdvertBodyState extends State<AddAdvertBody> {
   var titleController = TextEditingController();
   var priceController = TextEditingController();
   var descriptionController = TextEditingController();
-  ValueNotifier<String?> categoryNotifier = ValueNotifier<String?>(''); // Initialize with your default value
-
-
-  String categoryChoose = 'buy';
-  List categoryItem = [
-    'buy', 'breeding', 'accessories', 'food' 
-  ];
+  ValueNotifier<String?> categoryNotifier = ValueNotifier<String?>(null); 
+  ValueNotifier<String?> typeNotifier = ValueNotifier<String?>(null); // Remove the default value
 
   addAndSaveAdvertRecord() async {
     Advert advertModel = Advert(
       1,
       _currentUser.user.id,
       titleController.text.trim(),
-      categoryNotifier.value?.trim() ?? 'buy',
+      categoryNotifier.value ?? 'default_category',
+      typeNotifier.value ?? 'default_type', // Use categoryNotifier.value
       priceController.text.trim(),
       descriptionController.text.trim(),
     );
+
 
     try{
       var res = await http.post(
@@ -192,6 +189,45 @@ class _AddAdvertBodyState extends State<AddAdvertBody> {
                                   ),
                                   ),
                                 ),
+                                
+                                //  Type
+                                SizedBox(height: 10,),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 15, right: 15),
+                                  child: Container(
+                                    padding: const EdgeInsets.only(left: 15, right: 15),
+                                    decoration: BoxDecoration(
+                                      border: Border.all(color: CardBG, width: 1),
+                                      borderRadius: BorderRadius.circular(30),
+                                      color: CardBG,
+                                    ),
+                                    child: ValueListenableBuilder<String?>(
+                                      valueListenable: typeNotifier,
+                                      builder: (context, selectedValue, child) {
+                                        return DropdownButton<String>(
+                                          hint: Text('Select type: '),
+                                          isExpanded: true,
+                                          underline: SizedBox(),
+                                          dropdownColor: CardBG,
+                                          value: typeNotifier.value, // Use categoryNotifier.value as the selected value
+                                          onChanged: (String? newValue) {
+                                            typeNotifier.value = newValue; // Update the categoryNotifier value
+                                          },
+                                          items: const [
+                                            DropdownMenuItem(
+                                              value: 'dog',
+                                              child: Text('Dog'),
+                                            ),
+                                            DropdownMenuItem(
+                                              value: 'cat',
+                                              child: Text('Cat'),
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ),
 
                                 //  Category
                                 SizedBox(height: 10,),
@@ -212,28 +248,26 @@ class _AddAdvertBodyState extends State<AddAdvertBody> {
                                           isExpanded: true,
                                           underline: SizedBox(),
                                           dropdownColor: CardBG,
-                                          value: categoryChoose,
+                                          value: categoryNotifier.value, // Use categoryNotifier.value as the selected value
                                           onChanged: (String? newValue) {
-                                            setState(() {
-                                              categoryChoose = newValue ?? 'buy'; // Use 'buy' or any default value if newValue is null
-                                            });
+                                            categoryNotifier.value = newValue; // Update the categoryNotifier value
                                           },
                                           items: const [
                                             DropdownMenuItem(
                                               value: 'buy',
-                                              child: Text('buy'),
+                                              child: Text('Buy'),
                                             ),
                                             DropdownMenuItem(
                                               value: 'breeding',
-                                              child: Text('breeding'),
+                                              child: Text('Breeding'),
                                             ),
                                             DropdownMenuItem(
                                               value: 'accessories',
-                                              child: Text('accessories'),
+                                              child: Text('Accessories'),
                                             ),
                                             DropdownMenuItem(
                                               value: 'food',
-                                              child: Text('food'),
+                                              child: Text('Food'),
                                             ),
                                           ],
                                         );
@@ -241,8 +275,7 @@ class _AddAdvertBodyState extends State<AddAdvertBody> {
                                     ),
                                   ),
                                 ),
-
-
+                               
                                 // Price
                                 SizedBox(height: 10,),
                                 Padding(
