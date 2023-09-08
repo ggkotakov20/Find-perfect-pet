@@ -7,6 +7,9 @@ import 'package:app/pages/home/food_card.dart';
 import 'package:app/pages/home/access_card.dart';
 import 'package:app/pages/home/breeding_card.dart';
 
+
+import 'package:app/l10n/app_localizations.dart';
+
 String homePage = 'home';
 
 class HomePage extends StatefulWidget {
@@ -19,6 +22,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+    final AppLocalizations appLocalizations = AppLocalizations.of(context);
+
     return Stack(children: [
       Center(
         child: Column(
@@ -66,7 +71,7 @@ class _HomePageState extends State<HomePage> {
                       Padding(
                         padding: const EdgeInsets.only(left: 25.0),
                         child: Text(
-                          'Buy Pet',
+                          appLocalizations.general_buy,
                           style: TextStyle(
                             color: BLACK,
                             fontSize: 22,
@@ -122,7 +127,7 @@ class _HomePageState extends State<HomePage> {
                       Padding(
                         padding: const EdgeInsets.only(left: 25.0),
                         child: Text(
-                          'Breeding',
+                          appLocalizations.general_breeding,
                           style: TextStyle(
                             color: BLACK,
                             fontSize: 22,
@@ -178,7 +183,7 @@ class _HomePageState extends State<HomePage> {
                       Padding(
                         padding: const EdgeInsets.only(left: 25.0),
                         child: Text(
-                          'Foods',
+                          appLocalizations.general_food,
                           style: TextStyle(
                             color: BLACK,
                             fontSize: 22,
@@ -234,7 +239,7 @@ class _HomePageState extends State<HomePage> {
                         Padding(
                           padding: const EdgeInsets.only(left: 25.0),
                           child: Text(
-                            'Accessories',
+                            appLocalizations.general_accessory,
                             style: TextStyle(
                               color: BLACK,
                               fontSize: 22,

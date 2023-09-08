@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:ffi';
+import 'package:app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:app/colors.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -73,6 +74,8 @@ class _AddAdvertBodyState extends State<AddAdvertBody> {
   ValueNotifier<String?> typeNotifier = ValueNotifier<String?>(null); // Remove the default value
 
   addAndSaveAdvertRecord() async {
+    final AppLocalizations appLocalizations = AppLocalizations.of(context);
+    
     Advert advertModel = Advert(
       1,
       _currentUser.user.id,
@@ -81,6 +84,7 @@ class _AddAdvertBodyState extends State<AddAdvertBody> {
       typeNotifier.value ?? 'default_type', // Use categoryNotifier.value
       priceController.text.trim(),
       descriptionController.text.trim(),
+      "https://developers.google.com/static/maps/documentation/maps-static/images/error-image-generic.png"
     );
 
 
@@ -94,7 +98,7 @@ class _AddAdvertBodyState extends State<AddAdvertBody> {
         var resBodyOfAddAdvert = jsonDecode(res.body);
         if(resBodyOfAddAdvert['success'] == true){
           Fluttertoast.showToast(
-            msg: "Add advert Successfully",
+            msg: appLocalizations.general_add_adver_suucess,
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
@@ -110,7 +114,7 @@ class _AddAdvertBodyState extends State<AddAdvertBody> {
         }
         else{
           Fluttertoast.showToast(
-            msg: "Error, Try again",
+            msg: appLocalizations.general_error,
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 1,
@@ -127,6 +131,8 @@ class _AddAdvertBodyState extends State<AddAdvertBody> {
   }
   @override
   Widget build(BuildContext context) {
+    final AppLocalizations appLocalizations = AppLocalizations.of(context);
+    
     return LayoutBuilder(
         builder: (context, cons) {
           return Column(
@@ -137,7 +143,7 @@ class _AddAdvertBodyState extends State<AddAdvertBody> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(height: 10,),
-                    Text('Add advert',style: TextStyle(
+                    Text('${appLocalizations.general_add} ${appLocalizations.general_advert.toLowerCase()}',style: TextStyle(
                       color: NavigationBarSel,
                       fontSize: 30,
                       fontWeight: FontWeight.w500
@@ -158,7 +164,7 @@ class _AddAdvertBodyState extends State<AddAdvertBody> {
                                     controller: titleController,
                                     validator: (val) => val == "" ? "Please write a title" : null,
                                     decoration: InputDecoration(
-                                      hintText: "Title",
+                                      hintText: appLocalizations.general_title,
                                       border: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(30),
                                         borderSide:  BorderSide(
@@ -205,7 +211,7 @@ class _AddAdvertBodyState extends State<AddAdvertBody> {
                                       valueListenable: typeNotifier,
                                       builder: (context, selectedValue, child) {
                                         return DropdownButton<String>(
-                                          hint: Text('Select type: '),
+                                          hint: Text(appLocalizations.general_type),
                                           isExpanded: true,
                                           underline: SizedBox(),
                                           dropdownColor: CardBG,
@@ -244,7 +250,7 @@ class _AddAdvertBodyState extends State<AddAdvertBody> {
                                       valueListenable: categoryNotifier,
                                       builder: (context, selectedValue, child) {
                                         return DropdownButton<String>(
-                                          hint: Text('Select category: '),
+                                          hint: Text(appLocalizations.general_category),
                                           isExpanded: true,
                                           underline: SizedBox(),
                                           dropdownColor: CardBG,
@@ -285,7 +291,7 @@ class _AddAdvertBodyState extends State<AddAdvertBody> {
                                     validator: (val) => val == "" ? "Please write a price" : null,
                                     keyboardType: TextInputType.number, // Add this line
                                     decoration: InputDecoration(
-                                      hintText: "Price",
+                                      hintText: appLocalizations.general_price,
                                       border: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(30),
                                         borderSide:  BorderSide(
@@ -325,7 +331,7 @@ class _AddAdvertBodyState extends State<AddAdvertBody> {
                                     controller: descriptionController,
                                     validator: (val) => val == "" ? "Please write Description" : null,
                                     decoration: InputDecoration(
-                                      hintText: "Description",
+                                      hintText: appLocalizations.general_description,
                                       border: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(30),
                                         borderSide:  BorderSide(
@@ -376,9 +382,9 @@ class _AddAdvertBodyState extends State<AddAdvertBody> {
                           }
                         },
                         borderRadius: BorderRadius.circular(30),
-                        child: const Padding(
+                        child: Padding(
                           padding: EdgeInsets.symmetric(vertical: 10, horizontal: 28),
-                          child: Text("Add advert", style: TextStyle(
+                          child: Text(appLocalizations.general_add_advert, style: TextStyle(
                             color: Colors.white,
                             fontSize: 16
                           ),),

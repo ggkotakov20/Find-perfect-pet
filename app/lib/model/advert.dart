@@ -6,8 +6,9 @@ class Advert{
   String type;
   String price;
   String description;
+  String image;
 
-  Advert(this.id, this.user_id, this.title, this.category, this.type, this.price,this.description);
+  Advert(this.id, this.user_id, this.title, this.category, this.type, this.price,this.description, this.image);
 
   factory Advert.fromJson(Map<String, dynamic> json) => Advert(
     int.parse(json['id']),
@@ -17,6 +18,7 @@ class Advert{
     json['type'],
     json['price'],
     json['description'],
+    json['image'],
   );
 
   Map<String, dynamic> toJson() => {
@@ -27,5 +29,6 @@ class Advert{
     'type': type,
     'price': price,
     'description': description,
+    'image': image,
   };
 }

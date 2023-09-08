@@ -153,7 +153,7 @@ class _MapPageState extends State<MapPage> {
 class Map1 extends StatelessWidget {
   Map1({super.key});
     Future getMapPointData() async {
-      var url = Uri.parse("https://api.kremito.com/map-point.php"); // Convert the URL string to Uri
+      var url = Uri.parse(API.mapPoint); // Convert the URL string to Uri
       var response = await http.get(url);
       return json.decode(response.body);
     }

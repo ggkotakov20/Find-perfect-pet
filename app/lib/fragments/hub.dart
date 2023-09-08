@@ -1,4 +1,5 @@
 import 'package:app/fragments/advert/your_adverts.dart';
+import 'package:app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:app/colors.dart';
@@ -8,7 +9,7 @@ import 'package:app/model/user_preferences.dart';
 
 import 'package:app/fragments/profile/profile.dart';
 import 'package:app/fragments/advert/add_advert.dart';
-
+import 'package:app/widgets/menu_button.dart';
 
 import 'package:geolocator/geolocator.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -51,13 +52,14 @@ class _UserState extends State<User> {
   Widget build(BuildContext context) {
     
     final isWideScreen = MediaQuery.of(context).size.width >= 400;
+    final AppLocalizations appLocalizations = AppLocalizations.of(context);
 
     return Stack(
       children: [
-        const Padding(
-          padding: EdgeInsets.only(top: 10, left: 30),
+        Padding(
+          padding: EdgeInsets.only(top: 10, left: 25),
           child: Text(
-            'User',
+            appLocalizations.general_user,
             style: TextStyle(
               color: Color.fromRGBO(134, 141, 154, 1),
               fontSize: 15,
@@ -74,12 +76,11 @@ class _UserState extends State<User> {
                   // Profile
                   Padding(
                     padding: const EdgeInsets.only(left: 15),
-                    child: _buildButtonWithText(
-                      context,
-                      FontAwesomeIcons.user,
-                      'Profile',
-                      CardBgBlue,
-                      () {
+                    child: MenuButton(
+                      icon: FontAwesomeIcons.user,
+                      text: appLocalizations.general_profile,
+                      gradientColors: CardBgBlue,
+                      onPressed: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => ProfilePage()),
@@ -89,47 +90,44 @@ class _UserState extends State<User> {
                   ),
 
                   // Settings
-                  _buildButtonWithText(
-                    context,
-                    FontAwesomeIcons.gear,
-                    'Settings',
-                    CardBgPink,
-                    () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => ProfilePage()),
-                      );
-                    },
-                  ),
-
-                  // Favorite
-                  _buildButtonWithText(
-                    context,
-                    FontAwesomeIcons.heart,
-                    'Favorite',
-                    CardBgPink,
-                    () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => ProfilePage()),
-                      );
-                    },
-                  ),
-
-                  if (isWideScreen)
-                    // Cart
-                    _buildButtonWithText(
-                      context,
-                      FontAwesomeIcons.shoppingCart,
-                      'Cart',
-                      CardBgBlue,
-                      () {
+                  MenuButton(
+                      icon: FontAwesomeIcons.gear,
+                      text: appLocalizations.general_settings,
+                      gradientColors: CardBgPink,
+                      onPressed: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => ProfilePage()),
                         );
                       },
                     ),
+
+                    // Favorite
+                    MenuButton(
+                      icon: FontAwesomeIcons.heart,
+                      text: appLocalizations.general_favorite,
+                      gradientColors: CardBgPink,
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => ProfilePage()),
+                        );
+                      },
+                    ),
+
+                  if (isWideScreen)
+                    // Cart
+                    MenuButton(
+                        icon: FontAwesomeIcons.shoppingCart,
+                        text: appLocalizations.general_cart,
+                        gradientColors: CardBgBlue,
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => ProfilePage()),
+                          );
+                        },
+                      ),
                 ],
               ),
               SizedBox(height: 20,),
@@ -139,18 +137,17 @@ class _UserState extends State<User> {
                     // Cart
                     Padding(
                       padding: const EdgeInsets.only(left: 15),
-                      child: _buildButtonWithText(
-                        context,
-                        FontAwesomeIcons.shoppingCart,
-                        'Cart',
-                        CardBgBlue,
-                        () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => ProfilePage()),
-                          );
-                        },
-                      ),
+                      child: MenuButton(
+                          icon: FontAwesomeIcons.shoppingCart,
+                          text: appLocalizations.general_cart,
+                          gradientColors: CardBgBlue,
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => ProfilePage()),
+                            );
+                          },
+                        ),
                     ),
                 ],
               )
@@ -161,51 +158,6 @@ class _UserState extends State<User> {
     );
   }
 
-  Widget _buildButtonWithText(BuildContext context, IconData icon, String text, List<Color> gradientColors, VoidCallback onPressed,) {
-    return Stack(
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 15, right: 15),
-          child: SizedBox(
-            height: 65,
-            width: 65,
-            child: ElevatedButton(
-              onPressed: onPressed,
-              style: ElevatedButton.styleFrom(
-                primary: Colors.transparent,
-                padding: EdgeInsets.zero,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(18.0),
-                ),
-                elevation: 0,
-              ),
-              child: Container(
-                width: 65,
-                height: 65,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(18.0),
-                  gradient: LinearGradient(
-                    colors: gradientColors,
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                  ),
-                ),
-                child: Icon(
-                  icon,
-                  size: 25,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: 70, left: 28),
-          child: Text(text),
-        )
-      ],
-    );
-  }
 }
 
 
@@ -220,15 +172,16 @@ class _AdvertsState extends State<Adverts> {
   @override
   Widget build(BuildContext context) {
     final isWideScreen = MediaQuery.of(context).size.width >= 400;
+    final AppLocalizations appLocalizations = AppLocalizations.of(context);
 
     return Stack(
       children: [
-        const Align(
+         Align(
           alignment: Alignment.centerLeft,
           child: Padding(
-            padding: const EdgeInsets.only(top: 10, left: 30),
+            padding: const EdgeInsets.only(top: 10, left: 25),
             child: Text(
-              'Adverts',
+              appLocalizations.general_advert,
               style: TextStyle(
                 color: Color.fromRGBO(134, 141, 154, 1),
                 fontSize: 15,
@@ -243,26 +196,27 @@ class _AdvertsState extends State<Adverts> {
               Row(
                 children: [
                   // Add advert
-                  _buildButtonWithText(
-                    context,
-                    FontAwesomeIcons.plus,
-                    'Add advert',
-                    CardBgYellow,
-                    () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => AddAdvert()),
-                      );
-                    },
+                  Padding(
+                    padding: const EdgeInsets.only(left: 15),
+                    child: MenuButton(
+                      icon: FontAwesomeIcons.plus,
+                      text: appLocalizations.general_add,
+                      gradientColors: CardBgYellow,
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => AddAdvert()),
+                        );
+                      },
+                    ),
                   ),
 
-                  // Your adverts
-                  _buildButtonWithText(
-                    context,
-                    FontAwesomeIcons.layerGroup,
-                    'Your adverts',
-                    CardBgYellow,
-                    () {
+                  // Your advert
+                  MenuButton(
+                    icon: FontAwesomeIcons.layerGroup,
+                    text: appLocalizations.general_your,
+                    gradientColors: CardBgYellow,
+                    onPressed: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => YourAdvert()),
@@ -273,52 +227,6 @@ class _AdvertsState extends State<Adverts> {
               ),
             ],
           ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildButtonWithText(BuildContext context, IconData icon, String text, List<Color> gradientColors, VoidCallback onPressed) {
-    return Stack(
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 30, right: 15),
-          child: SizedBox(
-            height: 65,
-            width: 65,
-            child: ElevatedButton(
-              onPressed: onPressed,
-              style: ElevatedButton.styleFrom(
-                primary: Colors.transparent,
-                padding: EdgeInsets.zero,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(18.0),
-                ),
-                elevation: 0,
-              ),
-              child: Container(
-                width: 65,
-                height: 65,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(18.0),
-                  gradient: LinearGradient(
-                    colors: gradientColors,
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                  ),
-                ),
-                child: Icon(
-                  icon,
-                  size: 25,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: 70, left: 28),
-          child: Text(text),
         ),
       ],
     );
@@ -374,14 +282,16 @@ class _LogOutState extends State<LogOut> {
 
   @override
   Widget build(BuildContext context) {
+    final AppLocalizations appLocalizations = AppLocalizations.of(context);
+    
     return Stack(
       children: [
-        const Align(
+        Align(
           alignment: Alignment.centerLeft, // Adjust alignment as needed
           child: Padding(
-            padding: const EdgeInsets.only(top: 10, left: 30),
+            padding: const EdgeInsets.only(top: 10, left: 25),
             child: Text(
-              'Log out',
+              appLocalizations.general_logout,
               style: TextStyle(
                 color: Color.fromRGBO(134, 141, 154, 1),
                 fontSize: 15,
@@ -392,57 +302,22 @@ class _LogOutState extends State<LogOut> {
         Center(
         child: Column(
           children: [
-            // First row
             SizedBox(height: 40,),
             Row(
               children: [
-                //  Add advert
-                Stack(
-                  children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 30, right: 15),
-                    child: SizedBox(
-                      height: 65,
-                      width: 65,
-                      child: ElevatedButton(
-                        onPressed: () {
+                //  Log out
+                Padding(
+                    padding: const EdgeInsets.only(left: 15),
+                    child: MenuButton(
+                      icon: FontAwesomeIcons.rightFromBracket,
+                      text: appLocalizations.general_logout,
+                      gradientColors: CardBgBlack,
+                      onPressed: () {
                           signOutUser();
                         },
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.transparent,
-                          padding: EdgeInsets.zero,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(18.0),
-                          ),
-                          elevation: 0,
-                        ),
-                        child: Container(
-                          width: 65,
-                          height: 65,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(18.0),
-                            gradient: LinearGradient(
-                              colors: CardBgBlack, // Define your gradient colors
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                            ),
-                          ),
-                          child: Icon(
-                            FontAwesomeIcons.rightFromBracket,
-                            size: 25,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 70, left: 38),
-                    child: Text('Log out'),
-                  )
-                  ]
-                ),
-                ],
+              ],
             ),
           ],
         ),

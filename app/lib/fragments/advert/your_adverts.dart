@@ -1,24 +1,18 @@
 import 'dart:convert';
-import 'package:app/classes/product.dart';
+import 'package:app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:app/colors.dart';
 import 'package:flutter_map/plugin_api.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:app/widgets/pet_card.dart';
+import 'package:app/widgets/advert_card_widget.dart';
+import 'package:app/widgets/advert_page_widget.dart';
+
+import 'package:app/api/api_connection.dart';
+import 'package:http/http.dart' as http;
+
 
 import 'package:app/model/current_user.dart';
 import 'package:get/get.dart';
-
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:app/api/api_connection.dart';
-import 'package:http/http.dart' as http;
-import 'package:app/model/advert.dart';
-
-
-
-import 'package:app/data/pet_data.dart';
-
-
 
 class YourAdvert extends StatefulWidget {
   const YourAdvert({super.key});
@@ -73,52 +67,124 @@ class YourAdvertBody extends StatefulWidget {
 class _YourAdvertBodyState extends State<YourAdvertBody> {
   @override
   Widget build(BuildContext context) {
+    final AppLocalizations appLocalizations = AppLocalizations.of(context);
+    
     return Stack(
       children: [
-         Positioned(
-        top: 100,
-        bottom: 0,
-        left: 30,
-        right: 30,
-        child: AdvertView(),
-      ),
+        Padding(
+          padding: const EdgeInsets.only(top: 25.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('${appLocalizations.general_your} ${appLocalizations.general_advert.toLowerCase()}',style: TextStyle(
+                color: NavigationBarSel,
+                fontSize: 30,
+                fontWeight: FontWeight.w500
+                ),
+              ),
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 80.0),
+          child: AdvertView(),
+        ),
       ],
     );
   }
 }
 
 class AdvertView extends StatelessWidget {
-  const AdvertView({super.key});
+
+  
+  final CurrentUser _currentUser = Get.put(CurrentUser());
+
+  AdvertView({Key? key}) : super(key: key);
+
+  Future<List<dynamic>> getAdvertData() async {
+    final response = await http.post(
+      Uri.parse(API.yourAdvert),
+      body: {
+        'user_id': '${_currentUser.user.id}', // Replace with the actual user_id from your app
+      },
+    );
+
+    if (response.statusCode == 200) {
+      // Parse the JSON response
+      final Map<String, dynamic> jsonData = json.decode(response.body);
+
+      if (jsonData.containsKey('advert')) {
+        return jsonData['advert'];
+      } else {
+        throw Exception("No 'advert' key found in JSON response.");
+      }
+    } else {
+      throw Exception("Failed to load data: ${response.statusCode}");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: pet.map((Card) {
-        return AdvertItemView(Card,
-            heroTag: Card.id
-                .toString() // Assign a unique tag based on the card's ID
-            );
-      }).toList(),
+    return Container(
+      child: FutureBuilder<List<dynamic>>(
+        future: getAdvertData(),
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            print(snapshot.error);
+            return Center(child: Text("Error loading data."));
+          }
+
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          }
+
+          final adverts = snapshot.data;
+
+          if (adverts == null || adverts.isEmpty) {
+            return Center(child: Text("No data available."));
+          }
+
+          return AdvertItemView(adverts);
+        },
+      ),
     );
   }
 }
 
-class AdvertItemView extends StatelessWidget {
-  final Product animal;
-  final String heroTag;
 
-  const AdvertItemView(this.animal,
-      {Key? key, required this.heroTag})
-      : super(key: key);
+class AdvertItemView extends StatelessWidget {
+  final List<dynamic> data;
+
+  const AdvertItemView(this.data, {Key? key}) : super(key: key);
+
+  Widget _buildAdvertCard(BuildContext context,Map<String, dynamic> advert) {
+    String animalPrice = advert['price'].toString();
+    String imageUrl = advert['image'][0]['image'].toString(); // Get the first image URL
+
+
+    return YourAdvertCard(
+      advert: advert,// Use the extracted image URL
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => 
+            YourAdvertPage(
+              advert: advert
+            )
+          ),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    String animalPrice = animal.price.toString();
-    return PetCard(
-      title: animal.title,
-      price: animalPrice,
-      img: animal.image,
-      onTap: () {},
+    return ListView.builder(
+      itemCount: data.length,
+      itemBuilder: (context, index) {
+        Map<String, dynamic> advert = data[index];
+        return _buildAdvertCard(context,advert);
+      },
     );
   }
 }
