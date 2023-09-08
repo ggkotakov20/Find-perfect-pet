@@ -1,16 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:app/colors.dart';
-
-import 'package:app/pages/home/buy_card.dart';
-import 'package:app/pages/home/food_card.dart';
-import 'package:app/pages/home/access_card.dart';
-import 'package:app/pages/home/breeding_card.dart';
-
-
 import 'package:app/l10n/app_localizations.dart';
 
-String homePage = 'home';
+import 'package:app/fragments/home/each_category.dart';
+
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -38,10 +32,9 @@ class _HomePageState extends State<HomePage> {
                 width: 410,
                 child: ElevatedButton(
                   onPressed: () {
-                    homePage = 'buy';
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => PetCardsPage()),
+                      MaterialPageRoute(builder: (context) => Adverts(category: 'buy')),
                     );
                   },
                   style: ElevatedButton.styleFrom(
@@ -94,10 +87,9 @@ class _HomePageState extends State<HomePage> {
                 width: 410,
                 child: ElevatedButton(
                   onPressed: () {
-                    homePage = 'breeding';
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => BreedingCardsPage()),
+                      MaterialPageRoute(builder: (context) => Adverts(category: 'breeding')),
                     );
                   },
                   style: ElevatedButton.styleFrom(
@@ -150,10 +142,9 @@ class _HomePageState extends State<HomePage> {
                 width: 410,
                 child: ElevatedButton(
                   onPressed: () {
-                    homePage = 'food';
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => FoodCardsPage()),
+                      MaterialPageRoute(builder: (context) => Adverts(category: 'food')),
                     );
                   },
                   style: ElevatedButton.styleFrom(
@@ -206,10 +197,9 @@ class _HomePageState extends State<HomePage> {
                   width: 410,
                   child: ElevatedButton(
                     onPressed: () {
-                    homePage = 'accessories';
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => AccessCardsPage()),
+                        MaterialPageRoute(builder: (context) => Adverts(category: 'accessories')),
                       );
                     },
                     style: ElevatedButton.styleFrom(

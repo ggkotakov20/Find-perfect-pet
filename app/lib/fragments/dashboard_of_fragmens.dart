@@ -4,7 +4,7 @@ import 'package:app/colors.dart';
 import 'package:get/get.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import 'package:app/pages/home/home.dart';
+import 'package:app/fragments/home/home.dart';
 import 'package:app/fragments/map.dart';
 
 import 'package:app/fragments/hub.dart';
