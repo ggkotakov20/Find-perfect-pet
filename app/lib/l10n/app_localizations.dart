@@ -205,6 +205,20 @@ class AppLocalizations {
       return IntlEN.general_add_adver_suucess; // Use English translation as a fallback
     }
   }
+  String get general_add_adver_favorite {
+    if (locale.languageCode == 'bg') {
+      return IntlBG.general_add_adver_favorite; // Use Bulgarian translation
+    } else {
+      return IntlEN.general_add_adver_favorite; // Use English translation as a fallback
+    }
+  }
+  String get general_remove_adver_favorite {
+    if (locale.languageCode == 'bg') {
+      return IntlBG.general_remove_adver_favorite; // Use Bulgarian translation
+    } else {
+      return IntlEN.general_remove_adver_favorite; // Use English translation as a fallback
+    }
+  }
   String get general_warning_advert_delete {
     if (locale.languageCode == 'bg') {
       return IntlBG.general_warning_advert_delete; // Use Bulgarian translation
@@ -231,6 +245,13 @@ class AppLocalizations {
       return IntlBG.general_no_data; // Use Bulgarian translation
     } else {
       return IntlEN.general_no_data; // Use English translation as a fallback
+    }
+  }
+  String get general_no_result {
+    if (locale.languageCode == 'bg') {
+      return IntlBG.general_no_result; // Use Bulgarian translation
+    } else {
+      return IntlEN.general_no_result; // Use English translation as a fallback
     }
   }
 

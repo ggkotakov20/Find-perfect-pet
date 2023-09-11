@@ -61,7 +61,7 @@ class Adverts extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => SearchPage()),
+                  MaterialPageRoute(builder: (context) => SearchPage(category: category)),
                 );
               },
             ),
@@ -112,9 +112,10 @@ class AdvertView extends StatelessWidget {
 
   Future<List<dynamic>> getAdvertData(String category) async {
     final response = await http.post(
-      Uri.parse(API.buy),
+      Uri.parse(API.viewAdvert),
       body: {
-        'category': '${category}', // Replace with the actual user_id from your app
+        'category': category, 
+        'user_id': '${_currentUser.user.id}',
       },
     );
 
@@ -176,7 +177,7 @@ class AdvertItemView extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => 
-            YourAdvertPage(
+            AdvertPage(
               advert: advert
             )
           ),

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:app/l10n/app_localizations.dart';
 import 'package:app/widgets/advert_card_widget.dart';
 import 'package:app/widgets/advert_page_widget.dart';
 import 'package:flutter/material.dart';
@@ -8,8 +9,11 @@ import 'package:http/http.dart' as http;
 import 'package:app/api/api_connection.dart';
 
 class SearchPage extends StatelessWidget {
+  final String category;
+
   const SearchPage({
     super.key,
+    required this.category
   });
 
   @override
@@ -42,27 +46,38 @@ class SearchPage extends StatelessWidget {
           ],
         ),
       ),
-      body: SearchPageBody(),
+      body: SearchPageBody(category: category),
     );
   }
 }
 
 class SearchPageBody extends StatefulWidget {
-  SearchPageBody({Key? key}) : super(key: key);
+  final String category;
+
+  const SearchPageBody({
+    Key? key,
+    required this.category,
+  });
 
   @override
-  _SearchPageBodyState createState() => _SearchPageBodyState();
+  _SearchPageBodyState createState() => _SearchPageBodyState(category: category); // Pass the category to the state
 }
+
 
 class _SearchPageBodyState extends State<SearchPageBody> {
   String searchText = '';
   List<dynamic> searchResults = [];
+  final String category;
 
-  Future<List<dynamic>> getSearchData(String searchQuery) async {
+  _SearchPageBodyState({required this.category}); 
+
+  Future<List<dynamic>> getSearchData(String searchQuery, String category) async {
+    
     final response = await http.post(
       Uri.parse(API.search),
       body: {
         'search': searchQuery,
+        'category': category, 
       },
     );
 
@@ -109,7 +124,7 @@ class _SearchPageBodyState extends State<SearchPageBody> {
               setState(() {
                 searchText = value;
               });
-              _performSearch();
+              _performSearch(category);
             },
           ),
         ),
@@ -120,7 +135,7 @@ class _SearchPageBodyState extends State<SearchPageBody> {
     );
   }
 
-  void _performSearch() async {
+  void _performSearch(String category) async {
     if (searchText.isEmpty) {
       setState(() {
         searchResults = [];
@@ -129,7 +144,7 @@ class _SearchPageBodyState extends State<SearchPageBody> {
     }
 
     try {
-      final results = await getSearchData(searchText);
+      final results = await getSearchData(searchText, category);
       setState(() {
         searchResults = results;
       });
@@ -139,8 +154,9 @@ class _SearchPageBodyState extends State<SearchPageBody> {
   }
 
   Widget _buildSearchResults() {
+    final AppLocalizations appLocalizations = AppLocalizations.of(context);
     if (searchResults.isEmpty) {
-      return Center(child: Text("No results found."));
+      return Center(child: Text(appLocalizations.general_no_result));
     }
 
     return ListView.builder(
@@ -163,7 +179,7 @@ class _SearchPageBodyState extends State<SearchPageBody> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => YourAdvertPage(advert: advert), // Replace with your actual page/widget
+            builder: (context) => AdvertPage(advert: advert), // Replace with your actual page/widget
           ),
         );
       },

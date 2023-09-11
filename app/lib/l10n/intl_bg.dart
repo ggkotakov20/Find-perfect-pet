@@ -39,10 +39,13 @@ class IntlBG {
 
   //  Messages
   static const general_add_adver_suucess = 'Добавихте обява Успешно';
+  static const general_add_adver_favorite = 'Добавихте обява в любими';
+  static const general_remove_adver_favorite = 'Премахнахте обява от любими';
   static const general_edit_adver_suucess = 'Променихте обявата Успешно';
   static const general_warning_advert_delete = 'Сигурни ли сте, че искате да изтриете тази обява?';
   static const general_error = 'Грешка, Опитайте отново';
   static const general_no_data = 'Няма налични данни';
+  static const general_no_result = 'Няма намерени резулати';
 
   static const general_added = 'Добавена';
   static const general_today = 'Днес';

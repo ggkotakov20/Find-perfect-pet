@@ -1,13 +1,20 @@
+import 'dart:convert';
+
+import 'package:app/api/api_connection.dart';
 import 'package:app/l10n/app_localizations.dart';
+import 'package:app/model/current_user.dart';
+import 'package:app/model/favorite.dart';
 import 'package:flutter/material.dart';
 import 'package:app/colors.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
-class AdvertCard extends StatelessWidget {
+class AdvertCard extends StatefulWidget {
   final Map<String, dynamic> advert;
   final VoidCallback onTap;
+  
 
   const AdvertCard({
     Key? key,
@@ -15,14 +22,115 @@ class AdvertCard extends StatelessWidget {
     required this.onTap,
   }) : super(key: key);
 
+  @override
+  State<AdvertCard> createState() => _AdvertCardState();
+}
+
+class _AdvertCardState extends State<AdvertCard> {
   
+  final CurrentUser _currentUser = Get.put(CurrentUser());
+  
+  addFavorite(int advert_id) async {
+    final AppLocalizations appLocalizations = AppLocalizations.of(context);
+    
+    Favorite advertModel = Favorite(
+      _currentUser.user.id,
+      advert_id,
+      'add'
+    );
+
+
+    try{
+      var res = await http.post(
+        Uri.parse(API.addFavorite),
+        body: advertModel.toJson(),
+      );
+
+      if(res.statusCode == 200){
+        var resBodyOfAddAdvert = jsonDecode(res.body);
+        if(resBodyOfAddAdvert['success'] == true){
+          Fluttertoast.showToast(
+            msg: appLocalizations.general_add_adver_favorite,
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            textColor: Colors.white,
+            fontSize: 16.0
+          );
+          print('Add advert to favorite');
+        }
+        else{
+          Fluttertoast.showToast(
+            msg: appLocalizations.general_error,
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            textColor: Colors.white,
+            fontSize: 16.0
+          );
+          print('Error, Try again');
+        }
+      }
+    }
+    catch(e){
+      print(e.toString());
+    }
+  }
+  removeFavorite(int advert_id) async {
+    final AppLocalizations appLocalizations = AppLocalizations.of(context);
+    
+    Favorite advertModel = Favorite(
+      _currentUser.user.id,
+      advert_id,
+      'remove'
+    );
+
+
+    try{
+      var res = await http.post(
+        Uri.parse(API.addFavorite),
+        body: advertModel.toJson(),
+      );
+
+      if(res.statusCode == 200){
+        var resBodyOfAddAdvert = jsonDecode(res.body);
+        if(resBodyOfAddAdvert['success'] == true){
+          Fluttertoast.showToast(
+            msg: appLocalizations.general_remove_adver_favorite,
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            textColor: Colors.white,
+            fontSize: 16.0
+          );
+          print('Remove advert to favorite');
+        }
+        else{
+          Fluttertoast.showToast(
+            msg: appLocalizations.general_error,
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            textColor: Colors.white,
+            fontSize: 16.0
+          );
+          print('Error, Try again');
+        }
+      }
+    }
+    catch(e){
+      print(e.toString());
+    }
+  }
+  
+
   @override
   Widget build(BuildContext context) {
     
-    int id = int.parse(advert['id']);
-    String title = advert['title'].toString();
-    String price = advert['price'].toString();
-    String imageUrl = advert['image'][0]['image'].toString();
+    int id = int.parse(widget.advert['id']);
+    String title = widget.advert['title'].toString();
+    String price = widget.advert['price'].toString();
+    String imageUrl = widget.advert['image'][0]['image'].toString();
     
     return Container(
       margin: const EdgeInsets.only(
@@ -33,7 +141,7 @@ class AdvertCard extends StatelessWidget {
         children: [
           // Image section
           GestureDetector(
-            onTap: onTap,
+            onTap: widget.onTap,
             child: Container(
               width: 300,
               height: 150,
@@ -106,20 +214,34 @@ class AdvertCard extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
+
+                      widget.advert['favorite'] == '1' ? 
+                        IconButton(
+                          onPressed: () {
+                            removeFavorite(int.parse(widget.advert['id']));
+                          },
+                          icon: Icon(
+                            Icons.favorite,
+                            size: 24,
+                            color: Color.fromRGBO(247, 75, 75, 1),
+                          ),
+                        ) : IconButton(
+                          onPressed: () {
+                            addFavorite(int.parse(widget.advert['id']));
+                          },
+                          icon: Icon(
+                            FontAwesomeIcons.heart,
+                            size: 22,
+                            color: Color.fromRGBO(247, 75, 75, 1),
+                          ),
+                        ),
+
                       IconButton(
                         onPressed: () {},
                         icon: Icon(
                           FontAwesomeIcons.shoppingBag,
                           size: 20,
                           color: NavigationBarSel,
-                        ),
-                      ),
-                      IconButton(
-                        onPressed: () {},
-                        icon: Icon(
-                          FontAwesomeIcons.heart,
-                          size: 20,
-                          color: Color.fromRGBO(249, 108, 124, 1),
                         ),
                       ),
                       SizedBox(width: 10),

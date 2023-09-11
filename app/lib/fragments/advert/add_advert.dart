@@ -130,6 +130,7 @@ class _AddAdvertBodyState extends State<AddAdvertBody> {
       print(e.toString());
     }
   }
+  
   @override
   Widget build(BuildContext context) {
     final AppLocalizations appLocalizations = AppLocalizations.of(context);

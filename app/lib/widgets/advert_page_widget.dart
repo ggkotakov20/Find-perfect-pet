@@ -1,4 +1,5 @@
 import 'package:app/l10n/app_localizations.dart';
+import 'package:app/model/favorite.dart';
 import 'package:flutter/material.dart';
 import 'package:app/colors.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -415,6 +416,345 @@ class _YourAdvertPageState extends State<YourAdvertPage> {
   ),
 ),
 
+                      ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  bool _isToday(DateTime dateTime) {
+    final now = DateTime.now();
+    return dateTime.year == now.year &&
+        dateTime.month == now.month &&
+        dateTime.day == now.day;
+  }
+}
+
+
+class AdvertPage extends StatefulWidget {
+  final Map<String, dynamic> advert;
+
+  AdvertPage({
+    Key? key,
+    required this.advert,
+  }) : super(key: key);
+
+  @override
+  _AdvertPageState createState() => _AdvertPageState();
+}
+
+class _AdvertPageState extends State<AdvertPage> {
+  
+  final CurrentUser _currentUser = Get.put(CurrentUser());
+  var formKey = GlobalKey<FormState>();
+  TextEditingController titleController = TextEditingController();
+  TextEditingController priceController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    titleController.text = widget.advert['title'];
+    priceController.text = widget.advert['price'];
+    descriptionController.text = widget.advert['description'];
+  }
+
+  editAdvert(int advertId, String title, String category, String type, String price, String description, String imageUrl) async {
+    final AppLocalizations appLocalizations = AppLocalizations.of(context);
+    Advert advertModel = Advert(
+          advertId,
+          _currentUser.user.id,
+          title,
+          category,
+          type, // Use categoryNotifier.value
+          price,
+          description,
+          imageUrl
+        );
+
+      try{
+        var res = await http.post(
+          Uri.parse(API.editAdvert),
+          body: advertModel.toJson(),
+        );
+
+        if (res.statusCode == 200) {
+        var contentType = res.headers['content-type'];
+        if (contentType != null && contentType.contains('application/json')) {
+          var resBodyOfAddAdvert = jsonDecode(res.body);
+          if (resBodyOfAddAdvert['success'] == true) {
+            Fluttertoast.showToast(
+              msg: appLocalizations.general_edit_adver_suucess,
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 1,
+              textColor: Colors.white,
+              fontSize: 16.0
+            );
+            print('Edit advert Successfully');
+            setState(() {
+              titleController.clear();
+              priceController.clear();
+              descriptionController.clear();
+            });
+          }
+          else{
+            Fluttertoast.showToast(
+              msg: appLocalizations.general_error,
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 1,
+              textColor: Colors.white,
+              fontSize: 16.0
+            );
+            print('Error, Try again');
+          }
+        } else {
+          // Handle the case where the response is not JSON
+          print('Received non-JSON response: ${res.body}');
+        }
+      }
+    } catch (e) {
+      print('Error: $e');
+    }
+  }
+  addFavorite(int advert_id) async {
+    final AppLocalizations appLocalizations = AppLocalizations.of(context);
+    
+    Favorite advertModel = Favorite(
+      _currentUser.user.id,
+      advert_id,
+      'add'
+    );
+
+
+    try{
+      var res = await http.post(
+        Uri.parse(API.addFavorite),
+        body: advertModel.toJson(),
+      );
+
+      if(res.statusCode == 200){
+        var resBodyOfAddAdvert = jsonDecode(res.body);
+        if(resBodyOfAddAdvert['success'] == true){
+          Fluttertoast.showToast(
+            msg: appLocalizations.general_add_adver_favorite,
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            textColor: Colors.white,
+            fontSize: 16.0
+          );
+          print('Add advert to favorite');
+        }
+        else{
+          Fluttertoast.showToast(
+            msg: appLocalizations.general_error,
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            textColor: Colors.white,
+            fontSize: 16.0
+          );
+          print('Error, Try again');
+        }
+      }
+    }
+    catch(e){
+      print(e.toString());
+    }
+  }
+  removeFavorite(int advert_id) async {
+    final AppLocalizations appLocalizations = AppLocalizations.of(context);
+    
+    Favorite advertModel = Favorite(
+      _currentUser.user.id,
+      advert_id,
+      'remove'
+    );
+
+
+    try{
+      var res = await http.post(
+        Uri.parse(API.addFavorite),
+        body: advertModel.toJson(),
+      );
+
+      if(res.statusCode == 200){
+        var resBodyOfAddAdvert = jsonDecode(res.body);
+        if(resBodyOfAddAdvert['success'] == true){
+          Fluttertoast.showToast(
+            msg: appLocalizations.general_remove_adver_favorite,
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            textColor: Colors.white,
+            fontSize: 16.0
+          );
+          print('Remove advert to favorite');
+        }
+        else{
+          Fluttertoast.showToast(
+            msg: appLocalizations.general_error,
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            textColor: Colors.white,
+            fontSize: 16.0
+          );
+          print('Error, Try again');
+        }
+      }
+    }
+    catch(e){
+      print(e.toString());
+    }
+  }
+  
+
+  @override
+    Widget build(BuildContext context) {
+    String imageUrl = widget.advert['image'][0]['image'].toString();
+    final AppLocalizations appLocalizations = AppLocalizations.of(context);
+    
+
+    return Scaffold(
+      body: GestureDetector(
+        onHorizontalDragEnd: (DragEndDetails details) {
+          if (details.primaryVelocity! < 0) {
+            // Swiped left, navigate back
+            Navigator.pop(context);
+          }
+        },
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Stack(
+                children: [
+                  Container(
+                    height: 250,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image: NetworkImage(imageUrl),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    top: 10,
+                    left: 10,
+                    child: IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: Icon(
+                        FontAwesomeIcons.chevronLeft,
+                        size: 20,
+                        color: NavigationBarSel,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 15.0, top: 10),
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            widget.advert['date_created'] != null
+                                ? (_isToday(
+                                    DateTime.parse(widget.advert['date_created']))
+                                    ? '${appLocalizations.general_added} ${appLocalizations.general_today.toLowerCase()}'
+                                    : "${appLocalizations.general_added} ${DateFormat('dd MMMM yyyy').format(DateTime.parse(widget.advert['date_created']))}")
+                                : appLocalizations.general_no_data),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 10),
+                            child: Row(
+                              children: [
+                                widget.advert['favorite'] == '1' ?
+                                  IconButton(
+                                    onPressed: () {
+                                      removeFavorite(int.parse(widget.advert['id']));
+                                    },
+                                    icon: Icon(
+                                      Icons.favorite,
+                                      size: 24,
+                                      color: Color.fromRGBO(247, 75, 75, 1),
+                                    ),
+                                  ) : IconButton(
+                                    onPressed: () {
+                                      addFavorite(int.parse(widget.advert['id']));
+                                    },
+                                    icon: Icon(
+                                      FontAwesomeIcons.heart,
+                                      size: 22,
+                                      color: Color.fromRGBO(247, 75, 75, 1),
+                                    ),
+                                  ),
+                                IconButton(
+                                  onPressed: () {
+                                    setState(() {
+                                    });
+                                  },
+                                  icon: Icon(
+                                    FontAwesomeIcons.shoppingBag,
+                                    size: 22,
+                                    color: NavigationBarSel,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              widget.advert['title'],
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontSize: 26,
+                                fontWeight: FontWeight.w300,
+                              ),
+                            ),
+                            SizedBox(height: 20),
+                            Text(
+                              '${widget.advert['price']} \$',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 24,
+                                color: NavigationBarSel,
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 20),
+                              child: Text(
+                                '${appLocalizations.general_description} :',
+                                style: TextStyle(
+                                  fontSize: 22,
+                                ),
+                              ),
+                            ),
+                            Text(
+                              widget.advert['description'],
+                              style: TextStyle(
+                                fontSize: 16,
+                              ),
+                            )
+                          ],
+                        ),
                       ],
                   ),
                 ),
