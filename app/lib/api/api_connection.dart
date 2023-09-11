@@ -12,5 +12,7 @@ class API{
   static const yourAdvert = "$hostConnection/advert/your_advert.php";
   static const editAdvert = "$hostConnection/advert/edit_advert.php";
   
-  static const buy = "$hostConnection/buy.php";
+  static const buy = "$hostConnection/advert.php";
+
+  static const search = "$hostConnection/search.php";
 }

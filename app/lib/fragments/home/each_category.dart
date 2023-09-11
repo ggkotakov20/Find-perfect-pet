@@ -5,6 +5,7 @@ import 'package:app/colors.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:app/widgets/advert_card_widget.dart';
 import 'package:app/widgets/advert_page_widget.dart';
+import 'package:app/fragments/search_page.dart';
 
 import 'package:app/api/api_connection.dart';
 import 'package:http/http.dart' as http;
@@ -18,7 +19,7 @@ class Adverts extends StatelessWidget {
   const Adverts({
     super.key,
     required this.category
-    });
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -42,13 +43,30 @@ class Adverts extends StatelessWidget {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
-          children: [
+          children: const [
             Image(
               image: AssetImage('images/logo.png'),
               height: 65,
             ),
           ],
         ),
+        actions: <Widget>[
+          Padding(
+            padding: const EdgeInsets.only(right: 8),
+            child: IconButton(
+              icon: const Icon(
+                FontAwesomeIcons.search,
+                size: 18,
+              ),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => SearchPage()),
+                );
+              },
+            ),
+          ),
+        ],
       ),
       body: AdvertsBody(
         category: category
@@ -56,6 +74,7 @@ class Adverts extends StatelessWidget {
     );
   }
 }
+
 
 class AdvertsBody extends StatelessWidget {
   final String category;
@@ -71,21 +90,7 @@ class AdvertsBody extends StatelessWidget {
     return Stack(
       children: [
         Padding(
-          padding: const EdgeInsets.only(top: 25.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text('${appLocalizations.general_your} ${appLocalizations.general_advert.toLowerCase()}',style: TextStyle(
-                color: NavigationBarSel,
-                fontSize: 30,
-                fontWeight: FontWeight.w500
-                ),
-              ),
-            ],
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: 80.0),
+          padding: const EdgeInsets.only(top: 40.0),
           child: AdvertView(
             category: category
           ),
@@ -165,7 +170,7 @@ class AdvertItemView extends StatelessWidget {
     String imageUrl = advert['image'][0]['image'].toString(); // Get the first image URL
 
 
-    return YourAdvertCard(
+    return AdvertCard(
       advert: advert,// Use the extracted image URL
       onTap: () {
         Navigator.push(

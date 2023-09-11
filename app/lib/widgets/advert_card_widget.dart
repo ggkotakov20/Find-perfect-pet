@@ -6,22 +6,24 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
 class AdvertCard extends StatelessWidget {
-  final String title;
-  final String price;
-  final String imageUrl; // Change to a String for the image URL
+  final Map<String, dynamic> advert;
   final VoidCallback onTap;
 
   const AdvertCard({
     Key? key,
-    required this.title,
-    required this.price,
-    required this.imageUrl, // Update to accept image URL as a String
+    required this.advert,
     required this.onTap,
   }) : super(key: key);
 
   
   @override
   Widget build(BuildContext context) {
+    
+    int id = int.parse(advert['id']);
+    String title = advert['title'].toString();
+    String price = advert['price'].toString();
+    String imageUrl = advert['image'][0]['image'].toString();
+    
     return Container(
       margin: const EdgeInsets.only(
         top: 20,

@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:ffi';
 import 'package:app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:app/colors.dart';
@@ -110,6 +109,8 @@ class _AddAdvertBodyState extends State<AddAdvertBody> {
             titleController.clear();
             priceController.clear();
             descriptionController.clear();
+            categoryNotifier.value = null;
+            typeNotifier.value = null; 
           });
         }
         else{

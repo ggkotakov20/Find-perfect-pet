@@ -55,6 +55,7 @@ class _DashboardOfFragmentsState extends State<DashboardOfFragments> {
               ),
             ),
             backgroundColor: background,
+            
           ),
           body: screen[currentIndex],
           bottomNavigationBar: SizedBox(
