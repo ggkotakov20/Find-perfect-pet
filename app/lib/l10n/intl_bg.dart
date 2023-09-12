@@ -42,6 +42,7 @@ class IntlBG {
   static const general_add_adver_favorite = 'Добавихте обява в любими';
   static const general_remove_adver_favorite = 'Премахнахте обява от любими';
   static const general_edit_adver_suucess = 'Променихте обявата Успешно';
+  static const general_delete_adver_suucess = 'Изтрихте обявата Успешно';
   static const general_warning_advert_delete = 'Сигурни ли сте, че искате да изтриете тази обява?';
   static const general_error = 'Грешка, Опитайте отново';
   static const general_no_data = 'Няма налични данни';

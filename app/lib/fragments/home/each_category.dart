@@ -1,24 +1,21 @@
 import 'dart:convert';
-import 'package:app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
+import 'package:app/l10n/app_localizations.dart';
 import 'package:app/colors.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:app/widgets/advert_card_widget.dart';
 import 'package:app/widgets/advert_page_widget.dart';
 import 'package:app/fragments/search_page.dart';
-
 import 'package:app/api/api_connection.dart';
 import 'package:http/http.dart' as http;
-
-
 import 'package:app/model/current_user.dart';
 import 'package:get/get.dart';
 
 class Adverts extends StatelessWidget {
   final String category;
   const Adverts({
-    super.key,
-    required this.category
+    Key? key,
+    required this.category,
   });
 
   @override
@@ -61,60 +58,84 @@ class Adverts extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => SearchPage(category: category)),
+                  MaterialPageRoute(
+                    builder: (context) => SearchPage(category: category),
+                  ),
                 );
               },
             ),
           ),
         ],
       ),
-      body: AdvertsBody(
-        category: category
-      ),
+      body: AdvertsBody(category: category),
     );
   }
 }
 
-
-class AdvertsBody extends StatelessWidget {
+class AdvertsBody extends StatefulWidget {
   final String category;
   const AdvertsBody({
-    super.key,
-    required this.category
+    Key? key,
+    required this.category,
+  }) : super(key: key);
+
+  @override
+  _AdvertsBodyState createState() => _AdvertsBodyState();
+}
+
+class _AdvertsBodyState extends State<AdvertsBody> {
+  // Add a GlobalKey for the RefreshIndicator
+  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
+      GlobalKey<RefreshIndicatorState>();
+
+  // Function to refresh data
+  Future<void> _refreshData() async {
+    // Your data refresh logic here
+    // For example, you can call your API again to fetch updated data
+    // Update the data in the state and rebuild the UI
+    setState(() {
+      // Update your data here
     });
+  }
 
   @override
   Widget build(BuildContext context) {
     final AppLocalizations appLocalizations = AppLocalizations.of(context);
-    
-    return Stack(
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(top: 40.0),
-          child: AdvertView(
-            category: category
+
+    return RefreshIndicator(
+      key: _refreshIndicatorKey,
+      onRefresh: () => _refreshData(),
+      child: Stack(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(top: 40.0),
+            child: AdvertView(
+              category: widget.category,
+              refreshCallback: _refreshData, // Pass the refresh callback
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
 
 class AdvertView extends StatelessWidget {
   final String category;
-  
+  final Function refreshCallback; // Callback function for refresh
   final CurrentUser _currentUser = Get.put(CurrentUser());
 
   AdvertView({
     Key? key,
     required this.category,
-    }) : super(key: key);
+    required this.refreshCallback,
+  }) : super(key: key);
 
   Future<List<dynamic>> getAdvertData(String category) async {
     final response = await http.post(
       Uri.parse(API.viewAdvert),
       body: {
-        'category': category, 
+        'category': category,
         'user_id': '${_currentUser.user.id}',
       },
     );
@@ -154,7 +175,10 @@ class AdvertView extends StatelessWidget {
             return Center(child: Text("No data available."));
           }
 
-          return AdvertItemView(adverts);
+          return AdvertItemView(
+            adverts: adverts,
+            refreshCallback: refreshCallback, // Pass the refresh callback
+          );
         },
       ),
     );
@@ -162,24 +186,27 @@ class AdvertView extends StatelessWidget {
 }
 
 class AdvertItemView extends StatelessWidget {
-  final List<dynamic> data;
+  final List<dynamic> adverts;
+  final Function refreshCallback; // Callback function for refresh
 
-  const AdvertItemView(this.data, {Key? key}) : super(key: key);
+  const AdvertItemView({
+    required this.adverts,
+    required this.refreshCallback,
+    Key? key,
+  }) : super(key: key);
 
-  Widget _buildAdvertCard(BuildContext context,Map<String, dynamic> advert) {
+  Widget _buildAdvertCard(BuildContext context, Map<String, dynamic> advert) {
     String animalPrice = advert['price'].toString();
     String imageUrl = advert['image'][0]['image'].toString(); // Get the first image URL
 
-
     return AdvertCard(
-      advert: advert,// Use the extracted image URL
-      onTap: () {
-        Navigator.push(
+      advert: advert, // Use the extracted image URL
+      onTap: () async {
+        refreshCallback();
+        await Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => 
-            AdvertPage(
-              advert: advert
-            )
+          MaterialPageRoute(
+            builder: (context) => AdvertPage(advert: advert),
           ),
         );
       },
@@ -189,10 +216,10 @@ class AdvertItemView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: data.length,
+      itemCount: adverts.length,
       itemBuilder: (context, index) {
-        Map<String, dynamic> advert = data[index];
-        return _buildAdvertCard(context,advert);
+        Map<String, dynamic> advert = adverts[index];
+        return _buildAdvertCard(context, advert);
       },
     );
   }

@@ -257,70 +257,122 @@ class _AdvertCardState extends State<AdvertCard> {
   }
 }
 
-class YourAdvertCard extends StatelessWidget {
+typedef void OnDeleteConfirmedCallback();
+
+class YourAdvertCard extends StatefulWidget {
   final Map<String, dynamic> advert;
   final VoidCallback onTap;
 
-  const YourAdvertCard({
-    Key? key,
+  YourAdvertCard({
     required this.advert,
     required this.onTap,
-  }) : super(key: key);
+  });
+
+  @override
+  _YourAdvertCardState createState() => _YourAdvertCardState();
+}
+
+class _YourAdvertCardState extends State<YourAdvertCard> {
+  bool _isDeleted = false; // Track whether the item is deleted or not
+
+  void deleteAdver(int advert_id) async {
+    final AppLocalizations appLocalizations = AppLocalizations.of(context);
+
+    final response = await http.post(
+      Uri.parse(API.deleteAdvert),
+      body: {
+        'advert_id': '${advert_id}',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> jsonData = json.decode(response.body);
+
+      if (jsonData.containsKey('success')) {
+        setState(() {
+          _isDeleted = true; // Mark the item as deleted
+        });
+        Fluttertoast.showToast(
+          msg: appLocalizations.general_delete_adver_suucess,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          textColor: Colors.white,
+          fontSize: 16.0,
+        );
+      } else {
+        Fluttertoast.showToast(
+          msg: appLocalizations.general_error,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          textColor: Colors.white,
+          fontSize: 16.0,
+        );
+      }
+    } else {
+      throw Exception("Failed to load data: ${response.statusCode}");
+    }
+  }
 
   void _showDeleteConfirmationDialog(BuildContext context, int id) {
     final AppLocalizations appLocalizations = AppLocalizations.of(context);
-  showDialog(
-    context: context,
-    builder: (context) {
-      return AlertDialog(
-        backgroundColor: Colors.white,
-        title: Text(
-          'Delete advert',
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-        ),
-        content: Text(appLocalizations.general_warning_advert_delete),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop(); // Close the dialog
-            },
-            child: Text(
-              appLocalizations.general_no,
-              style: TextStyle(
-                color: NavigationBarSel,
-                fontWeight: FontWeight.bold,
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          backgroundColor: Colors.white,
+          title: Text(
+            'Delete advert',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
+          content: Text(appLocalizations.general_warning_advert_delete),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text(
+                appLocalizations.general_no,
+                style: TextStyle(
+                  color: NavigationBarSel,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
-          ),
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop('Delete'); // Close the dialog with a result
-            },
-            child: Text(
-              appLocalizations.general_yes,
-              style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.w400,
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop('Delete');
+              },
+              child: Text(
+                appLocalizations.general_yes,
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.w400,
+                ),
               ),
             ),
-          ),
-        ],
-      );
-    },
-  ).then((result) {
-    if (result == 'Delete') {
-      print(id); // Perform the deletion operation here
-    }
-  });
-}
+          ],
+        );
+      },
+    ).then((result) {
+      if (result == 'Delete') {
+        deleteAdver(id);
+      }
+    });
+  }
 
-  
   @override
   Widget build(BuildContext context) {
-    int id = int.parse(advert['id']);
-    String title = advert['title'].toString();
-    String price = advert['price'].toString();
-    String imageUrl = advert['image'][0]['image'].toString();
+    if (_isDeleted) {
+      // Return an empty container if the item is deleted
+      return Container();
+    }
+
+    int id = int.parse(widget.advert['id']);
+    String title = widget.advert['title'].toString();
+    String price = widget.advert['price'].toString();
+    String imageUrl = widget.advert['image'][0]['image'].toString();
 
     return Container(
       margin: const EdgeInsets.only(
@@ -329,9 +381,8 @@ class YourAdvertCard extends StatelessWidget {
       ),
       child: Column(
         children: [
-          // Image section
           GestureDetector(
-            onTap: onTap,
+            onTap: widget.onTap,
             child: Container(
               width: 300,
               height: 150,
@@ -347,13 +398,10 @@ class YourAdvertCard extends StatelessWidget {
               ),
             ),
           ),
-
-          // Information section
           Container(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // Title and price
                 Container(
                   width: 191,
                   height: 75,
@@ -390,8 +438,6 @@ class YourAdvertCard extends StatelessWidget {
                     ),
                   ),
                 ),
-
-                // Shopping and add to favorite buttons
                 Container(
                   width: 109,
                   height: 75,
@@ -422,8 +468,6 @@ class YourAdvertCard extends StatelessWidget {
                           color: Color.fromRGBO(247, 75, 75, 1),
                         ),
                       ),
-
-
                       SizedBox(width: 10),
                     ],
                   ),
@@ -436,3 +480,4 @@ class YourAdvertCard extends StatelessWidget {
     );
   }
 }
+

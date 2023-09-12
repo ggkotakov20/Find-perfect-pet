@@ -42,6 +42,7 @@ class IntlEN {
   static const general_add_adver_favorite = 'Add advert to favorite';
   static const general_remove_adver_favorite = 'Remove advert to favorite';
   static const general_edit_adver_suucess = 'Edit advert Successfully';
+  static const general_delete_adver_suucess = 'Delete advert Successfully';
   static const general_warning_advert_delete = 'Are you sure you want to delete this advert?';
   static const general_error = 'Error, Try again';
   static const general_no_data = 'No date available';

@@ -233,6 +233,13 @@ class AppLocalizations {
       return IntlEN.general_edit_adver_suucess; // Use English translation as a fallback
     }
   }
+  String get general_delete_adver_suucess {
+    if (locale.languageCode == 'bg') {
+      return IntlBG.general_delete_adver_suucess; // Use Bulgarian translation
+    } else {
+      return IntlEN.general_delete_adver_suucess; // Use English translation as a fallback
+    }
+  }
   String get general_error {
     if (locale.languageCode == 'bg') {
       return IntlBG.general_error; // Use Bulgarian translation
