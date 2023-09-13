@@ -22,8 +22,9 @@ class IntlBG {
   static const general_settings = 'Настройки';
   static const general_favorite = 'Любими';
   static const general_cart = 'Количка';
+  static const general_your_orders = 'Поръчки';
   static const general_add = 'Добави';
-  static const general_your = 'Моите';
+  static const general_your_adverts = 'Вашите обяви';
   static const general_logout = 'Излизане';
 
   //  Buttons

@@ -20,7 +20,7 @@ class MenuButton extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Padding(
-          padding: const EdgeInsets.only(left: 15, right: 15),
+          padding: const EdgeInsets.only(left: 5, right: 5),
           child: SizedBox(
             height: 65,
             width: 65,

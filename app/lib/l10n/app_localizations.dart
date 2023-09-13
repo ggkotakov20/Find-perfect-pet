@@ -122,6 +122,13 @@ class AppLocalizations {
       return IntlEN.general_cart; // Use English translation as a fallback
     }
   }
+  String get general_your_orders {
+    if (locale.languageCode == 'bg') {
+      return IntlBG.general_your_orders; // Use Bulgarian translation
+    } else {
+      return IntlEN.general_your_orders; // Use English translation as a fallback
+    }
+  }
   String get general_add {
     if (locale.languageCode == 'bg') {
       return IntlBG.general_add; // Use Bulgarian translation
@@ -129,11 +136,11 @@ class AppLocalizations {
       return IntlEN.general_add; // Use English translation as a fallback
     }
   }
-  String get general_your {
+  String get general_your_adverts {
     if (locale.languageCode == 'bg') {
-      return IntlBG.general_your; // Use Bulgarian translation
+      return IntlBG.general_your_adverts; // Use Bulgarian translation
     } else {
-      return IntlEN.general_your; // Use English translation as a fallback
+      return IntlEN.general_your_adverts; // Use English translation as a fallback
     }
   }
   String get general_logout {

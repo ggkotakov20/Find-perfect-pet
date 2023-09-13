@@ -50,9 +50,8 @@ class User extends StatefulWidget {
 class _UserState extends State<User> {
   @override
   Widget build(BuildContext context) {
-    
-    final isWideScreen = MediaQuery.of(context).size.width >= 400;
     final AppLocalizations appLocalizations = AppLocalizations.of(context);
+    final double spacing = MediaQuery.of(context).size.width >= 400 ? 20.0 : 10.0;
 
     return Stack(
       children: [
@@ -71,93 +70,82 @@ class _UserState extends State<User> {
             children: [
               // First row
               SizedBox(height: 40,),
-              Row(
+              Wrap(
+                runSpacing: 10,
+                spacing: spacing, // Променяме разстоянието спрямо големината на дисплея
                 children: [
                   // Profile
-                  Padding(
-                    padding: const EdgeInsets.only(left: 15),
-                    child: MenuButton(
-                      icon: FontAwesomeIcons.user,
-                      text: appLocalizations.general_profile,
-                      gradientColors: CardBgBlue,
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => ProfilePage()),
-                        );
-                      },
-                    ),
+                  MenuButton(
+                    icon: FontAwesomeIcons.user,
+                    text: appLocalizations.general_profile,
+                    gradientColors: CardBgBlue,
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => ProfilePage()),
+                      );
+                    },
                   ),
-
+        
                   // Settings
                   MenuButton(
-                      icon: FontAwesomeIcons.gear,
-                      text: appLocalizations.general_settings,
-                      gradientColors: CardBgPink,
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => ProfilePage()),
-                        );
-                      },
-                    ),
-
-                    // Favorite
-                    MenuButton(
-                      icon: FontAwesomeIcons.heart,
-                      text: appLocalizations.general_favorite,
-                      gradientColors: CardBgPink,
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => ProfilePage()),
-                        );
-                      },
-                    ),
-
-                  if (isWideScreen)
-                    // Cart
-                    MenuButton(
-                        icon: FontAwesomeIcons.shoppingCart,
-                        text: appLocalizations.general_cart,
-                        gradientColors: CardBgBlue,
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => ProfilePage()),
-                          );
-                        },
-                      ),
+                    icon: FontAwesomeIcons.gear,
+                    text: appLocalizations.general_settings,
+                    gradientColors: CardBgPink,
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => ProfilePage()),
+                      );
+                    },
+                  ),
+        
+                  // Favorite
+                  MenuButton(
+                    icon: FontAwesomeIcons.heart,
+                    text: appLocalizations.general_favorite,
+                    gradientColors: CardBgPink,
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => ProfilePage()),
+                      );
+                    },
+                  ),
+        
+                  // Cart
+                  MenuButton(
+                    icon: FontAwesomeIcons.shoppingBag,
+                    text: appLocalizations.general_cart,
+                    gradientColors: CardBgBlue,
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => ProfilePage()),
+                      );
+                    },
+                  ),
+        
+                  // Your orders
+                  MenuButton(
+                    icon: FontAwesomeIcons.shoppingCart,
+                    text: 'Your orders',
+                    gradientColors: CardBgPurple,
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => ProfilePage()),
+                      );
+                    },
+                  ),
                 ],
               ),
-              SizedBox(height: 20,),
-              Row(
-                children: [
-                  if (!isWideScreen)
-                    // Cart
-                    Padding(
-                      padding: const EdgeInsets.only(left: 15),
-                      child: MenuButton(
-                          icon: FontAwesomeIcons.shoppingCart,
-                          text: appLocalizations.general_cart,
-                          gradientColors: CardBgBlue,
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => ProfilePage()),
-                            );
-                          },
-                        ),
-                    ),
-                ],
-              )
             ],
           ),
         ),
       ],
     );
   }
-
 }
 
 
@@ -189,43 +177,48 @@ class _AdvertsState extends State<Adverts> {
             ),
           ),
         ),
-        Center(
-          child: Column(
-            children: [
-              SizedBox(height: 40,),
-              Row(
+        Padding(
+          padding: const EdgeInsets.only(left: 20),
+          child: Center(
+            child: Align(
+              alignment: Alignment.bottomLeft,
+              child: Column(
                 children: [
-                  // Add advert
-                  Padding(
-                    padding: const EdgeInsets.only(left: 15),
-                    child: MenuButton(
-                      icon: FontAwesomeIcons.plus,
-                      text: appLocalizations.general_add,
-                      gradientColors: CardBgYellow,
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => AddAdvert()),
-                        );
-                      },
-                    ),
-                  ),
-
-                  // Your advert
-                  MenuButton(
-                    icon: FontAwesomeIcons.layerGroup,
-                    text: appLocalizations.general_your,
-                    gradientColors: CardBgYellow,
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => YourAdvert()),
-                      );
-                    },
+                  SizedBox(height: 40,),
+                  Wrap(
+                    spacing: 10,
+                    runSpacing: 10,
+                    children: [
+                      // Add advert
+                      MenuButton(
+                        icon: FontAwesomeIcons.plus,
+                        text: appLocalizations.general_add,
+                        gradientColors: CardBgYellow,
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => AddAdvert()),
+                          );
+                        },
+                      ),
+            
+                      // Your advert
+                      MenuButton(
+                        icon: FontAwesomeIcons.layerGroup,
+                        text: appLocalizations.general_your_adverts,
+                        gradientColors: CardBgYellow,
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => YourAdvert()),
+                          );
+                        },
+                      ),
+                    ],
                   ),
                 ],
               ),
-            ],
+            ),
           ),
         ),
       ],

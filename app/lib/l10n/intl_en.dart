@@ -22,8 +22,9 @@ class IntlEN {
   static const general_settings = 'Settings';
   static const general_favorite = 'Favorite';
   static const general_cart = 'Cart';
+  static const general_your_orders = 'Your orders';
   static const general_add = 'Add';
-  static const general_your = 'My';
+  static const general_your_adverts = 'Your adverts';
   static const general_logout = 'Log out';
 
   //  Buttons

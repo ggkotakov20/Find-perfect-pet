@@ -9,12 +9,10 @@ import 'package:app/model/advert.dart';
 import 'package:app/model/current_user.dart';
 import 'package:get/get.dart';
 
-
 import 'package:http/http.dart' as http;
 import 'package:app/api/api_connection.dart';
 import 'dart:convert';
 import 'package:fluttertoast/fluttertoast.dart';
-
 
 
 class YourAdvertPage extends StatefulWidget {
@@ -31,7 +29,7 @@ class YourAdvertPage extends StatefulWidget {
 
 class _YourAdvertPageState extends State<YourAdvertPage> {
   bool isEditing = false;
-  
+
   final CurrentUser _currentUser = Get.put(CurrentUser());
   var formKey = GlobalKey<FormState>();
   TextEditingController titleController = TextEditingController();
@@ -46,26 +44,118 @@ class _YourAdvertPageState extends State<YourAdvertPage> {
     descriptionController.text = widget.advert['description'];
   }
 
+  bool _isDeleted = false; // Track whether the item is deleted or not
+  void _showDeleteConfirmationDialog(BuildContext context, int id) {
+    final AppLocalizations appLocalizations = AppLocalizations.of(context);
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          backgroundColor: Colors.white,
+          title: Text(
+            'Delete advert',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
+          content: Text(appLocalizations.general_warning_advert_delete),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+              child: Text(
+                appLocalizations.general_no,
+                style: TextStyle(
+                  color: NavigationBarSel,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                deleteAdver(id).then((success) {
+                  if (success) {
+                    Navigator.of(context).pop(); // Close the dialog
+                    Navigator.of(context).pop(); // Go back
+                  }
+                });
+              },
+              child: Text(
+                appLocalizations.general_yes,
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+  Future<bool> deleteAdver(int advert_id) async {
+  final AppLocalizations appLocalizations = AppLocalizations.of(context);
+  try {
+    final response = await http.post(
+      Uri.parse(API.deleteAdvert),
+      body: {
+        'advert_id': '${advert_id}', // Replace with the actual user_id from your app
+      },
+    );
+
+    if (response.statusCode == 200) {
+      // Parse the JSON response
+      final Map<String, dynamic> jsonData = json.decode(response.body);
+
+      if (jsonData.containsKey('success')) {
+        Fluttertoast.showToast(
+          msg: appLocalizations.general_delete_adver_suucess,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          textColor: Colors.white,
+          fontSize: 16.0,
+        );
+        return true;
+      } else {
+        Fluttertoast.showToast(
+          msg: appLocalizations.general_error,
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          textColor: Colors.white,
+          fontSize: 16.0,
+        );
+      }
+    } else {
+      throw Exception("Failed to load data: ${response.statusCode}");
+    }
+  } catch (e) {
+    print("Error: $e");
+  }
+  return false; // Return false if the deletion was not successful
+}
+
+
   editAdvert(int advertId, String title, String category, String type, String price, String description, String imageUrl) async {
     final AppLocalizations appLocalizations = AppLocalizations.of(context);
     Advert advertModel = Advert(
-          advertId,
-          _currentUser.user.id,
-          title,
-          category,
-          type, // Use categoryNotifier.value
-          price,
-          description,
-          imageUrl
-        );
+      advertId,
+      _currentUser.user.id,
+      title,
+      category,
+      type, // Use categoryNotifier.value
+      price,
+      description,
+      imageUrl,
+    );
 
-      try{
-        var res = await http.post(
-          Uri.parse(API.editAdvert),
-          body: advertModel.toJson(),
-        );
+    try {
+      var res = await http.post(
+        Uri.parse(API.editAdvert),
+        body: advertModel.toJson(),
+      );
 
-        if (res.statusCode == 200) {
+      if (res.statusCode == 200) {
         var contentType = res.headers['content-type'];
         if (contentType != null && contentType.contains('application/json')) {
           var resBodyOfAddAdvert = jsonDecode(res.body);
@@ -76,23 +166,23 @@ class _YourAdvertPageState extends State<YourAdvertPage> {
               gravity: ToastGravity.BOTTOM,
               timeInSecForIosWeb: 1,
               textColor: Colors.white,
-              fontSize: 16.0
+              fontSize: 16.0,
             );
             print('Edit advert Successfully');
             setState(() {
               titleController.clear();
               priceController.clear();
               descriptionController.clear();
+              isEditing = false; // Disable editing mode after saving changes
             });
-          }
-          else{
+          } else {
             Fluttertoast.showToast(
               msg: appLocalizations.general_error,
               toastLength: Toast.LENGTH_SHORT,
               gravity: ToastGravity.BOTTOM,
               timeInSecForIosWeb: 1,
               textColor: Colors.white,
-              fontSize: 16.0
+              fontSize: 16.0,
             );
             print('Error, Try again');
           }
@@ -107,10 +197,9 @@ class _YourAdvertPageState extends State<YourAdvertPage> {
   }
 
   @override
-    Widget build(BuildContext context) {
+  Widget build(BuildContext context) {
     String imageUrl = widget.advert['image'][0]['image'].toString();
     final AppLocalizations appLocalizations = AppLocalizations.of(context);
-    
 
     return Scaffold(
       body: GestureDetector(
@@ -162,11 +251,11 @@ class _YourAdvertPageState extends State<YourAdvertPage> {
                         children: [
                           Text(
                             widget.advert['date_created'] != null
-                                ? (_isToday(
-                                    DateTime.parse(widget.advert['date_created']))
+                                ? (_isToday(DateTime.parse(widget.advert['date_created']))
                                     ? '${appLocalizations.general_added} ${appLocalizations.general_today.toLowerCase()}'
                                     : "${appLocalizations.general_added} ${DateFormat('dd MMMM yyyy').format(DateTime.parse(widget.advert['date_created']))}")
-                                : appLocalizations.general_no_data),
+                                : appLocalizations.general_no_data,
+                          ),
                           Row(
                             children: [
                               IconButton(
@@ -182,13 +271,16 @@ class _YourAdvertPageState extends State<YourAdvertPage> {
                                 ),
                               ),
                               IconButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  _showDeleteConfirmationDialog(context, int.parse(widget.advert['id']));
+                                },
                                 icon: Icon(
                                   FontAwesomeIcons.trash,
                                   size: 20,
                                   color: Color.fromRGBO(247, 75, 75, 1),
                                 ),
                               ),
+                              SizedBox(width: 10)
                             ],
                           ),
                         ],
@@ -229,194 +321,190 @@ class _YourAdvertPageState extends State<YourAdvertPage> {
                               style: TextStyle(
                                 fontSize: 16,
                               ),
-                            )
+                            ),
                           ],
                         ),
                       ),
                       Visibility(
-  visible: isEditing,
-  child: Column(
-    children: [
-      SizedBox(height: 15,),
-      Text(appLocalizations.general_title),
-      SizedBox(height: 5,),
-      Padding(
-        padding: const EdgeInsets.only(left: 7, right: 15),
-        child: TextFormField(
-          controller: titleController, // Use controller instead of initialValue
-          decoration: InputDecoration(
-            hintText: appLocalizations.general_title,
-            hintStyle: TextStyle(
-              color: Colors.black,
-            ),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(30),
-              borderSide: BorderSide(
-                color: CardBG,
-              ),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(30),
-              borderSide: BorderSide(
-                color: CardBG,
-              ),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(30),
-              borderSide: BorderSide(
-                color: CardBG,
-              ),
-            ),
-            disabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(30),
-              borderSide: BorderSide(
-                color: CardBG,
-              ),
-            ),
-            contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
-            fillColor: CardBG,
-            filled: true,
-          ),
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'Please enter a title';
-            }
-            return null;
-          },
-        ),
-      ),
-
-      SizedBox(height: 15,),
-      Text(appLocalizations.general_price),
-      SizedBox(height: 5,),
-      Padding(
-        padding: const EdgeInsets.only(left: 7, right: 15),
-        child: TextFormField(
-          controller: priceController, // Use controller instead of initialValue
-          keyboardType: TextInputType.number,
-          decoration: InputDecoration(
-            hintText: appLocalizations.general_price,
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(30),
-              borderSide: BorderSide(
-                color: CardBG,
-              ),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(30),
-              borderSide: BorderSide(
-                color: CardBG,
-              ),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(30),
-              borderSide: BorderSide(
-                color: CardBG,
-              ),
-            ),
-            disabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(30),
-              borderSide: BorderSide(
-                color: CardBG,
-              ),
-            ),
-            contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
-            fillColor: CardBG,
-            filled: true,
-          ),
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'Please enter a price';
-            }
-            // You can add more validation rules here if needed
-            return null;
-          },
-        ),
-      ),
-
-      SizedBox(height: 15,),
-      Text(appLocalizations.general_description),
-      SizedBox(height: 5,),
-      Padding(
-        padding: const EdgeInsets.only(left: 7, right: 15),
-        child: TextFormField(
-          controller: descriptionController, // Use controller instead of initialValue
-          decoration: InputDecoration(
-            hintText: appLocalizations.general_description,
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(30),
-              borderSide: BorderSide(
-                color: CardBG,
-              ),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(30),
-              borderSide: BorderSide(
-                color: CardBG,
-              ),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(30),
-              borderSide: BorderSide(
-                color: CardBG,
-              ),
-            ),
-            disabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(30),
-              borderSide: BorderSide(
-                color: CardBG,
-              ),
-            ),
-            contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
-            fillColor: CardBG,
-            filled: true,
-          ),
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'Please enter a description';
-            }
-            return null;
-          },
-        ),
-      ),
-
-      SizedBox(height: 15,),
-      Material(
-        color: NavigationBarSel,
-        borderRadius: BorderRadius.circular(30),
-        child: InkWell(
-          onTap: () {
-            editAdvert(
-              int.parse(widget.advert['id']),
-              widget.advert['title'],
-              widget.advert['category'],
-              widget.advert['type'],
-              widget.advert['price'],
-              widget.advert['description'],
-              widget.advert['imageUrl'] ?? "https://developers.google.com/static/maps/documentation/maps-static/images/error-image-generic.png",
-            );
-          },
-          borderRadius: BorderRadius.circular(30),
-          child: Padding(
-            padding: EdgeInsets.symmetric(
-              vertical: 10,
-              horizontal: 28,
-            ),
-            child: Text(
-              appLocalizations.general_save_changes,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 16,
-              ),
-            ),
-          ),
-        ),
-      ),
-    ],
-  ),
-),
-
-                      ],
+                        visible: isEditing,
+                        child: Column(
+                          children: [
+                            SizedBox(height: 15),
+                            Text(appLocalizations.general_title),
+                            SizedBox(height: 5),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 7, right: 15),
+                              child: TextFormField(
+                                controller: titleController, // Use controller instead of initialValue
+                                decoration: InputDecoration(
+                                  hintText: appLocalizations.general_title,
+                                  hintStyle: TextStyle(
+                                    color: Colors.black,
+                                  ),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(30),
+                                    borderSide: BorderSide(
+                                      color: CardBG,
+                                    ),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(30),
+                                    borderSide: BorderSide(
+                                      color: CardBG,
+                                    ),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(30),
+                                    borderSide: BorderSide(
+                                      color: CardBG,
+                                    ),
+                                  ),
+                                  disabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(30),
+                                    borderSide: BorderSide(
+                                      color: CardBG,
+                                    ),
+                                  ),
+                                  contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+                                  fillColor: CardBG,
+                                  filled: true,
+                                ),
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please enter a title';
+                                  }
+                                  return null;
+                                },
+                              ),
+                            ),
+                            SizedBox(height: 15),
+                            Text(appLocalizations.general_price),
+                            SizedBox(height: 5),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 7, right: 15),
+                              child: TextFormField(
+                                controller: priceController, // Use controller instead of initialValue
+                                keyboardType: TextInputType.number,
+                                decoration: InputDecoration(
+                                  hintText: appLocalizations.general_price,
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(30),
+                                    borderSide: BorderSide(
+                                      color: CardBG,
+                                    ),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(30),
+                                    borderSide: BorderSide(
+                                      color: CardBG,
+                                    ),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(30),
+                                    borderSide: BorderSide(
+                                      color: CardBG,
+                                    ),
+                                  ),
+                                  disabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(30),
+                                    borderSide: BorderSide(
+                                      color: CardBG,
+                                    ),
+                                  ),
+                                  contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+                                  fillColor: CardBG,
+                                  filled: true,
+                                ),
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please enter a price';
+                                  }
+                                  // You can add more validation rules here if needed
+                                  return null;
+                                },
+                              ),
+                            ),
+                            SizedBox(height: 15),
+                            Text(appLocalizations.general_description),
+                            SizedBox(height: 5),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 7, right: 15),
+                              child: TextFormField(
+                                controller: descriptionController, // Use controller instead of initialValue
+                                decoration: InputDecoration(
+                                  hintText: appLocalizations.general_description,
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(30),
+                                    borderSide: BorderSide(
+                                      color: CardBG,
+                                    ),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(30),
+                                    borderSide: BorderSide(
+                                      color: CardBG,
+                                    ),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(30),
+                                    borderSide: BorderSide(
+                                      color: CardBG,
+                                    ),
+                                  ),
+                                  disabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(30),
+                                    borderSide: BorderSide(
+                                      color: CardBG,
+                                    ),
+                                  ),
+                                  contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+                                  fillColor: CardBG,
+                                  filled: true,
+                                ),
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Please enter a description';
+                                  }
+                                  return null;
+                                },
+                              ),
+                            ),
+                            SizedBox(height: 15),
+                            Material(
+                              color: NavigationBarSel,
+                              borderRadius: BorderRadius.circular(30),
+                              child: InkWell(
+                                onTap: () {
+                                  editAdvert(
+                                    int.parse(widget.advert['id']),
+                                    titleController.text,
+                                    widget.advert['category'],
+                                    widget.advert['type'],
+                                    priceController.text,
+                                    descriptionController.text,
+                                    widget.advert['imageUrl'] ?? "https://developers.google.com/static/maps/documentation/maps-static/images/error-image-generic.png",
+                                  );
+                                },
+                                borderRadius: BorderRadius.circular(30),
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(
+                                    vertical: 10,
+                                    horizontal: 28,
+                                  ),
+                                  child: Text(
+                                    appLocalizations.general_save_changes,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -434,7 +522,6 @@ class _YourAdvertPageState extends State<YourAdvertPage> {
         dateTime.day == now.day;
   }
 }
-
 
 class AdvertPage extends StatefulWidget {
   final Map<String, dynamic> advert;

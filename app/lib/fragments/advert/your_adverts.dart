@@ -92,7 +92,7 @@ Future<void> _refreshData() async {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                '${appLocalizations.general_your} ${appLocalizations.general_advert.toLowerCase()}',
+                '${appLocalizations.general_your_adverts}',
                 style: TextStyle(
                   color: NavigationBarSel,
                   fontSize: 30,
