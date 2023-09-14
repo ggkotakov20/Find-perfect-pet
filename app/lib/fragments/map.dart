@@ -1,3 +1,4 @@
+import 'package:app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -33,35 +34,6 @@ class _MapPageState extends State<MapPage> {
   Widget build(BuildContext context) {
     return Stack(children: [
       Map1(),
-
-//       FutureBuilder(
-//   future: getMapPointData(),
-//   builder: (context, snapshot) {
-//     if (snapshot.hasError) print(snapshot.error);
-
-//     if (snapshot.connectionState == ConnectionState.waiting) {
-//       return Center(child: CircularProgressIndicator());
-//     }
-
-//     if (!snapshot.hasData || snapshot.data == null) {
-//       return Center(child: Text("No data available."));
-//     }
-
-//     Map<String, dynamic> dataMap = snapshot.data;
-
-//     return ListView(
-//       children: dataMap.keys.map((key) {
-//         dynamic value = dataMap[key];
-//         return ListTile(
-//           title: Text(value['name']),
-//         );
-//       }).toList(),
-//     );
-//   },
-// ),
-
-
-
       Positioned(
         top: 10,
         bottom: 0,
@@ -295,54 +267,112 @@ class SheetModal extends StatelessWidget {
   const SheetModal(this.point);
   @override
   Widget build(BuildContext context) {
+    final AppLocalizations appLocalizations = AppLocalizations.of(context);
+
     String pointAddress = point['address'];
+    
+    bool isOpen = false;
 
-    // int TimeNowH = TimeOfDay.now().hour;
-    // int TimeNowM = TimeOfDay.now().minute;
-    // int DateNow = DateTime.now().weekday;
-    // DateNow = 2;
+    final DateTime now = DateTime.now();
+    final int currentHours = now.hour;
+    final int currentMinutes = now.minute;
+    
+    bool isTimeInRange(String start, String end) {
+      List<String> startTimeComponents = start.toString().split(':');
+      int? hourStart = int.tryParse(startTimeComponents[0]) ?? 0;
+      int? minutesStart = int.tryParse(startTimeComponents[1]) ?? 0;
 
-    // int workTimeStdH;
-    // int workTimeStdM;
-    // int workTimeEtdH;
-    // int workTimeEtdM;
+      List<String> endTimeComponents = end.toString().split(':');
+      int? hourEnd = int.tryParse(endTimeComponents[0]) ?? 0;
+      int? minutesEnd = int.tryParse(endTimeComponents[1]) ?? 0;
 
-    // if (DateNow >= 1 && DateNow <= 5) {
-    //   workTimeStdH = point.workTime.weekdayStartH;
-    //   workTimeStdM = point.workTime.weekdayStartM;
-    //   workTimeEtdH = point.workTime.weekdayEndH;
-    //   workTimeEtdM = point.workTime.weekdayEndM;
-    // } else if (DateNow == 6) {
-    //   workTimeStdH = point.workTime.saturdayStartH;
-    //   workTimeStdM = point.workTime.saturdayStartM;
-    //   workTimeEtdH = point.workTime.saturdayEndH;
-    //   workTimeEtdM = point.workTime.saturdayEndM;
-    // } else {
-    //   workTimeStdH = point.workTime.sundayStartH;
-    //   workTimeStdM = point.workTime.sundayStartM;
-    //   workTimeEtdH = point.workTime.sundayEndH;
-    //   workTimeEtdM = point.workTime.sundayEndM;
-    // }
+      if (hourStart != null && hourEnd != null && minutesStart != null && minutesEnd != null) {
+        final isAfterStartTime =
+            (currentHours > hourStart) || (currentHours == hourStart && currentMinutes >= minutesStart);
+        final isBeforeEndTime =
+            (currentHours < hourEnd) || (currentHours == hourEnd && currentMinutes <= minutesEnd);
 
-    // bool open = false;
-    // bool showAllWorkTime = false;
+        return isAfterStartTime && isBeforeEndTime;
+      }
+      return false;
+    }
 
-    // if ((TimeNowH > workTimeStdH && TimeNowH < workTimeEtdH) ||
-    //     (TimeNowH == workTimeStdH && TimeNowM > workTimeStdM) ||
-    //     (TimeNowH == workTimeEtdH && TimeNowM < workTimeEtdM)) {
-    //   open = true;
-    // } else if (point.workTime.weekday2StartH > 0 &&
-    //     (DateNow >= 1 && DateNow <= 5)) {
-    //   int workTime2StdH = point.workTime.weekday2StartH;
-    //   int workTime2StdM = point.workTime.weekday2StartM;
-    //   int workTime2EtdH = point.workTime.weekday2EndH;
-    //   int workTime2EtdM = point.workTime.weekday2EndM;
-    //   if ((TimeNowH > workTime2StdH && TimeNowH < workTime2EtdH) ||
-    //       (TimeNowH == workTime2StdH && TimeNowM > workTime2StdM) ||
-    //       (TimeNowH == workTime2EtdH && TimeNowM < workTime2EtdM)) {
-    //     open = true;
-    //   }
-    // }
+    int DateNow = now.weekday;
+
+    if (DateNow == 6) {
+      isOpen = isTimeInRange(point['worktime'][0]['saturday_start'], point['worktime'][0]['saturday_end']);
+    } else if (DateNow == 7) {
+      isOpen = isTimeInRange(point['worktime'][0]['sunday_start'], point['worktime'][0]['sunday_end']);
+    } else {
+      isOpen = isTimeInRange(point['worktime'][0]['weekday_start'], point['worktime'][0]['weekday_end']);
+    }
+
+    if (point['worktime'][0]['weekday2_start'] != null && point['worktime'][0]['weekday2_start'] != "0:00:00") {
+      isOpen = isOpen ||
+          isTimeInRange(point['worktime'][0]['weekday2_start'], point['worktime'][0]['weekday2_end']);
+    }
+    
+    if(point['worktime'][0]['weekday_start'] == '01:00:00'){
+      isOpen = true;
+    }
+    
+    final Map<String, dynamic> worktime = point['worktime'][0];
+
+    String getTimeString(String key) {
+      final List<String> timeComponents = worktime[key].toString().split(':');
+      final int? hour = int.tryParse(timeComponents[0]) ?? 0;
+      final int? minutes = int.tryParse(timeComponents[1]) ?? 0;
+      if(minutes == 0){
+        return '$hour:00';
+      } else {
+        return '$hour:$minutes';
+      }
+    }
+
+    String getTimeRange(String startKey, String endKey) {
+      final String startTime = getTimeString(startKey);
+      final String endTime = getTimeString(endKey);
+      return '$startTime - $endTime';
+    }
+    Container showWorkTimeText() {
+
+      String getTimeRanges() {
+        if(worktime['weekday_start'] == '01:00:00'){
+          return '${appLocalizations.general_all_day}';
+        } else {
+          if (DateNow >= 1 && DateNow <= 5) {
+            if (worktime['weekday2_start'] != '00:00:00' && worktime['weekday2_start'] != null) {
+              final String weekdayRange = getTimeRange('weekday_start', 'weekday_end');
+              final String weekday2Range = getTimeRange('weekday2_start', 'weekday2_end');
+              return '$weekdayRange  $weekday2Range';
+            } else {
+              return getTimeRange('weekday_start', 'weekday_end');
+            }
+          } else if (DateNow == 6) {
+            if(worktime['saturday_start'] == '00:00:00' || worktime['sunday_start'] == '00:00:00'){
+              return "${appLocalizations.general_not_working}";
+            } else {
+              return getTimeRange('saturday_start', 'saturday_end');
+            }
+          } else if (DateNow == 7) {
+            if(worktime['saturday_start'] == '00:00:00' || worktime['sunday_start'] == '00:00:00'){
+              return "${appLocalizations.general_not_working}";
+            } else {
+              return getTimeRange('sunday_start', 'sunday_end');
+            }
+          }
+        }
+        return '';
+      }
+
+      return Container(
+        child: Text(
+          getTimeRanges(),
+          style: TextStyle(color: DGREY),
+        ),
+      );
+    }
+
 
     return Container(
       color: CardBG,
@@ -367,16 +397,21 @@ class SheetModal extends StatelessWidget {
 
               //  Point name
 
-              Center(
-                child: Text(
-                  point['name'],
-                  style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.w500,
-                    color: BLACK,
+              Padding(
+                padding: const EdgeInsets.only(left: 22,right: 20),
+                child: Center(
+                  child: Text(
+                    point['name'],
+                    style: TextStyle(
+                      fontSize: 21,
+                      fontWeight: FontWeight.w500,
+                      color: BLACK,
+                    ),
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
               ),
+
 
               //  Point address
 
@@ -385,24 +420,32 @@ class SheetModal extends StatelessWidget {
                   SizedBox(width: 20),
                   Container(
                     decoration: BoxDecoration(
-                      color: Color.fromRGBO(242, 248, 233, 1),
+                      color: Color.fromRGBO(231, 244, 255, 1),
                       borderRadius: BorderRadius.circular(5),
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(4.0),
                       child: Icon(
                         Icons.location_pin,
-                        color: Color.fromRGBO(131, 197, 85, 1),
+                        color: Color.fromRGBO(0, 134, 230, 1),
                       ),
                     ),
                   ),
                   SizedBox(width: 10),
-                  Text(
-                    point['address'],
-                    style: TextStyle(fontSize: 14, color: DGREY),
+                  Expanded(
+                    child: Text(
+                      point['address'],
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: DGREY,
+                      ),
+                      maxLines: 1, // Add this line
+                      overflow: TextOverflow.ellipsis, // Add this line
+                    ),
                   ),
                 ],
               ),
+
 
               //  Point work time
 
@@ -424,307 +467,110 @@ class SheetModal extends StatelessWidget {
                     ),
                   ),
                   SizedBox(width: 10),
-                  // Container(
-                  //   decoration: BoxDecoration(
-                  //     color: open == true || workTimeStdH == 24 ? GREEN : BROWN,
-                  //     borderRadius: BorderRadius.circular(15),
-                  //   ),
-                  //   child: Padding(
-                  //     padding: const EdgeInsets.only(
-                  //         top: 5, bottom: 5, left: 7, right: 7),
-                  //     child: Text(
-                  //       open == true || workTimeStdH == 24 ? 'Open' : 'Close',
-                  //       style: TextStyle(
-                  //         fontSize: 14,
-                  //         color: open == true || workTimeStdH == 24
-                  //             ? DGREEN
-                  //             : ORGANGE,
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: isOpen == true 
+                          ? Color.fromRGBO(242, 248, 233, 1)
+                          : Color.fromRGBO(252, 235, 235, 1),
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                          top: 5, bottom: 5, left: 7, right: 7),
+                      child: Text(
+                        isOpen == true ? '${appLocalizations.general_open}' : '${appLocalizations.general_close}',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: isOpen == true
+                              ? Color.fromRGBO(131, 197, 85, 1)
+                              : Color.fromRGBO(242, 60, 60, 1),
+                        ),
+                      ),
+                    ),
+                  ),
                   SizedBox(width: 10),
-                  // GestureDetector(
-                  //   onTap: () {
-                  //     showDialog(
-                  //         context: context,
-                  //         builder: (context) => AlertDialog(
-                  //               title: Text('Help'),
-                  //               content: Column(
-                  //                 mainAxisSize: MainAxisSize.min,
-                  //                 children: [
-                  //                   //  Monday
-                  //                   Row(
-                  //                     children: [
-                  //                       SizedBox(width: 20),
-                  //                       Text(
-                  //                         'Mondey - ',
-                  //                         style: TextStyle(color: DGREY),
-                  //                       ),
-                  //                       SizedBox(width: 10),
-                  //                       Text(
-                  //                         point.workTime.weekdayStartH == 24
-                  //                             ? 'All day'
-                  //                             : point.workTime.weekdayStartH < 0
-                  //                                 ? "Doesn't working"
-                  //                                 : point.workTime.weekdayStartM ==
-                  //                                             0 &&
-                  //                                         point.workTime
-                  //                                                 .weekdayEndM ==
-                  //                                             0
-                  //                                     ? '${point.workTime.weekdayStartH}:00 - ${point.workTime.weekdayEndH}:00'
-                  //                                     : point.workTime
-                  //                                                 .weekdayStartM ==
-                  //                                             0
-                  //                                         ? '${point.workTime.weekdayStartH}:00 - ${point.workTime.weekdayEndH}:${point.workTime.weekdayEndM}'
-                  //                                         : point.workTime
-                  //                                                     .weekdayEndM ==
-                  //                                                 0
-                  //                                             ? '${point.workTime.weekdayStartH}:${point.workTime.weekdayStartM} - ${point.workTime.weekdayEndH}:00'
-                  //                                             : '${point.workTime.weekdayStartH}:${point.workTime.weekdayStartM} - ${point.workTime.weekdayEndH}:${point.workTime.weekdayEndM}',
-                  //                         style: TextStyle(color: DGREY),
-                  //                       ),
-                  //                     ],
-                  //                   ),
-                  //                   SizedBox(height: 5),
-                  //                   //  Tuesday
-                  //                   Row(
-                  //                     children: [
-                  //                       SizedBox(width: 20),
-                  //                       Text(
-                  //                         'Tuesday - ',
-                  //                         style: TextStyle(color: DGREY),
-                  //                       ),
-                  //                       SizedBox(width: 10),
-                  //                       Text(
-                  //                         point.workTime.weekdayStartH == 24
-                  //                             ? 'All day'
-                  //                             : point.workTime.weekdayStartH < 0
-                  //                                 ? "Doesn't working"
-                  //                                 : point.workTime.weekdayStartM ==
-                  //                                             0 &&
-                  //                                         point.workTime
-                  //                                                 .weekdayEndM ==
-                  //                                             0
-                  //                                     ? '${point.workTime.weekdayStartH}:00 - ${point.workTime.weekdayEndH}:00'
-                  //                                     : point.workTime
-                  //                                                 .weekdayStartM ==
-                  //                                             0
-                  //                                         ? '${point.workTime.weekdayStartH}:00 - ${point.workTime.weekdayEndH}:${point.workTime.weekdayEndM}'
-                  //                                         : point.workTime
-                  //                                                     .weekdayEndM ==
-                  //                                                 0
-                  //                                             ? '${point.workTime.weekdayStartH}:${point.workTime.weekdayStartM} - ${point.workTime.weekdayEndH}:00'
-                  //                                             : '${point.workTime.weekdayStartH}:${point.workTime.weekdayStartM} - ${point.workTime.weekdayEndH}:${point.workTime.weekdayEndM}',
-                  //                         style: TextStyle(color: DGREY),
-                  //                       ),
-                  //                     ],
-                  //                   ),
-                  //                   SizedBox(height: 5),
-                  //                   //  Wednesday
-                  //                   Row(
-                  //                     children: [
-                  //                       SizedBox(width: 20),
-                  //                       Text(
-                  //                         'Wednesday',
-                  //                         style: TextStyle(color: DGREY),
-                  //                       ),
-                  //                       SizedBox(width: 10),
-                  //                       Text(
-                  //                         point.workTime.weekdayStartH == 24
-                  //                             ? 'All day'
-                  //                             : point.workTime.weekdayStartH < 0
-                  //                                 ? "Doesn't working"
-                  //                                 : point.workTime.weekdayStartM ==
-                  //                                             0 &&
-                  //                                         point.workTime
-                  //                                                 .weekdayEndM ==
-                  //                                             0
-                  //                                     ? '${point.workTime.weekdayStartH}:00 - ${point.workTime.weekdayEndH}:00'
-                  //                                     : point.workTime
-                  //                                                 .weekdayStartM ==
-                  //                                             0
-                  //                                         ? '${point.workTime.weekdayStartH}:00 - ${point.workTime.weekdayEndH}:${point.workTime.weekdayEndM}'
-                  //                                         : point.workTime
-                  //                                                     .weekdayEndM ==
-                  //                                                 0
-                  //                                             ? '${point.workTime.weekdayStartH}:${point.workTime.weekdayStartM} - ${point.workTime.weekdayEndH}:00'
-                  //                                             : '${point.workTime.weekdayStartH}:${point.workTime.weekdayStartM} - ${point.workTime.weekdayEndH}:${point.workTime.weekdayEndM}',
-                  //                         style: TextStyle(color: DGREY),
-                  //                       ),
-                  //                     ],
-                  //                   ),
-                  //                   SizedBox(height: 5),
-                  //                   //  Thursday
-                  //                   Row(
-                  //                     children: [
-                  //                       SizedBox(width: 20),
-                  //                       Text(
-                  //                         'Thursday',
-                  //                         style: TextStyle(color: DGREY),
-                  //                       ),
-                  //                       SizedBox(width: 10),
-                  //                       Text(
-                  //                         point.workTime.weekdayStartH == 24
-                  //                             ? 'All day'
-                  //                             : point.workTime.weekdayStartH < 0
-                  //                                 ? "Doesn't working"
-                  //                                 : point.workTime.weekdayStartM ==
-                  //                                             0 &&
-                  //                                         point.workTime
-                  //                                                 .weekdayEndM ==
-                  //                                             0
-                  //                                     ? '${point.workTime.weekdayStartH}:00 - ${point.workTime.weekdayEndH}:00'
-                  //                                     : point.workTime
-                  //                                                 .weekdayStartM ==
-                  //                                             0
-                  //                                         ? '${point.workTime.weekdayStartH}:00 - ${point.workTime.weekdayEndH}:${point.workTime.weekdayEndM}'
-                  //                                         : point.workTime
-                  //                                                     .weekdayEndM ==
-                  //                                                 0
-                  //                                             ? '${point.workTime.weekdayStartH}:${point.workTime.weekdayStartM} - ${point.workTime.weekdayEndH}:00'
-                  //                                             : '${point.workTime.weekdayStartH}:${point.workTime.weekdayStartM} - ${point.workTime.weekdayEndH}:${point.workTime.weekdayEndM}',
-                  //                         style: TextStyle(color: DGREY),
-                  //                       ),
-                  //                     ],
-                  //                   ),
-                  //                   SizedBox(height: 5),
-                  //                   //  Friday
-                  //                   Row(
-                  //                     children: [
-                  //                       SizedBox(width: 20),
-                  //                       Text(
-                  //                         'Friday',
-                  //                         style: TextStyle(color: DGREY),
-                  //                       ),
-                  //                       SizedBox(width: 10),
-                  //                       Text(
-                  //                         point.workTime.weekdayStartH == 24
-                  //                             ? 'All day'
-                  //                             : point.workTime.weekdayStartH < 0
-                  //                                 ? "Doesn't working"
-                  //                                 : point.workTime.weekdayStartM ==
-                  //                                             0 &&
-                  //                                         point.workTime
-                  //                                                 .weekdayEndM ==
-                  //                                             0
-                  //                                     ? '${point.workTime.weekdayStartH}:00 - ${point.workTime.weekdayEndH}:00'
-                  //                                     : point.workTime
-                  //                                                 .weekdayStartM ==
-                  //                                             0
-                  //                                         ? '${point.workTime.weekdayStartH}:00 - ${point.workTime.weekdayEndH}:${point.workTime.weekdayEndM}'
-                  //                                         : point.workTime
-                  //                                                     .weekdayEndM ==
-                  //                                                 0
-                  //                                             ? '${point.workTime.weekdayStartH}:${point.workTime.weekdayStartM} - ${point.workTime.weekdayEndH}:00'
-                  //                                             : '${point.workTime.weekdayStartH}:${point.workTime.weekdayStartM} - ${point.workTime.weekdayEndH}:${point.workTime.weekdayEndM}',
-                  //                         style: TextStyle(color: DGREY),
-                  //                       ),
-                  //                     ],
-                  //                   ),
-                  //                   SizedBox(height: 5),
-
-                  //                   //  Saturday
-                  //                   Row(
-                  //                     children: [
-                  //                       SizedBox(width: 20),
-                  //                       Text(
-                  //                         'Saturday',
-                  //                         style: TextStyle(color: DGREY),
-                  //                       ),
-                  //                       SizedBox(width: 10),
-                  //                       Text(
-                  //                         point.workTime.saturdayStartH == 24
-                  //                             ? 'All day'
-                  //                             : point.workTime.saturdayStartH <
-                  //                                     0
-                  //                                 ? "Doesn't working"
-                  //                                 : point.workTime.saturdayStartM ==
-                  //                                             0 &&
-                  //                                         point.workTime
-                  //                                                 .saturdayEndM ==
-                  //                                             0
-                  //                                     ? '${point.workTime.saturdayStartH}:00 - ${point.workTime.saturdayEndH}:00'
-                  //                                     : point.workTime
-                  //                                                 .saturdayStartM ==
-                  //                                             0
-                  //                                         ? '${point.workTime.saturdayStartH}:00 - ${point.workTime.saturdayEndH}:${point.workTime.saturdayEndM}'
-                  //                                         : point.workTime
-                  //                                                     .saturdayEndM ==
-                  //                                                 0
-                  //                                             ? '${point.workTime.saturdayStartH}:${point.workTime.saturdayStartM} - ${point.workTime.saturdayEndH}:00'
-                  //                                             : '${point.workTime.saturdayStartH}:${point.workTime.saturdayStartM} - ${point.workTime.saturdayEndH}:${point.workTime.saturdayEndM}',
-                  //                         style: TextStyle(color: DGREY),
-                  //                       ),
-                  //                     ],
-                  //                   ),
-                  //                   SizedBox(height: 5),
-                  //                   //  Sunday
-                  //                   Row(
-                  //                     children: [
-                  //                       SizedBox(width: 20),
-                  //                       Text(
-                  //                         'Sunday',
-                  //                         style: TextStyle(color: DGREY),
-                  //                       ),
-                  //                       SizedBox(width: 10),
-                  //                       Text(
-                  //                         point.workTime.sundayStartH == 24
-                  //                             ? 'All day'
-                  //                             : point.workTime.sundayStartH < 0
-                  //                                 ? "Doesn't working"
-                  //                                 : point.workTime.sundayStartM ==
-                  //                                             0 &&
-                  //                                         point.workTime
-                  //                                                 .sundayStartH ==
-                  //                                             0
-                  //                                     ? '${point.workTime.sundayStartH}:00 - ${point.workTime.sundayEndH}:00'
-                  //                                     : point.workTime
-                  //                                                 .sundayStartM ==
-                  //                                             0
-                  //                                         ? '${point.workTime.sundayStartH}:00 - ${point.workTime.sundayEndH}:${point.workTime.sundayEndM}'
-                  //                                         : point.workTime
-                  //                                                     .sundayEndM ==
-                  //                                                 0
-                  //                                             ? '${point.workTime.sundayStartH}:${point.workTime.sundayStartM} - ${point.workTime.sundayEndH}:00'
-                  //                                             : '${point.workTime.sundayStartH}:${point.workTime.sundayStartM} - ${point.workTime.sundayEndH}:${point.workTime.sundayEndM}',
-                  //                         style: TextStyle(color: DGREY),
-                  //                       ),
-                  //                     ],
-                  //                   ),
-                  //                   SizedBox(height: 5),
-                  //                 ],
-                  //               ),
-                  //               actions: [
-                  //                 TextButton(
-                  //                   onPressed: () {
-                  //                     Navigator.of(context).pop();
-                  //                   },
-                  //                   child: Text('OK',
-                  //                       style: TextStyle(color: GREEN)),
-                  //                 ),
-                  //               ],
-                  //             ));
-                  //   },
-                  //   child: Text(
-                  //     workTimeStdH == 24
-                  //         ? 'All day'
-                  //         : workTimeStdM == 0 && workTimeEtdM == 0
-                  //             ? '$workTimeStdH:00 - $workTimeEtdH:00'
-                  //             : workTimeStdM == 0
-                  //                 ? '$workTimeStdH:00 - $workTimeEtdH:$workTimeEtdM'
-                  //                 : workTimeEtdM == 0
-                  //                     ? '$workTimeStdH:$workTimeStdM - $workTimeEtdH:00'
-                  //                     : '$workTimeStdH:$workTimeStdM - $workTimeEtdH:$workTimeEtdM',
-                  //     style: TextStyle(color: DGREY),
-                  //   ),
-                  // ),
-                  
+                  GestureDetector(
+                    onTap: () {
+                      showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                                title: Text('${appLocalizations.general_work_time}'),
+                                content: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    //  Monday
+                                    Row(
+                                      children: [
+                                        SizedBox(width: 20),
+                                        Text(
+                                          '${appLocalizations.general_weekday} - ',
+                                        ),
+                                        SizedBox(width: 10),
+                                        worktime['weekday_start'] == "01:00:00"
+                                          ? Text('${appLocalizations.general_all_day}')
+                                          : worktime['weekday2_start'] != "00:00:00"
+                                            ? Column(
+                                              children: [
+                                                Text("${getTimeString('weekday_start')} - ${getTimeString('weekday_end')}"),
+                                                Text("${getTimeString('weekday2_start')} - ${getTimeString('weekday2_end')}")                                            ],
+                                            )
+                                            : Text("${getTimeString('weekday_start')} - ${getTimeString('weekday_end')}"),
+                                      ],
+                                    ),
+                                    SizedBox(height: 5),
+                                    
+                                    //  Saturday
+                                    Row(
+                                      children: [
+                                        SizedBox(width: 20),
+                                        Text(
+                                          '${appLocalizations.general_saturday} - ',
+                                        ),
+                                        SizedBox(width: 10),
+                                        worktime['saturday_start'] == "01:00:00"
+                                        ? Text('${appLocalizations.general_all_day}')
+                                        : worktime['saturday_start'] == "00:00:00"
+                                          ? Text('${appLocalizations.general_not_working}')
+                                          : Text("${getTimeString('saturday_start')} - ${getTimeString('saturday_end')}")
+                                      ],
+                                    ),
+                                    SizedBox(height: 5),
+                                    //  Sunday
+                                    Row(
+                                      children: [
+                                        SizedBox(width: 20),
+                                        Text(
+                                          '${appLocalizations.general_sunday} - ',
+                                        ),
+                                        SizedBox(width: 10),
+                                        worktime['sunday_start'] == "01:00:00"
+                                        ? Text('${appLocalizations.general_all_day}')
+                                        : worktime['sunday_start'] == "00:00:00"
+                                          ? Text('${appLocalizations.general_not_working}')
+                                          : Text("${getTimeString('sunday_start')} - ${getTimeString('sunday_end')}")
+                                      ],
+                                    ),
+                                    SizedBox(height: 5),
+                                  ],
+                                ),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: Text('OK',
+                                        style: TextStyle(color: NavigationBarSel)),
+                                  ),
+                                ],
+                              ));
+                    },
+                    child: showWorkTimeText()
+                  ),
                   SizedBox(width: 5),
                   Icon(
                     FontAwesomeIcons.chevronDown,
                     color: DGREY,
-                    size: 15,
+                    size: 12,
                   )
                 ],
               ),

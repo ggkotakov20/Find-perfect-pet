@@ -14,6 +14,16 @@ class IntlEN {
   static const general_food = 'Food';
   static const general_accessory = 'Accessories';
 
+  //  Map page
+  static const general_open = 'Open';
+  static const general_close = 'Close';
+  static const general_work_time = 'Work time';
+  static const general_weekday = 'Weekday';
+  static const general_saturday = 'Saturday';
+  static const general_sunday = 'Sunday';
+  static const general_all_day = 'All day';
+  static const general_not_working = 'Not working';
+
   //  Menu
   static const general_user = 'User';
   static const general_advert = 'Adverts';

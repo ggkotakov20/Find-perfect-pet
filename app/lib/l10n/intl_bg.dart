@@ -14,6 +14,16 @@ class IntlBG {
   static const general_food = 'Храна';
   static const general_accessory = 'Аксесоари';
 
+  //  Map page
+  static const general_open = 'Оворено';
+  static const general_close = 'Задворено';
+  static const general_work_time = 'Работно време';
+  static const general_weekday = 'Делнични дни';
+  static const general_saturday = 'Събота';
+  static const general_sunday = 'Неделя';
+  static const general_all_day = 'Цял ден';
+  static const general_not_working = 'Не работи';
+
   //  Menu
   static const general_user = 'Потребител';
   static const general_advert = 'Обяви';

@@ -77,6 +77,64 @@ class AppLocalizations {
     }
   }
 
+  //  Map page
+  String get general_open {
+    if (locale.languageCode == 'bg') {
+      return IntlBG.general_open; // Use Bulgarian translation
+    } else {
+      return IntlEN.general_open; // Use English translation as a fallback
+    }
+  }
+  String get general_close {
+    if (locale.languageCode == 'bg') {
+      return IntlBG.general_close; // Use Bulgarian translation
+    } else {
+      return IntlEN.general_close; // Use English translation as a fallback
+    }
+  }
+  String get general_work_time {
+    if (locale.languageCode == 'bg') {
+      return IntlBG.general_work_time; // Use Bulgarian translation
+    } else {
+      return IntlEN.general_work_time; // Use English translation as a fallback
+    }
+  }
+  String get general_weekday {
+    if (locale.languageCode == 'bg') {
+      return IntlBG.general_weekday; // Use Bulgarian translation
+    } else {
+      return IntlEN.general_weekday; // Use English translation as a fallback
+    }
+  }
+  String get general_saturday {
+    if (locale.languageCode == 'bg') {
+      return IntlBG.general_saturday; // Use Bulgarian translation
+    } else {
+      return IntlEN.general_saturday; // Use English translation as a fallback
+    }
+  }
+  String get general_sunday {
+    if (locale.languageCode == 'bg') {
+      return IntlBG.general_sunday; // Use Bulgarian translation
+    } else {
+      return IntlEN.general_sunday; // Use English translation as a fallback
+    }
+  }
+  String get general_all_day {
+      if (locale.languageCode == 'bg') {
+        return IntlBG.general_all_day; // Use Bulgarian translation
+      } else {
+        return IntlEN.general_all_day; // Use English translation as a fallback
+      }
+    }
+    String get general_not_working {
+      if (locale.languageCode == 'bg') {
+        return IntlBG.general_not_working; // Use Bulgarian translation
+      } else {
+        return IntlEN.general_not_working; // Use English translation as a fallback
+      }
+    }
+
   //  Menu
   String get general_user {
     if (locale.languageCode == 'bg') {
