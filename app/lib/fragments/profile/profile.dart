@@ -4,8 +4,8 @@ import 'package:app/model/user_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:app/colors.dart';
-import 'package:http/http.dart';
 import 'package:get/get.dart';
+import 'package:app/widgets/option_buttons.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -17,46 +17,19 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {;
-    return Scaffold(
-      backgroundColor: background,
-      appBar: AppBar(
-        centerTitle: true,
-        foregroundColor: NavigationBarSel,
-        backgroundColor: background,
-        elevation: 0.0,
-        toolbarHeight: 80,
-        leading: IconButton(
-          icon: const Icon(
-            FontAwesomeIcons.chevronLeft,
-            size: 18,
-          ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
+    return Stack(
+      children: [
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              UserInformation(),
+              SizedBox(height: 30),
+              Center(
+                child: Options(),
+              )
+            ],
         ),
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Image(
-              image: AssetImage('images/logo.png'),
-              height: 65,
-            ),
-          ],
-        ),
-      ),
-      body: Container(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          UserInformation(),
-          SizedBox(height: 30),
-          Center(
-            child: Options(),
-          )
-        ],
-      ),
-    )
+      ]
     );
   }
 }
@@ -97,21 +70,6 @@ class _UserInformationState extends State<UserInformation> {
             Text(
               _currentUser.user.email,
               style: TextStyle(fontSize: 16, color: GREY),
-            ),
-            SizedBox(height: 10),
-            TextButton(
-              onPressed: changeScreenValue,
-              style: TextButton.styleFrom(
-                backgroundColor: GREEN,
-                fixedSize: Size(200, 45),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-              ),
-              child: Text(
-                'Edit Profile',
-                style: TextStyle(color: DGREEN, fontWeight: FontWeight.w500),
-              ),
             )
           ],
         ),
@@ -169,85 +127,35 @@ class Options extends StatelessWidget {
         margin: EdgeInsets.all(10.0),
         child: Column(
           children: [
-            //  Settings
-            Padding(
-              padding: const EdgeInsets.all(4.0),
-              child: Row(
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      color: GREEN,
-                      borderRadius: BorderRadius.circular(50),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Icon(
-                        FontAwesomeIcons.gear,
-                        color: DGREEN,
-                        size: 20,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(left: 20),
-                    child: Text(
-                      'Settings',
-                      style: TextStyle(
-                        color: BLACK,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 16,
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Align(
-                      alignment: Alignment.centerRight,
-                      child: Icon(
-                        FontAwesomeIcons.chevronRight,
-                        color: GREY,
-                        size: 20,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+            ProfileOptions(
+              text: "Edit your profile information",
+              icon: FontAwesomeIcons.user,
+              onPressed: () {print("this btn was pressed");}
             ),
 
-            // Logout
-            InkWell(
-              onTap: () {
-                signOutUser();
-              },
-              child: Padding(
-                padding: const EdgeInsets.all(4.0),
-                child: Row(
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        color: BROWN,
-                        borderRadius: BorderRadius.circular(50),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Icon(
-                          FontAwesomeIcons.arrowRightFromBracket,
-                          color: ORGANGE,
-                          size: 20,
-                        ),
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(left: 20),
-                      child: Text(
-                        'Sign out',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500, fontSize: 16),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            )
+            ProfileOptions(
+              text: "Pet information",
+              icon: FontAwesomeIcons.paw,
+              onPressed: () {print("this btn was pressed");}
+            ),
+
+            ProfileOptions(
+              text: "Settings",
+              icon: FontAwesomeIcons.gear,
+              onPressed: () {print("this btn was pressed");}
+            ),
+
+            ProfileOptions(
+              text: "About",
+              icon: FontAwesomeIcons.circleInfo,
+              onPressed: () {print("this btn was pressed");}
+            ),
+
+            ProfileOptions(
+              text: "Log out",
+              icon: FontAwesomeIcons.powerOff,
+              onPressed: () { signOutUser(); }
+            ),
           ],
         ),
       ),

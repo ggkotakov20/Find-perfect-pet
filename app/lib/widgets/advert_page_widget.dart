@@ -65,7 +65,7 @@ class _YourAdvertPageState extends State<YourAdvertPage> {
               child: Text(
                 appLocalizations.general_no,
                 style: TextStyle(
-                  color: NavigationBarSel,
+                  color: mainColor,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -234,7 +234,7 @@ class _YourAdvertPageState extends State<YourAdvertPage> {
                       icon: Icon(
                         FontAwesomeIcons.chevronLeft,
                         size: 20,
-                        color: NavigationBarSel,
+                        color: mainColor,
                       ),
                     ),
                   ),
@@ -267,7 +267,7 @@ class _YourAdvertPageState extends State<YourAdvertPage> {
                                 icon: Icon(
                                   FontAwesomeIcons.edit,
                                   size: 20,
-                                  color: NavigationBarSel,
+                                  color: mainColor,
                                 ),
                               ),
                               IconButton(
@@ -304,7 +304,7 @@ class _YourAdvertPageState extends State<YourAdvertPage> {
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 24,
-                                color: NavigationBarSel,
+                                color: mainColor,
                               ),
                             ),
                             Padding(
@@ -471,7 +471,7 @@ class _YourAdvertPageState extends State<YourAdvertPage> {
                             ),
                             SizedBox(height: 15),
                             Material(
-                              color: NavigationBarSel,
+                              color: mainColor,
                               borderRadius: BorderRadius.circular(30),
                               child: InkWell(
                                 onTap: () {
@@ -743,7 +743,7 @@ class _AdvertPageState extends State<AdvertPage> {
                       icon: Icon(
                         FontAwesomeIcons.chevronLeft,
                         size: 20,
-                        color: NavigationBarSel,
+                        color: mainColor,
                       ),
                     ),
                   ),
@@ -797,7 +797,7 @@ class _AdvertPageState extends State<AdvertPage> {
                                   icon: Icon(
                                     FontAwesomeIcons.shoppingBag,
                                     size: 22,
-                                    color: NavigationBarSel,
+                                    color: mainColor,
                                   ),
                                 ),
                               ],
@@ -822,7 +822,7 @@ class _AdvertPageState extends State<AdvertPage> {
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 24,
-                                color: NavigationBarSel,
+                                color: mainColor,
                               ),
                             ),
                             Padding(

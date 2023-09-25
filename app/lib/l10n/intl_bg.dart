@@ -3,10 +3,11 @@ class IntlBG {
   static const general_yes = 'Да';
   static const general_no = 'Не';
   
-  // Navigation Bar
-  static const general_map = 'Карта';
-  static const general_home = 'Начало';
-  static const general_menu = 'Меню';
+  static const page_title_map = 'Карта';
+  static const page_title_pet = 'Любимци';
+  static const page_title_home = 'Начало';
+  static const page_title_profile = 'Профил';
+  static const page_title_calendar = 'Срещи';
 
   //  Home page
   static const general_buy = 'Купи';

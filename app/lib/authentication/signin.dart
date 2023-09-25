@@ -74,7 +74,7 @@ class _SignInState extends State<SignIn> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: background,
+      backgroundColor: Background,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         //  To remove shadowes
@@ -86,7 +86,7 @@ class _SignInState extends State<SignIn> {
             height: 65,
           ),
         ),
-        backgroundColor: background,
+        backgroundColor: Background,
       ),
       body: LayoutBuilder(
         builder: (context, cons) {
@@ -99,7 +99,7 @@ class _SignInState extends State<SignIn> {
                 children: [
                   SizedBox(height: 10,),
                   Text('Sign in',style: TextStyle(
-                    color: NavigationBarSel,
+                    color: mainColor,
                     fontSize: 30,
                     fontWeight: FontWeight.w500
                     ),
@@ -122,7 +122,7 @@ class _SignInState extends State<SignIn> {
                                   decoration: InputDecoration(
                                     prefixIcon: Icon(
                                       FontAwesomeIcons.envelope,
-                                      color: NavigationBarSel,
+                                      color: mainColor,
                                       size: 19,
                                     ),
                                     hintText: "Email",
@@ -169,7 +169,7 @@ class _SignInState extends State<SignIn> {
                                   decoration: InputDecoration(
                                     prefixIcon: Icon(
                                       FontAwesomeIcons.key,
-                                      color: NavigationBarSel,
+                                      color: mainColor,
                                       size: 19,
                                     ),
                                     hintText: "Password",
@@ -214,7 +214,7 @@ class _SignInState extends State<SignIn> {
                   // Sing up btn
           
                   Material(
-                    color: NavigationBarSel,
+                    color: mainColor,
                     borderRadius: BorderRadius.circular(30),
                     child: InkWell(
                       onTap: (){
@@ -241,7 +241,7 @@ class _SignInState extends State<SignIn> {
                           Get.to(SignUp());
                         },
                         child: Text("Sign up Here", style: TextStyle(
-                          color: NavigationBarSel
+                          color: mainColor
                         ),),
                       ),
                     ],

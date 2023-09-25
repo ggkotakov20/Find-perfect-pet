@@ -249,7 +249,7 @@ class _LogOutState extends State<LogOut> {
             Get.back();
           },
           child: Text('No', style: TextStyle(
-            color: NavigationBarSel,
+            color: mainColor,
             fontWeight: FontWeight.bold
           ),),
         ),

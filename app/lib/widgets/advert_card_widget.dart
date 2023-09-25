@@ -241,7 +241,7 @@ class _AdvertCardState extends State<AdvertCard> {
                         icon: Icon(
                           FontAwesomeIcons.shoppingBag,
                           size: 20,
-                          color: NavigationBarSel,
+                          color: mainColor,
                         ),
                       ),
                       SizedBox(width: 10),
@@ -335,7 +335,7 @@ class _YourAdvertCardState extends State<YourAdvertCard> {
               child: Text(
                 appLocalizations.general_no,
                 style: TextStyle(
-                  color: NavigationBarSel,
+                  color: mainColor,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -455,7 +455,7 @@ class _YourAdvertCardState extends State<YourAdvertCard> {
                         icon: Icon(
                           FontAwesomeIcons.edit,
                           size: 20,
-                          color: NavigationBarSel,
+                          color: mainColor,
                         ),
                       ),
                       IconButton(

@@ -25,11 +25,11 @@ class _YourAdvertState extends State<YourAdvert> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: background,
+      backgroundColor: Background,
       appBar: AppBar(
         centerTitle: true,
-        foregroundColor: NavigationBarSel,
-        backgroundColor: background,
+        foregroundColor: mainColor,
+        backgroundColor: Background,
         elevation: 0.0,
         toolbarHeight: 80,
         leading: IconButton(
@@ -94,7 +94,7 @@ Future<void> _refreshData() async {
               Text(
                 '${appLocalizations.general_your_adverts}',
                 style: TextStyle(
-                  color: NavigationBarSel,
+                  color: mainColor,
                   fontSize: 30,
                   fontWeight: FontWeight.w500,
                 ),

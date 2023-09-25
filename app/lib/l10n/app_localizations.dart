@@ -24,26 +24,41 @@ class AppLocalizations {
       return IntlEN.general_no; // Use English translation as a fallback
     }
   }
+  //  Title page
 
-  String get general_map {
+  String get page_title_map {
     if (locale.languageCode == 'bg') {
-      return IntlBG.general_map; // Use Bulgarian translation
+      return IntlBG.page_title_map; // Use Bulgarian translation
     } else {
-      return IntlEN.general_map; // Use English translation as a fallback
+      return IntlEN.page_title_map; // Use English translation as a fallback
     }
   }
-  String get general_home {
+  String get page_title_pet {
     if (locale.languageCode == 'bg') {
-      return IntlBG.general_home; // Use Bulgarian translation
+      return IntlBG.page_title_pet; // Use Bulgarian translation
     } else {
-      return IntlEN.general_home; // Use English translation as a fallback
+      return IntlEN.page_title_pet; // Use English translation as a fallback
     }
   }
-  String get general_menu {
+  String get page_title_home {
     if (locale.languageCode == 'bg') {
-      return IntlBG.general_menu; // Use Bulgarian translation
+      return IntlBG.page_title_home; // Use Bulgarian translation
     } else {
-      return IntlEN.general_menu; // Use English translation as a fallback
+      return IntlEN.page_title_home; // Use English translation as a fallback
+    }
+  }
+  String get page_title_profile {
+    if (locale.languageCode == 'bg') {
+      return IntlBG.page_title_profile; // Use Bulgarian translation
+    } else {
+      return IntlEN.page_title_profile; // Use English translation as a fallback
+    }
+  }
+  String get page_title_calendar {
+    if (locale.languageCode == 'bg') {
+      return IntlBG.page_title_calendar; // Use Bulgarian translation
+    } else {
+      return IntlEN.page_title_calendar; // Use English translation as a fallback
     }
   }
 

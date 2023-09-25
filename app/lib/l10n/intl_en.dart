@@ -4,9 +4,11 @@ class IntlEN {
   static const general_no = 'No';
   
   // Navigation Bar
-  static const general_map = 'Map';
-  static const general_home = 'Home';
-  static const general_menu = 'Menu';
+  static const page_title_map = 'Map';
+  static const page_title_pet = 'Pet';
+  static const page_title_home = 'Home';
+  static const page_title_profile = 'Profile';
+  static const page_title_calendar = 'Appointments';
 
   //  Home page
   static const general_buy = 'Buy pet';

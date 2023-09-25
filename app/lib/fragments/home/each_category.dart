@@ -21,11 +21,11 @@ class Adverts extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: background,
+      backgroundColor: Background,
       appBar: AppBar(
         centerTitle: true,
-        foregroundColor: NavigationBarSel,
-        backgroundColor: background,
+        foregroundColor: mainColor,
+        backgroundColor: Background,
         elevation: 0.0,
         toolbarHeight: 80,
         leading: IconButton(

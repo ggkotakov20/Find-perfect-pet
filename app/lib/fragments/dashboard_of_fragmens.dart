@@ -5,20 +5,20 @@ import 'package:get/get.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:app/fragments/home/home.dart';
+import 'package:app/fragments/profile/profile.dart';
 import 'package:app/fragments/map.dart';
 
-import 'package:app/fragments/hub.dart';
 import 'package:app/fragments/error.dart';
 
 import 'package:app/l10n/app_localizations.dart';
 
-int currentIndex = 1;
+int currentIndex = 2;
 
 final screen = [
   MapPage(),
-  HomePage(),
-  Hub(),
   ErrorPage(),
+  HomePage(),
+  ProfilePage(),
   ErrorPage()
 ];
 
@@ -36,6 +36,14 @@ class _DashboardOfFragmentsState extends State<DashboardOfFragments> {
   Widget build(BuildContext context) {
     final AppLocalizations appLocalizations = AppLocalizations.of(context);
 
+    final pageTitle = [
+      appLocalizations.page_title_map,
+      appLocalizations.page_title_pet,
+      appLocalizations.page_title_home,
+      appLocalizations.page_title_profile,
+      appLocalizations.page_title_calendar,
+    ];
+
     return GetBuilder(
       init: CurrentUser(),
       initState: (currentState) {
@@ -43,18 +51,23 @@ class _DashboardOfFragmentsState extends State<DashboardOfFragments> {
       },
       builder: (controller){
         return Scaffold(
-          backgroundColor: background,
+          backgroundColor: Background,
           appBar: AppBar(
             automaticallyImplyLeading: false,
             elevation: 0.0,
             toolbarHeight: 80,
-            title: const Center(
-              child: Image(
-                image: AssetImage('images/logo.png'),
-                height: 65,
+            title: Padding(
+              padding: const EdgeInsets.only(left: 5),
+              child: Text(
+                pageTitle[currentIndex],
+                style: TextStyle(
+                  color: TextColor,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 24
+                ),
               ),
             ),
-            backgroundColor: background,
+            backgroundColor: Background,
             
           ),
           body: screen[currentIndex],
@@ -66,21 +79,30 @@ class _DashboardOfFragmentsState extends State<DashboardOfFragments> {
                 type: BottomNavigationBarType.fixed,
                 backgroundColor: NavigationBarBG,
                 selectedItemColor: NavigationBarSel,
-                unselectedItemColor: NavigationBarUnSel,
-                selectedFontSize: 15,
-                unselectedFontSize: 15,
+                unselectedItemColor: NavigationBarUnSel.withOpacity(0.6),
+                showSelectedLabels: false,
+                showUnselectedLabels: false,
+                iconSize: 25,
                 items: [
                   BottomNavigationBarItem(
-                    label: appLocalizations.general_map,
+                    label: '',
                     icon: Icon(FontAwesomeIcons.mapLocationDot),
                   ),
                   BottomNavigationBarItem(
-                    label: appLocalizations.general_home,
+                    label: '',
+                    icon: Icon(FontAwesomeIcons.paw),
+                  ),
+                  BottomNavigationBarItem(
+                    label: '',
                     icon: Icon(FontAwesomeIcons.house),
                   ),
                   BottomNavigationBarItem(
-                    label: appLocalizations.general_menu,
-                    icon: Icon(FontAwesomeIcons.bars),
+                    label: '',
+                    icon: Icon(FontAwesomeIcons.user),
+                  ),
+                  BottomNavigationBarItem(
+                    label: '',
+                    icon: Icon(FontAwesomeIcons.calendar),
                   ),
                 ],
                 currentIndex: currentIndex,

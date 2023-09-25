@@ -1,10 +1,19 @@
 import 'package:flutter/material.dart';
 
-Color background =  Color.fromRGBO(242, 244, 245,1);
+Color mainColor =  Color.fromRGBO(89, 183, 236, 1);
+
+Color Background =  Color.fromRGBO(242, 244, 245,1);
+Color TextColor = Colors.black;
+
 Color NavigationBarBG = Colors.white;
-Color NavigationBarSel = Color.fromRGBO(0, 116, 242, 1);
+Color NavigationBarSel = mainColor;
 Color NavigationBarUnSel = Color.fromRGBO(137, 149, 159, 1);
+
+Color ProfileOptionsIcon = Color.fromRGBO(194, 191, 191, 1);
+Color ProfileOptionsIconBG = Colors.white;
+
 Color CardBG= Colors.white;
+
 List<Color> CardBgGreen = [Color.fromRGBO(0, 170, 148, 1), Color.fromRGBO(0, 193, 188, 1)];
 List<Color> CardBgYellow = [Color.fromRGBO(249, 133, 62, 1), Color.fromRGBO(251, 168, 82, 1)];
 List<Color> CardBgBlue = [Color.fromRGBO(0, 129, 255, 1), Color.fromRGBO(15, 168, 250, 1)];

@@ -115,7 +115,7 @@ class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: background,
+      backgroundColor: Background,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         //  To remove shadowes
@@ -127,7 +127,7 @@ class _SignUpState extends State<SignUp> {
             height: 65,
           ),
         ),
-        backgroundColor: background,
+        backgroundColor: Background,
       ),
       body: LayoutBuilder(
         builder: (context, cons) {
@@ -140,7 +140,7 @@ class _SignUpState extends State<SignUp> {
                   children: [
                     SizedBox(height: 10,),
                     Text('Sign up',style: TextStyle(
-                      color: NavigationBarSel,
+                      color: mainColor,
                       fontSize: 30,
                       fontWeight: FontWeight.w500
                       ),
@@ -163,7 +163,7 @@ class _SignUpState extends State<SignUp> {
                                     decoration: InputDecoration(
                                       prefixIcon: Icon(
                                         FontAwesomeIcons.user,
-                                        color: NavigationBarSel,
+                                        color: mainColor,
                                         size: 19,
                                       ),
                                       hintText: "First name",
@@ -209,7 +209,7 @@ class _SignUpState extends State<SignUp> {
                                     decoration: InputDecoration(
                                       prefixIcon: Icon(
                                         FontAwesomeIcons.user,
-                                        color: NavigationBarSel,
+                                        color: mainColor,
                                         size: 19,
                                       ),
                                       hintText: "Last name",
@@ -255,7 +255,7 @@ class _SignUpState extends State<SignUp> {
                                     decoration: InputDecoration(
                                       prefixIcon: Icon(
                                         FontAwesomeIcons.phone,
-                                        color: NavigationBarSel,
+                                        color: mainColor,
                                         size: 19,
                                       ),
                                       hintText: "Phone",
@@ -301,7 +301,7 @@ class _SignUpState extends State<SignUp> {
                                     decoration: InputDecoration(
                                       prefixIcon: Icon(
                                         FontAwesomeIcons.envelope,
-                                        color: NavigationBarSel,
+                                        color: mainColor,
                                         size: 19,
                                       ),
                                       hintText: "Email",
@@ -348,7 +348,7 @@ class _SignUpState extends State<SignUp> {
                                     decoration: InputDecoration(
                                       prefixIcon: Icon(
                                         FontAwesomeIcons.key,
-                                        color: NavigationBarSel,
+                                        color: mainColor,
                                         size: 19,
                                       ),
                                       hintText: "Password",
@@ -393,7 +393,7 @@ class _SignUpState extends State<SignUp> {
                     // Sing up btn
 
                     Material(
-                      color: NavigationBarSel,
+                      color: mainColor,
                       borderRadius: BorderRadius.circular(30),
                       child: InkWell(
                         onTap: (){
@@ -420,7 +420,7 @@ class _SignUpState extends State<SignUp> {
                             Get.to(SignIn());
                           },
                           child: Text("Sign up Here", style: TextStyle(
-                            color: NavigationBarSel
+                            color: mainColor
                           ),),
                         ),
                       ],

@@ -23,11 +23,11 @@ class _AddAdvertState extends State<AddAdvert> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: background,
+      backgroundColor: Background,
       appBar: AppBar(
         centerTitle: true,
-        foregroundColor: NavigationBarSel,
-        backgroundColor: background,
+        foregroundColor: mainColor,
+        backgroundColor: Background,
         elevation: 0.0,
         toolbarHeight: 80,
         leading: IconButton(
@@ -146,7 +146,7 @@ class _AddAdvertBodyState extends State<AddAdvertBody> {
                   children: [
                     SizedBox(height: 10,),
                     Text('${appLocalizations.general_add} ${appLocalizations.general_advert.toLowerCase()}',style: TextStyle(
-                      color: NavigationBarSel,
+                      color: mainColor,
                       fontSize: 30,
                       fontWeight: FontWeight.w500
                       ),
@@ -375,7 +375,7 @@ class _AddAdvertBodyState extends State<AddAdvertBody> {
                     // Add advert btn
 
                     Material(
-                      color: NavigationBarSel,
+                      color: mainColor,
                       borderRadius: BorderRadius.circular(30),
                       child: InkWell(
                         onTap: (){
