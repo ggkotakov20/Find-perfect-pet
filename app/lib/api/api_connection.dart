@@ -17,4 +17,7 @@ class API{
 
   static const search = "$hostConnection/search.php";
   static const addFavorite = "$hostConnection/favorite/favorite.php";
+
+  
+  static const userPet = "$hostConnection/pet-profile.php";
 }

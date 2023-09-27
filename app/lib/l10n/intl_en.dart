@@ -5,7 +5,7 @@ class IntlEN {
   
   // Navigation Bar
   static const page_title_map = 'Map';
-  static const page_title_pet = 'Pet';
+  static const page_title_pet = 'Pets';
   static const page_title_home = 'Home';
   static const page_title_profile = 'Profile';
   static const page_title_calendar = 'Appointments';

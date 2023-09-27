@@ -1,22 +1,23 @@
 import 'package:app/model/current_user.dart';
 import 'package:flutter/material.dart';
 import 'package:app/colors.dart';
-import 'package:get/get.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 
 import 'package:app/fragments/home/home.dart';
 import 'package:app/fragments/profile/profile.dart';
+import 'package:app/fragments/pet/pet.dart';
 import 'package:app/fragments/map.dart';
 
 import 'package:app/fragments/error.dart';
 
 import 'package:app/l10n/app_localizations.dart';
 
-int currentIndex = 2;
+int currentIndex = 1;
 
 final screen = [
   MapPage(),
-  ErrorPage(),
+  PetPage(),
   HomePage(),
   ProfilePage(),
   ErrorPage()

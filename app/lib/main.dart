@@ -37,8 +37,6 @@ class MyApp extends StatelessWidget {
       home: FutureBuilder(
         future: RememberUserPrefs.readUserData(),
         builder: (context, dataSnapShot) {
-          print('DataSnapshot: ${dataSnapShot.data}');
-          
           if (dataSnapShot.connectionState == ConnectionState.waiting) {
             return CircularProgressIndicator();
           } else if (dataSnapShot.hasError) {
