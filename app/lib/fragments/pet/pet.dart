@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:app/fragments/error.dart';
+import 'package:app/fragments/pet/edit_pet_page.dart';
 import 'package:flutter/material.dart';
 import 'package:app/colors.dart';
 import 'package:flutter_map/plugin_api.dart';
@@ -209,6 +211,7 @@ class PetSheet extends StatelessWidget {
                         color: TextColor,
                         fontWeight: FontWeight.w600,
                         fontSize: 16,
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
                     Text(
@@ -233,6 +236,7 @@ class PetSheet extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            
             Padding(
               padding: const EdgeInsets.only(left: 20, top: 15),
               child: Row(
@@ -244,11 +248,26 @@ class PetSheet extends StatelessWidget {
                       color: TextColor,
                       fontWeight: FontWeight.w500,
                       fontSize: 18,
+                      
                     ),
                   ),
                   TextButton(
-                    onPressed: () {
-                      // Add your button's action here
+                    onPressed: () async {
+                      await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => EditPetPage(
+                            image: image,
+                            name: name,
+                            species: species,
+                            sex: sex,
+                            breed: breed,
+                            birthdate: birthdate,
+                            weight: weight,
+                            food: food,
+                          ),
+                        ),
+                      );
                     },
                     child: Text(
                       'Edit',
@@ -271,16 +290,7 @@ class PetSheet extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       PetEachInfo(FontAwesomeIcons.paw, mainColor, 'Name', name),
-                      PetEachInfo(
-                        species == 'Dog'
-                            ? FontAwesomeIcons.dog
-                            : species == 'Cat'
-                                ? FontAwesomeIcons.cat
-                                : FontAwesomeIcons.cow,
-                        mainColor,
-                        'Species',
-                        species,
-                      ),
+                      PetEachInfo(FontAwesomeIcons.codeBranch,mainColor,'Species',species,),
                       PetEachInfo(FontAwesomeIcons.venusMars, mainColor, 'Sex', sex),
                     ],
                   ),
@@ -322,8 +332,22 @@ class PetSheet extends StatelessWidget {
                     ),
                   ),
                   TextButton(
-                    onPressed: () {
-                      // Add your button's action here
+                    onPressed: () async {
+                      await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => EditPetPage(
+                            image: image,
+                            name: name,
+                            species: species,
+                            sex: sex,
+                            breed: breed,
+                            birthdate: birthdate,
+                            weight: weight,
+                            food: food,
+                          ),
+                        ),
+                      );
                     },
                     child: Text(
                       'Edit',
