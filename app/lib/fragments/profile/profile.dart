@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:app/colors.dart';
 import 'package:get/get.dart';
-import 'package:app/widgets/option_buttons.dart';
+import 'package:app/functions/option_buttons.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});

@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:app/model/map_point.dart';
+import 'map_point.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class RememberMapPointPrefs{

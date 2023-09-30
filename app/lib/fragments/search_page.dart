@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:app/l10n/app_localizations.dart';
-import 'package:app/widgets/advert_card_widget.dart';
-import 'package:app/widgets/advert_page_widget.dart';
+import 'package:app/functions/advert_card_widget.dart';
+import 'package:app/functions/advert_page_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:app/colors.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';

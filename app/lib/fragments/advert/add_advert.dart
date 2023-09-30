@@ -70,7 +70,7 @@ class _AddAdvertBodyState extends State<AddAdvertBody> {
   var priceController = TextEditingController();
   var descriptionController = TextEditingController();
   ValueNotifier<String?> categoryNotifier = ValueNotifier<String?>(null); 
-  ValueNotifier<String?> typeNotifier = ValueNotifier<String?>(null); // Remove the default value
+  ValueNotifier<String?> typeNotifier = ValueNotifier<String?>(null);
 
   addAndSaveAdvertRecord() async {
     final AppLocalizations appLocalizations = AppLocalizations.of(context);
@@ -79,8 +79,8 @@ class _AddAdvertBodyState extends State<AddAdvertBody> {
       1,
       _currentUser.user.id,
       titleController.text.trim(),
-      categoryNotifier.value ?? 'default_category',
-      typeNotifier.value ?? 'default_type', // Use categoryNotifier.value
+      categoryNotifier.value ?? 'null',
+      typeNotifier.value ?? 'null', // Use categoryNotifier.value
       priceController.text.trim(),
       descriptionController.text.trim(),
       "https://developers.google.com/static/maps/documentation/maps-static/images/error-image-generic.png"

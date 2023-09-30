@@ -1,18 +1,18 @@
 import 'dart:convert';
-
+import 'package:app/functions/refresh.dart';
+import 'package:app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:app/colors.dart';
-import 'package:flutter_map/plugin_api.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
 import 'package:app/api/api_connection.dart';
 import 'package:http/http.dart' as http;
-import 'package:app/model/current_user.dart';
 import 'package:get/get.dart';
 import 'package:app/model/user_pet.dart';
+import 'package:app/model/current_user.dart';
 
 class EditPetPage extends StatelessWidget {
-
+  final String id;
   final String image;
   final String name;
   final String species;
@@ -22,8 +22,11 @@ class EditPetPage extends StatelessWidget {
   final String weight;
   final String food;
 
+  final VoidCallback onSave; // Callback to trigger a refresh
+
   EditPetPage({
     Key? key,
+    required this.id,
     required this.image,
     required this.name,
     required this.species,
@@ -32,11 +35,11 @@ class EditPetPage extends StatelessWidget {
     required this.birthdate,
     required this.weight,
     required this.food,
+    required this.onSave, // Add this parameter
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       backgroundColor: Background,
       appBar: AppBar(
@@ -58,13 +61,13 @@ class EditPetPage extends StatelessWidget {
           style: TextStyle(
             color: TextColor,
             fontWeight: FontWeight.w500,
-            fontSize: 22
+            fontSize: 22,
           ),
         ),
         backgroundColor: Background,
-        
       ),
       body: EditPetPageBody(
+        id: id,
         image: image,
         name: name,
         species: species,
@@ -72,13 +75,15 @@ class EditPetPage extends StatelessWidget {
         breed: breed,
         birthdate: birthdate,
         weight: weight,
-        food: food
+        food: food,
+        onSave: onSave, // Pass the callback here
       ),
     );
   }
 }
 
-class EditPetPageBody extends StatelessWidget {
+class EditPetPageBody extends StatefulWidget {
+  final String id;
   final String image;
   final String name;
   final String species;
@@ -88,8 +93,11 @@ class EditPetPageBody extends StatelessWidget {
   final String weight;
   final String food;
 
+  final VoidCallback onSave; // Callback to trigger a refresh
+
   EditPetPageBody({
     Key? key,
+    required this.id,
     required this.image,
     required this.name,
     required this.species,
@@ -98,16 +106,85 @@ class EditPetPageBody extends StatelessWidget {
     required this.birthdate,
     required this.weight,
     required this.food,
+    required this.onSave, // Add this parameter
   }) : super(key: key);
 
-  var formKey = GlobalKey<FormState>();
-  var firstNameController = TextEditingController();
-  var lastNameController = TextEditingController();
-  var phoneController = TextEditingController();
-  var emailController = TextEditingController();
-  var passwordController = TextEditingController();
+  @override
+  State<EditPetPageBody> createState() => _EditPetPageBodyState();
+}
 
-  Container InputBox(IconData icon, String titile, String textInside){
+class _EditPetPageBodyState extends State<EditPetPageBody> {
+  final CurrentUser _currentUser = Get.put(CurrentUser());
+
+  var formKey = GlobalKey<FormState>();
+  var nameController = TextEditingController();
+  var speciesController = TextEditingController();
+  var sexController = TextEditingController();
+  var breedController = TextEditingController();
+  var birthdateController = TextEditingController();
+  var weightController = TextEditingController();
+  var foodController = TextEditingController();
+
+  var speciesItems = const [
+    DropdownMenuItem<String>(value: 'Dog',child: Text('Dog'),),
+    DropdownMenuItem<String>(value: 'Cat',child: Text('Cat'),),
+    DropdownMenuItem<String>(value: 'Fish',child: Text('Fish'),),
+  ];
+  var sexItems = const [
+    DropdownMenuItem<String>(value: 'Male',child: Text('Male'),),
+    DropdownMenuItem<String>(value: 'Female',child: Text('Female'),),
+  ];
+
+  addAndSavePetRecord() async {
+    final AppLocalizations appLocalizations = AppLocalizations.of(context);
+
+    User_Pet petModel = User_Pet(
+      int.parse(widget.id),
+      _currentUser.user.id,
+      nameController.text.trim(),
+      speciesController.text.trim(),
+      sexController.text.trim(),
+      breedController.text.trim(),
+      birthdateController.text.trim(),
+      weightController.text.trim(),
+      foodController.text.trim(),
+      "https://developers.google.com/static/maps/documentation/maps-static/images/error-image-generic.png",
+    );
+
+    try {
+      var res = await http.post(
+        Uri.parse(API.editUserPet),
+        body: petModel.toJson(),
+      );
+
+      if (res.statusCode == 200) {
+        var resBodyOfEditPet = jsonDecode(res.body);
+        if (resBodyOfEditPet['success'] == true) {
+          Fluttertoast.showToast(
+            msg: appLocalizations.general_edit_pet_suucess,
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            textColor: Colors.white,
+            fontSize: 16.0,
+          );
+        } else {
+          Fluttertoast.showToast(
+            msg: appLocalizations.general_error,
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            textColor: Colors.white,
+            fontSize: 16.0,
+          );
+        }
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  Container InputBox(IconData icon, String title, String textInside, var controller) {
     return Container(
       child: Padding(
         padding: const EdgeInsets.only(top: 15.0, left: 20, right: 20),
@@ -117,25 +194,24 @@ class EditPetPageBody extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(bottom: 5),
               child: Text(
-                titile,
+                title,
                 style: TextStyle(
-                  fontSize: 14
+                  fontSize: 14,
                 ),
               ),
             ),
-            TextFormField(
-              controller: firstNameController,
-              validator: (val) => val == "" ? "Please write first name" : null,
+            TextFormField( 
+              controller: controller,
               decoration: InputDecoration(
                 prefixIcon: Icon(
                   icon,
                   color: TextColor.withOpacity(0.75),
                   size: 19,
                 ),
-                hintText: textInside,
+                hintText: title,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
-                  borderSide:  BorderSide(
+                  borderSide: BorderSide(
                     color: Colors.black.withOpacity(0.3),
                   ),
                 ),
@@ -147,19 +223,22 @@ class EditPetPageBody extends StatelessWidget {
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
-                  borderSide:  BorderSide(
+                  borderSide: BorderSide(
                     color: Colors.black.withOpacity(0.3),
                   ),
                 ),
                 disabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
-                  borderSide:  BorderSide(
+                  borderSide: BorderSide(
                     color: Colors.black.withOpacity(0.3),
                   ),
                 ),
-                contentPadding: const EdgeInsets.symmetric(horizontal: 14,vertical: 6,),
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: 14,
+                  vertical: 6,
+                ),
                 fillColor: CardBG,
-                filled: true
+                filled: true,
               ),
             ),
           ],
@@ -167,70 +246,95 @@ class EditPetPageBody extends StatelessWidget {
       ),
     );
   }
-  Container SelectBox(IconData icon, String titile, String textInside){
-    return Container(
-      child: Padding(
-        padding: const EdgeInsets.only(top: 15.0, left: 20, right: 20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(bottom: 5),
-              child: Text(
-                titile,
-                style: TextStyle(
-                  fontSize: 14
-                ),
+  Container SelectBox(IconData icon, String title, String textInside, var controller, var items) {
+  String? selectedAnimal = controller.text; // This will store the selected animal
+
+  return Container(
+    child: Padding(
+      padding: const EdgeInsets.only(top: 15.0, left: 20, right: 20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(bottom: 5),
+            child: Text(
+              title,
+              style: TextStyle(
+                fontSize: 14,
               ),
             ),
-            TextFormField(
-              controller: firstNameController,
-              validator: (val) => val == "" ? "Please write first name" : null,
+          ),
+          InputDecorator(
+            decoration: InputDecoration(
+              prefixIcon: Icon(
+                icon,
+                color: TextColor.withOpacity(0.75),
+                size: 19,
+              ),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide(
+                  color: Colors.black.withOpacity(0.3),
+                ),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide(
+                  color: Colors.black.withOpacity(0.3),
+                ),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide(
+                  color: Colors.black.withOpacity(0.3),
+                ),
+              ),
+              disabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide(
+                  color: Colors.black.withOpacity(0.3),
+                ),
+              ),
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: 14,
+              ),
+              fillColor: CardBG,
+              filled: true,
+            ),
+            child: DropdownButtonFormField<String>(
+              isExpanded: true,
+              icon: Icon(
+                FontAwesomeIcons.bars, // Change the dropdown icon here
+                size: 18, // Adjust the size of the icon here
+              ),
               decoration: InputDecoration(
-                prefixIcon: Icon(
-                  icon,
-                  color: TextColor.withOpacity(0.75),
-                  size: 19,
-                ),
-                suffixIcon: Icon(
-                  FontAwesomeIcons.bars,
-                  color: TextColor.withOpacity(0.75),
-                  size: 19,
-                ),
-                hintText: textInside,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  borderSide:  BorderSide(
-                    color: Colors.black.withOpacity(0.3),
-                  ),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  borderSide: BorderSide(
-                    color: Colors.black.withOpacity(0.3),
-                  ),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  borderSide:  BorderSide(
-                    color: Colors.black.withOpacity(0.3),
-                  ),
-                ),
-                disabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  borderSide:  BorderSide(
-                    color: Colors.black.withOpacity(0.3),
-                  ),
-                ),
-                contentPadding: const EdgeInsets.symmetric(horizontal: 14,vertical: 6,),
-                fillColor: CardBG,
-                filled: true
+                border: InputBorder.none,
+                hintText: 'Select an animal',
               ),
+              value: selectedAnimal,
+              items: items,
+              onChanged: (String? newValue) {
+                // Update the selected value and controller
+                selectedAnimal = newValue;
+                controller.text = newValue ?? '';
+              },
             ),
-          ],
-        ),
+          ),
+        ],
       ),
-    );
+    ),
+  );
+}
+
+  void initState() {
+    super.initState();
+    nameController.text = widget.name;
+    speciesController.text = widget.species;
+    sexController.text = widget.sex;
+    breedController.text = widget.breed;
+    birthdateController.text = widget.birthdate;
+    weightController.text = widget.weight;
+    foodController.text = widget.food;
   }
 
   @override
@@ -248,7 +352,7 @@ class EditPetPageBody extends StatelessWidget {
                     topRight: Radius.circular(15),
                   ),
                   child: Image.network(
-                    image,
+                    widget.image,
                     height: 175.0,
                     width: double.infinity,
                     fit: BoxFit.cover,
@@ -263,12 +367,13 @@ class EditPetPageBody extends StatelessWidget {
                     child: Column(
                       children: [
                         SizedBox(height: 5),
-                        InputBox(FontAwesomeIcons.paw, 'Name', name),
-                        SelectBox(FontAwesomeIcons.codeBranch, 'Species', species),
-                        SelectBox(FontAwesomeIcons.venusMars, 'Sex', sex),
-                        InputBox(FontAwesomeIcons.dna, 'Breed', breed),
-                        InputBox(FontAwesomeIcons.cake, 'Birthdate', birthdate),
-                        InputBox(FontAwesomeIcons.weight, 'Weight', weight),
+                        InputBox(FontAwesomeIcons.paw, 'Name', widget.name, nameController),
+                        SelectBox(FontAwesomeIcons.codeBranch, 'Species', widget.species, speciesController,speciesItems),
+                        SelectBox(FontAwesomeIcons.venusMars, 'Gender', widget.sex, sexController, sexItems),
+                        //InputBox(FontAwesomeIcons.venusMars, 'Gender', widget.sex, sexController),
+                        InputBox(FontAwesomeIcons.dna, 'Breed', widget.breed, breedController),
+                        InputBox(FontAwesomeIcons.cake, 'Birthdate', widget.birthdate, birthdateController),
+                        InputBox(FontAwesomeIcons.weight, 'Weight', widget.weight, weightController),
                         SizedBox(height: 20),
                       ],
                     ),
@@ -302,7 +407,9 @@ class EditPetPageBody extends StatelessWidget {
                 )),
               ),
               onPressed: () {
-                // Add your save logic here
+                addAndSavePetRecord();
+                widget.onSave(); // Trigger the callback to refresh PetPage
+                Navigator.of(context).pop();
               },
               child: Text(
                 'Save Changes',

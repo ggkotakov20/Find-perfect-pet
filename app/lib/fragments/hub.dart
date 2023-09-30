@@ -9,7 +9,7 @@ import 'package:app/model/user_preferences.dart';
 
 import 'package:app/fragments/profile/profile.dart';
 import 'package:app/fragments/advert/add_advert.dart';
-import 'package:app/widgets/menu_button.dart';
+import 'package:app/functions/menu_button.dart';
 
 import 'package:geolocator/geolocator.dart';
 import 'package:permission_handler/permission_handler.dart';

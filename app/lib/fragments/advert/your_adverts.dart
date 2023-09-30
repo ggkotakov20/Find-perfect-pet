@@ -1,12 +1,12 @@
 import 'dart:convert';
 import 'package:app/l10n/app_localizations.dart';
-import 'package:app/widgets/refresh.dart';
+import 'package:app/functions/refresh.dart';
 import 'package:flutter/material.dart';
 import 'package:app/colors.dart';
 import 'package:flutter_map/plugin_api.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:app/widgets/advert_card_widget.dart';
-import 'package:app/widgets/advert_page_widget.dart';
+import 'package:app/functions/advert_card_widget.dart';
+import 'package:app/functions/advert_page_widget.dart';
 
 import 'package:app/api/api_connection.dart';
 import 'package:http/http.dart' as http;
@@ -184,14 +184,13 @@ class AdvertItemView extends StatelessWidget {
   }
 }
 
-// Implement the getAdvertData function here
 Future<List<dynamic>> getAdvertData() async {
   final CurrentUser _currentUser = Get.put(CurrentUser());
 
   final response = await http.post(
     Uri.parse(API.yourAdvert),
     body: {
-      'user_id': '${_currentUser.user.id}', // Replace with the actual user_id from your app
+      'user_id': '${_currentUser.user.id}',
     },
   );
 

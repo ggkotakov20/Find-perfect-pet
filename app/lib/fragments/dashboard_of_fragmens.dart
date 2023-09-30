@@ -1,3 +1,4 @@
+import 'package:app/fragments/hub.dart';
 import 'package:app/model/current_user.dart';
 import 'package:flutter/material.dart';
 import 'package:app/colors.dart';
@@ -8,6 +9,7 @@ import 'package:app/fragments/home/home.dart';
 import 'package:app/fragments/profile/profile.dart';
 import 'package:app/fragments/pet/pet.dart';
 import 'package:app/fragments/map.dart';
+import 'package:app/fragments/advert/add_advert.dart';
 
 import 'package:app/fragments/error.dart';
 
@@ -20,7 +22,7 @@ final screen = [
   PetPage(),
   HomePage(),
   ProfilePage(),
-  ErrorPage()
+  Hub()
 ];
 
 class DashboardOfFragments extends StatefulWidget {

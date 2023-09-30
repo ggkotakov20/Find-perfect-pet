@@ -56,6 +56,7 @@ class IntlBG {
   static const general_edit_adver_suucess = 'Променихте обявата Успешно';
   static const general_delete_adver_suucess = 'Изтрихте обявата Успешно';
   static const general_warning_advert_delete = 'Сигурни ли сте, че искате да изтриете тази обява?';
+  static const general_edit_pet_suucess = 'Променихте информацията за вашия любимец';
   static const general_error = 'Грешка, Опитайте отново';
   static const general_no_data = 'Няма налични данни';
   static const general_no_result = 'Няма намерени резулати';

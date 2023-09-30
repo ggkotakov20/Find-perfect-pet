@@ -9,9 +9,10 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:app/api/api_connection.dart';
 import 'package:http/http.dart' as http;
-import 'package:app/model/current_user.dart';
 import 'package:get/get.dart';
+
 import 'package:app/model/user_pet.dart';
+import 'package:app/model/current_user.dart';
 
 class PetPage extends StatefulWidget {
   const PetPage({Key? key}) : super(key: key);
@@ -34,14 +35,14 @@ class _PetPageState extends State<PetPage> {
   Future<void> fetchData() async {
     final CurrentUser _currentUser = Get.put(CurrentUser());
 
-    final Map<String, dynamic> requestData = {
-      'user_id': '4039',
-    };
-
     final response = await http.post(
       Uri.parse(API.userPet),
-      body: requestData,
+      body: {
+        'user_id': '4000',
+      },
     );
+    
+    print(_currentUser.user.id);
 
     if (response.statusCode == 200) {
       final Map<String, dynamic> responseData = json.decode(response.body);
@@ -63,10 +64,13 @@ class _PetPageState extends State<PetPage> {
         // Handle the case where 'yourPet' key is not found in the response data
         print("No 'yourPet' data found in the response.");
       }
-    }
+    } 
   }
 
-  
+   void refreshPetPage() {
+    // Call the fetchData method to refresh data
+    fetchData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -107,14 +111,14 @@ class _PetPageState extends State<PetPage> {
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(100.0),
                             child: Image.network(
-                              selectedPet.image ?? '', // Add a null check here
+                              selectedPet.image ?? "https://developers.google.com/static/maps/documentation/maps-static/images/error-image-generic.png", // Add a null check here
                               height: 60.0,
                               width: 60.0,
                               fit: BoxFit.cover,
                             ),
                           ),
                         ),
-                        Text(selectedPet.name ?? ''), // Add a null check here
+                        Text(selectedPet.name ?? 'Error'), // Add a null check here
                       ],
                     ),
                   ),
@@ -128,6 +132,7 @@ class _PetPageState extends State<PetPage> {
                 padding: const EdgeInsets.all(20),
                 child: userPet != null
                     ? PetSheet(
+                        id: userPet?.id.toString() ?? '', 
                         image: userPet?.image ?? '', 
                         name: userPet?.name ?? '', 
                         species: userPet?.species ?? '', 
@@ -135,8 +140,8 @@ class _PetPageState extends State<PetPage> {
                         breed: userPet?.breed ?? '', 
                         birthdate: userPet?.birthdate ?? '',
                         weight: userPet?.weight ?? '', 
-                        food: userPet?.food ?? '', 
-                        onPressed: () {},
+                        food: userPet?.food ?? '',
+                        onSave: fetchData, // Pass the fetchData callback here
                       )
                     : Center(
                         // Handle the case when userPet is null, for example, show a loading indicator or a message.
@@ -153,6 +158,7 @@ class _PetPageState extends State<PetPage> {
 
 
 class PetSheet extends StatelessWidget {
+  final String id;
   final String image;
   final String name;
   final String species;
@@ -161,11 +167,12 @@ class PetSheet extends StatelessWidget {
   final String birthdate;
   final String weight;
   final String food;
-  final VoidCallback onPressed;
+  final VoidCallback onSave;
   final User_Pet? pet; // Use User_Pet? to indicate it can be null
 
   const PetSheet({
     Key? key,
+    required this.id,
     required this.image,
     required this.name,
     required this.species,
@@ -174,7 +181,7 @@ class PetSheet extends StatelessWidget {
     required this.birthdate,
     required this.weight,
     required this.food,
-    required this.onPressed,
+    required this.onSave,
      this.pet,
   }) : super(key: key);
 
@@ -257,6 +264,7 @@ class PetSheet extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                           builder: (context) => EditPetPage(
+                            id: id,
                             image: image,
                             name: name,
                             species: species,
@@ -265,6 +273,7 @@ class PetSheet extends StatelessWidget {
                             birthdate: birthdate,
                             weight: weight,
                             food: food,
+                            onSave: onSave,
                           ),
                         ),
                       );
@@ -290,7 +299,7 @@ class PetSheet extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       PetEachInfo(FontAwesomeIcons.paw, mainColor, 'Name', name),
-                      PetEachInfo(FontAwesomeIcons.codeBranch,mainColor,'Species',species,),
+                      PetEachInfo(FontAwesomeIcons.codeBranch,mainColor,'Species',species),
                       PetEachInfo(FontAwesomeIcons.venusMars, mainColor, 'Sex', sex),
                     ],
                   ),
@@ -337,6 +346,7 @@ class PetSheet extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                           builder: (context) => EditPetPage(
+                            id: id,
                             image: image,
                             name: name,
                             species: species,
@@ -345,6 +355,7 @@ class PetSheet extends StatelessWidget {
                             birthdate: birthdate,
                             weight: weight,
                             food: food,
+                            onSave: onSave,
                           ),
                         ),
                       );

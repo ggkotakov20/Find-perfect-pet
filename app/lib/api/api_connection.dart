@@ -19,5 +19,6 @@ class API{
   static const addFavorite = "$hostConnection/favorite/favorite.php";
 
   
-  static const userPet = "$hostConnection/pet-profile.php";
+  static const userPet = "$hostConnection/user_pet/pet_profile.php";
+  static const editUserPet = "$hostConnection/user_pet/edit_pet_profile.php";
 }

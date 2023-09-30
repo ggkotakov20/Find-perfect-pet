@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:app/model/user_pet.dart';
+import 'user_pet.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class RememberUserPetPrefs{

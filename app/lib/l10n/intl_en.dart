@@ -57,6 +57,7 @@ class IntlEN {
   static const general_edit_adver_suucess = 'Edit advert Successfully';
   static const general_delete_adver_suucess = 'Delete advert Successfully';
   static const general_warning_advert_delete = 'Are you sure you want to delete this advert?';
+  static const general_edit_pet_suucess = "You changed your pet's information";
   static const general_error = 'Error, Try again';
   static const general_no_data = 'No date available';
   static const general_no_result = 'No results found.';

@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'l10n/app_localizations.dart';
 import 'authentication/signin.dart';
 import 'fragments/dashboard_of_fragmens.dart';
-import 'model/user_preferences.dart';
+import 'package:app/model/user_preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

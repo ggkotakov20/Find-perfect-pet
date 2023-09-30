@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:app/model/advert.dart';
+import 'advert.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class RememberAdvertPrefs{

@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:app/api/api_connection.dart';
 import 'package:app/l10n/app_localizations.dart';
-import 'package:app/model/current_user.dart';
 import 'package:app/model/favorite.dart';
+import 'package:app/model/current_user.dart';
 import 'package:flutter/material.dart';
 import 'package:app/colors.dart';
 import 'package:fluttertoast/fluttertoast.dart';
