@@ -1,11 +1,12 @@
 import 'package:app/authentication/signin.dart';
+import 'package:app/fragments/advert/your_adverts.dart';
 import 'package:app/model/current_user.dart';
 import 'package:app/model/user_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:app/colors.dart';
 import 'package:get/get.dart';
-import 'package:app/functions/option_buttons.dart';
+import 'package:app/functions/option_button.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -127,35 +128,14 @@ class Options extends StatelessWidget {
         margin: EdgeInsets.all(10.0),
         child: Column(
           children: [
-            ProfileOptions(
-              text: "Edit your profile information",
-              icon: FontAwesomeIcons.user,
-              onPressed: () {print("this btn was pressed");}
-            ),
-
-            ProfileOptions(
-              text: "Pet information",
-              icon: FontAwesomeIcons.paw,
-              onPressed: () {print("this btn was pressed");}
-            ),
-
-            ProfileOptions(
-              text: "Settings",
-              icon: FontAwesomeIcons.gear,
-              onPressed: () {print("this btn was pressed");}
-            ),
-
-            ProfileOptions(
-              text: "About",
-              icon: FontAwesomeIcons.circleInfo,
-              onPressed: () {print("this btn was pressed");}
-            ),
-
-            ProfileOptions(
-              text: "Log out",
-              icon: FontAwesomeIcons.powerOff,
-              onPressed: () { signOutUser(); }
-            ),
+            DisableProfileOption(FontAwesomeIcons.user,"Edit your profile information"),
+            DisableProfileOption(FontAwesomeIcons.heart,"Favorite"),
+            DisableProfileOption(FontAwesomeIcons.shoppingBag,"Cart"),
+            ProfileOption(FontAwesomeIcons.layerGroup,"Your adverts",() {Navigator.push( context,MaterialPageRoute(
+              builder: (context) => YourAdvert()
+            ),);}),
+            DisableProfileOption(FontAwesomeIcons.gear,"Settings"),
+            DisableProfileOption(FontAwesomeIcons.powerOff,"Log out"),
           ],
         ),
       ),

@@ -2,19 +2,34 @@ class IntlEN {
 
   static const general_yes = 'Yes';
   static const general_no = 'No';
+  static const general_edit = 'Edit';
   
   // Navigation Bar
   static const page_title_map = 'Map';
   static const page_title_pet = 'Pets';
+  static const page_title_edit_pet = 'Edit pet';
+  static const page_title_add_pet = 'Add pet';
   static const page_title_home = 'Home';
   static const page_title_profile = 'Profile';
   static const page_title_calendar = 'Appointments';
 
   //  Home page
-  static const general_buy = 'Buy pet';
-  static const general_breeding = 'Breeding';
-  static const general_food = 'Food';
-  static const general_accessory = 'Accessories';
+  static const home_buy = 'Buy pet';
+  static const home_breeding = 'Breeding';
+  static const home_food = 'Food';
+  static const home_accessory = 'Accessories';
+
+  //  Pet page
+  static const pet_page_basic_info = 'Basic info';
+  static const pet_page_diet = 'Diet';
+
+  static const pet_page_name = 'Name';
+  static const pet_page_species = 'Species';
+  static const pet_page_gender = 'Gender';
+  static const pet_page_breed = 'Breed';
+  static const pet_page_birthdate = 'Birthdate';
+  static const pet_page_weight = 'Weight';
+  static const pet_page_food = 'Food';
 
   //  Map page
   static const general_open = 'Open';
@@ -57,7 +72,9 @@ class IntlEN {
   static const general_edit_adver_suucess = 'Edit advert Successfully';
   static const general_delete_adver_suucess = 'Delete advert Successfully';
   static const general_warning_advert_delete = 'Are you sure you want to delete this advert?';
-  static const general_edit_pet_suucess = "You changed your pet's information";
+  
+  static const general_edit_pet_suucess = "You change your pet's information";
+  
   static const general_error = 'Error, Try again';
   static const general_no_data = 'No date available';
   static const general_no_result = 'No results found.';

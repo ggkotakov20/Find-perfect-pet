@@ -64,7 +64,7 @@ class _HomePageState extends State<HomePage> {
                       Padding(
                         padding: const EdgeInsets.only(left: 25.0),
                         child: Text(
-                          appLocalizations.general_buy,
+                          appLocalizations.home_buy,
                           style: TextStyle(
                             color: BLACK,
                             fontSize: 22,
@@ -119,7 +119,7 @@ class _HomePageState extends State<HomePage> {
                       Padding(
                         padding: const EdgeInsets.only(left: 25.0),
                         child: Text(
-                          appLocalizations.general_breeding,
+                          appLocalizations.home_breeding,
                           style: TextStyle(
                             color: BLACK,
                             fontSize: 22,
@@ -174,7 +174,7 @@ class _HomePageState extends State<HomePage> {
                       Padding(
                         padding: const EdgeInsets.only(left: 25.0),
                         child: Text(
-                          appLocalizations.general_food,
+                          appLocalizations.home_food,
                           style: TextStyle(
                             color: BLACK,
                             fontSize: 22,
@@ -229,7 +229,7 @@ class _HomePageState extends State<HomePage> {
                         Padding(
                           padding: const EdgeInsets.only(left: 25.0),
                           child: Text(
-                            appLocalizations.general_accessory,
+                            appLocalizations.home_accessory,
                             style: TextStyle(
                               color: BLACK,
                               fontSize: 22,

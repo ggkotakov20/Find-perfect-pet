@@ -75,8 +75,8 @@ class _DashboardOfFragmentsState extends State<DashboardOfFragments> {
           ),
           body: screen[currentIndex],
           bottomNavigationBar: SizedBox(
-            height: 80,
-            width: 10,
+            height: 60,
+            width: 5,
             child: Container(
               child: BottomNavigationBar(
                 type: BottomNavigationBarType.fixed,
@@ -85,7 +85,7 @@ class _DashboardOfFragmentsState extends State<DashboardOfFragments> {
                 unselectedItemColor: NavigationBarUnSel.withOpacity(0.6),
                 showSelectedLabels: false,
                 showUnselectedLabels: false,
-                iconSize: 25,
+                iconSize: 23,
                 items: [
                   BottomNavigationBarItem(
                     label: '',

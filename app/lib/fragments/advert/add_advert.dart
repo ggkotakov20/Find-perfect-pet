@@ -11,6 +11,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:app/api/api_connection.dart';
 import 'package:http/http.dart' as http;
 import 'package:app/model/advert.dart';
+import 'package:app/functions/input_box.dart';
 
 class AddAdvert extends StatefulWidget {
   const AddAdvert({super.key});
@@ -25,30 +26,31 @@ class _AddAdvertState extends State<AddAdvert> {
     return Scaffold(
       backgroundColor: Background,
       appBar: AppBar(
-        centerTitle: true,
-        foregroundColor: mainColor,
-        backgroundColor: Background,
+        automaticallyImplyLeading: false,
         elevation: 0.0,
         toolbarHeight: 80,
         leading: IconButton(
           icon: Icon(
             FontAwesomeIcons.chevronLeft,
             size: 18,
+            color: TextColor,
           ),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Image(
-              image: AssetImage('images/logo.png'),
-              height: 65,
+        title: Padding(
+          padding: const EdgeInsets.only(left: 5),
+          child: Text(
+            'Add advert',
+            style: TextStyle(
+              color: TextColor,
+              fontWeight: FontWeight.w500,
+              fontSize: 24
             ),
-          ],
+          ),
         ),
+        backgroundColor: Background,
       ),
       body: AddAdvertBody(),
     );
@@ -71,6 +73,18 @@ class _AddAdvertBodyState extends State<AddAdvertBody> {
   var descriptionController = TextEditingController();
   ValueNotifier<String?> categoryNotifier = ValueNotifier<String?>(null); 
   ValueNotifier<String?> typeNotifier = ValueNotifier<String?>(null);
+
+  List<String> speciesItems = const [
+    'Dog',
+    'Cat',
+    'Fish',
+  ];
+  List<String> categoryItems = const [
+    'Buy',
+    'Breeding',
+    'Accessories',
+    'Food',
+  ];
 
   addAndSaveAdvertRecord() async {
     final AppLocalizations appLocalizations = AppLocalizations.of(context);
@@ -131,6 +145,7 @@ class _AddAdvertBodyState extends State<AddAdvertBody> {
     }
   }
   
+  
   @override
   Widget build(BuildContext context) {
     final AppLocalizations appLocalizations = AppLocalizations.of(context);
@@ -140,260 +155,79 @@ class _AddAdvertBodyState extends State<AddAdvertBody> {
           return Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+              Expanded(
+                child: ListView(
                   children: [
-                    SizedBox(height: 10,),
-                    Text('${appLocalizations.general_add} ${appLocalizations.general_advert.toLowerCase()}',style: TextStyle(
-                      color: mainColor,
-                      fontSize: 30,
-                      fontWeight: FontWeight.w500
-                      ),
-                    ),
-                    Container(
-                      child: Column(
-                        children: [
-                          Form(
-                            key: formKey,
-                            child: Column(
-                              children: [
-                                //  TITLE
-                                SizedBox(height: 20,),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 15, right: 15),
-                                  child: TextFormField(
-                                    controller: titleController,
-                                    validator: (val) => val == "" ? "Please write a title" : null,
-                                    decoration: InputDecoration(
-                                      hintText: appLocalizations.general_title,
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(30),
-                                        borderSide:  BorderSide(
-                                          color: CardBG,
-                                        ),
-                                      ),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(30),
-                                        borderSide: BorderSide(
-                                          color: CardBG,
-                                        ),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(30),
-                                        borderSide:  BorderSide(
-                                          color: CardBG,
-                                        ),
-                                      ),
-                                      disabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(30),
-                                        borderSide:  BorderSide(
-                                          color: CardBG,
-                                        ),
-                                      ),
-                                      contentPadding: const EdgeInsets.symmetric(horizontal: 14,vertical: 6,),
-                                      fillColor: CardBG,
-                                      filled: true
-                                  ),
-                                  ),
-                                ),
-                                
-                                //  Type
-                                SizedBox(height: 10,),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 15, right: 15),
-                                  child: Container(
-                                    padding: const EdgeInsets.only(left: 15, right: 15),
-                                    decoration: BoxDecoration(
-                                      border: Border.all(color: CardBG, width: 1),
-                                      borderRadius: BorderRadius.circular(30),
-                                      color: CardBG,
-                                    ),
-                                    child: ValueListenableBuilder<String?>(
-                                      valueListenable: typeNotifier,
-                                      builder: (context, selectedValue, child) {
-                                        return DropdownButton<String>(
-                                          hint: Text(appLocalizations.general_type),
-                                          isExpanded: true,
-                                          underline: SizedBox(),
-                                          dropdownColor: CardBG,
-                                          value: typeNotifier.value, // Use categoryNotifier.value as the selected value
-                                          onChanged: (String? newValue) {
-                                            typeNotifier.value = newValue; // Update the categoryNotifier value
-                                          },
-                                          items: const [
-                                            DropdownMenuItem(
-                                              value: 'dog',
-                                              child: Text('Dog'),
-                                            ),
-                                            DropdownMenuItem(
-                                              value: 'cat',
-                                              child: Text('Cat'),
-                                            ),
-                                          ],
-                                        );
-                                      },
-                                    ),
-                                  ),
-                                ),
-
-                                //  Category
-                                SizedBox(height: 10,),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 15, right: 15),
-                                  child: Container(
-                                    padding: const EdgeInsets.only(left: 15, right: 15),
-                                    decoration: BoxDecoration(
-                                      border: Border.all(color: CardBG, width: 1),
-                                      borderRadius: BorderRadius.circular(30),
-                                      color: CardBG,
-                                    ),
-                                    child: ValueListenableBuilder<String?>(
-                                      valueListenable: categoryNotifier,
-                                      builder: (context, selectedValue, child) {
-                                        return DropdownButton<String>(
-                                          hint: Text(appLocalizations.general_category),
-                                          isExpanded: true,
-                                          underline: SizedBox(),
-                                          dropdownColor: CardBG,
-                                          value: categoryNotifier.value, // Use categoryNotifier.value as the selected value
-                                          onChanged: (String? newValue) {
-                                            categoryNotifier.value = newValue; // Update the categoryNotifier value
-                                          },
-                                          items: const [
-                                            DropdownMenuItem(
-                                              value: 'buy',
-                                              child: Text('Buy'),
-                                            ),
-                                            DropdownMenuItem(
-                                              value: 'breeding',
-                                              child: Text('Breeding'),
-                                            ),
-                                            DropdownMenuItem(
-                                              value: 'accessories',
-                                              child: Text('Accessories'),
-                                            ),
-                                            DropdownMenuItem(
-                                              value: 'food',
-                                              child: Text('Food'),
-                                            ),
-                                          ],
-                                        );
-                                      },
-                                    ),
-                                  ),
-                                ),
-                               
-                                // Price
-                                SizedBox(height: 10,),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 15, right: 15),
-                                  child: TextFormField(
-                                    controller: priceController,
-                                    validator: (val) => val == "" ? "Please write a price" : null,
-                                    keyboardType: TextInputType.number, // Add this line
-                                    decoration: InputDecoration(
-                                      hintText: appLocalizations.general_price,
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(30),
-                                        borderSide:  BorderSide(
-                                          color: CardBG,
-                                        ),
-                                      ),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(30),
-                                        borderSide: BorderSide(
-                                          color: CardBG,
-                                        ),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(30),
-                                        borderSide:  BorderSide(
-                                          color: CardBG,
-                                        ),
-                                      ),
-                                      disabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(30),
-                                        borderSide:  BorderSide(
-                                          color: CardBG,
-                                        ),
-                                      ),
-                                      contentPadding: const EdgeInsets.symmetric(horizontal: 14,vertical: 6,),
-                                      fillColor: CardBG,
-                                      filled: true
-                                    ),
-                                  ),
-                                ),
-
-                                // Description
-                                SizedBox(height: 10,),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 15, right: 15),
-                                  child: TextFormField(
-                                    controller: descriptionController,
-                                    validator: (val) => val == "" ? "Please write Description" : null,
-                                    decoration: InputDecoration(
-                                      hintText: appLocalizations.general_description,
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(30),
-                                        borderSide:  BorderSide(
-                                          color: CardBG,
-                                        ),
-                                      ),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(30),
-                                        borderSide: BorderSide(
-                                          color: CardBG,
-                                        ),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(30),
-                                        borderSide:  BorderSide(
-                                          color: CardBG,
-                                        ),
-                                      ),
-                                      disabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(30),
-                                        borderSide:  BorderSide(
-                                          color: CardBG,
-                                        ),
-                                      ),
-                                      contentPadding: const EdgeInsets.symmetric(horizontal: 14,vertical: 6,),
-                                      fillColor: CardBG,
-                                      filled: true
-                                  ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: 10,),
-                    
-                    // Add advert btn
-
-                    Material(
-                      color: mainColor,
-                      borderRadius: BorderRadius.circular(30),
-                      child: InkWell(
-                        onTap: (){
-                          if(formKey.currentState!.validate()){
-                            addAndSaveAdvertRecord();
-                          }
-                        },
-                        borderRadius: BorderRadius.circular(30),
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(vertical: 10, horizontal: 28),
-                          child: Text(appLocalizations.general_add_advert, style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16
-                          ),),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20, right: 20),
+                      child: ClipRRect(
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(15),
+                          topRight: Radius.circular(15),
+                        ),
+                        child: Image.network(
+                          "https://developers.google.com/static/maps/documentation/maps-static/images/error-image-generic.png",
+                          height: 175.0,
+                          width: double.infinity,
+                          fit: BoxFit.cover,
                         ),
                       ),
                     ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 20, right: 20),
+                      child: Container(
+                        color: CardBG,
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              SizedBox(height: 20,),
+                              TextBox(FontAwesomeIcons.pencil, 'Title', titleController),
+                              SelectBox(FontAwesomeIcons.codeBranch, 'Type', titleController,speciesItems),
+                              SelectBox(FontAwesomeIcons.paw, 'Category', titleController, categoryItems),
+                              NumberBox(FontAwesomeIcons.moneyBill, 'Price', priceController),
+                              TextBox(FontAwesomeIcons.paw, 'Description', descriptionController),
+                              SizedBox(height: 10,),
+                            ],
+                          ),
+                        ),
+                      ),
+                    )
                   ],
+                ),
+              ),
+              Container(
+                width: double.infinity,
+                height: 75,
+                decoration: BoxDecoration(
+                  color: CardBG,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.4),
+                      spreadRadius: 2,
+                      blurRadius: 4,
+                      offset: Offset(0, 2),
+                    ),
+                  ],
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 12, bottom: 12, left: 20, right: 20),
+                  child: ElevatedButton(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(mainColor),
+                      shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(50),
+                      )),
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Text(
+                      'Add advert',
+                      style: TextStyle(
+                        fontSize: 16,
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ],

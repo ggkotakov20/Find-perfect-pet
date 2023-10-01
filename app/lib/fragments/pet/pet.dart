@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:app/fragments/pet/edit_pet_page.dart';
 import 'package:app/fragments/pet/add_pet.dart';
 import 'package:app/functions/refresh.dart';
+import 'package:app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:app/colors.dart';
 import 'package:flutter_map/plugin_api.dart';
@@ -221,6 +222,8 @@ class PetSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double borderRadius = 15.0;
+    final AppLocalizations appLocalizations = AppLocalizations.of(context);
+
 
     Container PetEachInfo(IconData icon, Color iconColor, String text, String subtext) {
       return Container(
@@ -260,6 +263,7 @@ class PetSheet extends StatelessWidget {
                         color: TextColor,
                         fontWeight: FontWeight.w400,
                         fontSize: 14,
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
                   ],
@@ -282,7 +286,7 @@ class PetSheet extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Basic Info',
+                    appLocalizations.pet_page_basic_info,
                     style: TextStyle(
                       color: TextColor,
                       fontWeight: FontWeight.w500,
@@ -311,7 +315,7 @@ class PetSheet extends StatelessWidget {
                       );
                     },
                     child: Text(
-                      'Edit',
+                      appLocalizations.general_edit,
                       style: TextStyle(
                         color: mainColor,
                         fontWeight: FontWeight.w500,
@@ -330,9 +334,9 @@ class PetSheet extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      PetEachInfo(FontAwesomeIcons.paw, mainColor, 'Name', name),
-                      PetEachInfo(FontAwesomeIcons.codeBranch, mainColor, 'Species', species),
-                      PetEachInfo(FontAwesomeIcons.venusMars, mainColor, 'Sex', sex),
+                      PetEachInfo(FontAwesomeIcons.paw, mainColor, appLocalizations.pet_page_name, name),
+                      PetEachInfo(FontAwesomeIcons.codeBranch, mainColor, appLocalizations.pet_page_species, species),
+                      PetEachInfo(FontAwesomeIcons.venusMars, mainColor, appLocalizations.pet_page_gender, sex),
                     ],
                   ),
                 ),
@@ -341,9 +345,9 @@ class PetSheet extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      PetEachInfo(FontAwesomeIcons.dna, mainColor, 'Breed', breed),
-                      PetEachInfo(FontAwesomeIcons.cake, mainColor, 'Birthdate', birthdate),
-                      PetEachInfo(FontAwesomeIcons.weight, mainColor, 'Weight', weight),
+                      PetEachInfo(FontAwesomeIcons.dna, mainColor, appLocalizations.pet_page_breed, breed),
+                      PetEachInfo(FontAwesomeIcons.cake, mainColor, appLocalizations.pet_page_birthdate, birthdate),
+                      PetEachInfo(FontAwesomeIcons.weight, mainColor, appLocalizations.pet_page_weight, weight),
                     ],
                   ),
                 ),
@@ -365,7 +369,7 @@ class PetSheet extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Diet',
+                    appLocalizations.pet_page_diet,
                     style: TextStyle(
                       color: TextColor,
                       fontWeight: FontWeight.w500,
@@ -394,7 +398,7 @@ class PetSheet extends StatelessWidget {
                       );
                     },
                     child: Text(
-                      'Edit',
+                      appLocalizations.general_edit,
                       style: TextStyle(
                         color: mainColor,
                         fontWeight: FontWeight.w500,
@@ -413,7 +417,7 @@ class PetSheet extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      PetEachInfo(FontAwesomeIcons.bone, GREEN, 'Food', food),
+                      PetEachInfo(FontAwesomeIcons.bone, GREEN, appLocalizations.pet_page_food, food),
                     ],
                   ),
                 ),

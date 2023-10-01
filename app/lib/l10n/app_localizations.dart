@@ -24,8 +24,15 @@ class AppLocalizations {
       return IntlEN.general_no; // Use English translation as a fallback
     }
   }
-  //  Title page
+  String get general_edit {
+    if (locale.languageCode == 'bg') {
+      return IntlBG.general_edit; // Use Bulgarian translation
+    } else {
+      return IntlEN.general_edit; // Use English translation as a fallback
+    }
+  }
 
+  //  Title page
   String get page_title_map {
     if (locale.languageCode == 'bg') {
       return IntlBG.page_title_map; // Use Bulgarian translation
@@ -38,6 +45,20 @@ class AppLocalizations {
       return IntlBG.page_title_pet; // Use Bulgarian translation
     } else {
       return IntlEN.page_title_pet; // Use English translation as a fallback
+    }
+  }
+  String get page_title_edit_pet {
+    if (locale.languageCode == 'bg') {
+      return IntlBG.page_title_edit_pet; // Use Bulgarian translation
+    } else {
+      return IntlEN.page_title_edit_pet; // Use English translation as a fallback
+    }
+  }
+  String get page_title_add_pet {
+    if (locale.languageCode == 'bg') {
+      return IntlBG.page_title_add_pet; // Use Bulgarian translation
+    } else {
+      return IntlEN.page_title_add_pet; // Use English translation as a fallback
     }
   }
   String get page_title_home {
@@ -63,35 +84,100 @@ class AppLocalizations {
   }
 
   //  Home page
-  String get general_buy {
+  String get home_buy {
     if (locale.languageCode == 'bg') {
-      return IntlBG.general_buy; // Use Bulgarian translation
+      return IntlBG.home_buy; // Use Bulgarian translation
     } else {
-      return IntlEN.general_buy; // Use English translation as a fallback
+      return IntlEN.home_buy; // Use English translation as a fallback
     }
   }
-  String get general_breeding {
+  String get home_breeding {
     if (locale.languageCode == 'bg') {
-      return IntlBG.general_breeding; // Use Bulgarian translation
+      return IntlBG.home_breeding; // Use Bulgarian translation
     } else {
-      return IntlEN.general_breeding; // Use English translation as a fallback
+      return IntlEN.home_breeding; // Use English translation as a fallback
     }
   }
-  String get general_food {
+  String get home_food {
     if (locale.languageCode == 'bg') {
-      return IntlBG.general_food; // Use Bulgarian translation
+      return IntlBG.home_food; // Use Bulgarian translation
     } else {
-      return IntlEN.general_food; // Use English translation as a fallback
+      return IntlEN.home_food; // Use English translation as a fallback
     }
   }
-  String get general_accessory {
+  String get home_accessory {
     if (locale.languageCode == 'bg') {
-      return IntlBG.general_accessory; // Use Bulgarian translation
+      return IntlBG.home_accessory; // Use Bulgarian translation
     } else {
-      return IntlEN.general_accessory; // Use English translation as a fallback
+      return IntlEN.home_accessory; // Use English translation as a fallback
     }
   }
 
+  // Pet page
+  String get pet_page_basic_info {
+    if (locale.languageCode == 'bg') {
+      return IntlBG.pet_page_basic_info; // Use Bulgarian translation
+    } else {
+      return IntlEN.pet_page_basic_info; // Use English translation as a fallback
+    }
+  }
+  String get pet_page_diet {
+    if (locale.languageCode == 'bg') {
+      return IntlBG.pet_page_diet; // Use Bulgarian translation
+    } else {
+      return IntlEN.pet_page_diet; // Use English translation as a fallback
+    }
+  }
+  String get pet_page_name {
+    if (locale.languageCode == 'bg') {
+      return IntlBG.pet_page_name; // Use Bulgarian translation
+    } else {
+      return IntlEN.pet_page_name; // Use English translation as a fallback
+    }
+  }
+  String get pet_page_species {
+    if (locale.languageCode == 'bg') {
+      return IntlBG.pet_page_species; // Use Bulgarian translation
+    } else {
+      return IntlEN.pet_page_species; // Use English translation as a fallback
+    }
+  }
+  String get pet_page_gender {
+    if (locale.languageCode == 'bg') {
+      return IntlBG.pet_page_gender; // Use Bulgarian translation
+    } else {
+      return IntlEN.pet_page_gender; // Use English translation as a fallback
+    }
+  }
+  String get pet_page_breed {
+    if (locale.languageCode == 'bg') {
+      return IntlBG.pet_page_breed; // Use Bulgarian translation
+    } else {
+      return IntlEN.pet_page_breed; // Use English translation as a fallback
+    }
+  }
+  String get pet_page_birthdate {
+    if (locale.languageCode == 'bg') {
+      return IntlBG.pet_page_birthdate; // Use Bulgarian translation
+    } else {
+      return IntlEN.pet_page_birthdate; // Use English translation as a fallback
+    }
+  }
+  String get pet_page_weight {
+    if (locale.languageCode == 'bg') {
+      return IntlBG.pet_page_weight; // Use Bulgarian translation
+    } else {
+      return IntlEN.pet_page_weight; // Use English translation as a fallback
+    }
+  }
+  String get pet_page_food {
+    if (locale.languageCode == 'bg') {
+      return IntlBG.pet_page_food; // Use Bulgarian translation
+    } else {
+      return IntlEN.pet_page_food; // Use English translation as a fallback
+    }
+  }
+  
   //  Map page
   String get general_open {
     if (locale.languageCode == 'bg') {
@@ -142,7 +228,7 @@ class AppLocalizations {
         return IntlEN.general_all_day; // Use English translation as a fallback
       }
     }
-    String get general_not_working {
+  String get general_not_working {
       if (locale.languageCode == 'bg') {
         return IntlBG.general_not_working; // Use Bulgarian translation
       } else {

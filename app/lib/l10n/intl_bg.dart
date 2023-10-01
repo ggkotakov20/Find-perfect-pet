@@ -2,18 +2,33 @@ class IntlBG {
 
   static const general_yes = 'Да';
   static const general_no = 'Не';
+  static const general_edit = 'Промени';
   
   static const page_title_map = 'Карта';
   static const page_title_pet = 'Любимци';
+  static const page_title_edit_pet = 'Промяна на любимец';
+  static const page_title_add_pet = 'Добави на любимец';
   static const page_title_home = 'Начало';
   static const page_title_profile = 'Профил';
   static const page_title_calendar = 'Срещи';
 
   //  Home page
-  static const general_buy = 'Купи';
-  static const general_breeding = 'Размножаване';
-  static const general_food = 'Храна';
-  static const general_accessory = 'Аксесоари';
+  static const home_buy = 'Купи';
+  static const home_breeding = 'Размножаване';
+  static const home_food = 'Храна';
+  static const home_accessory = 'Аксесоари';
+
+  //  Pet page
+  static const pet_page_basic_info = 'Основна информация';
+  static const pet_page_diet = 'Диета';
+
+  static const pet_page_name = 'Име';
+  static const pet_page_species = 'Вид животно';
+  static const pet_page_gender = 'Пол';
+  static const pet_page_breed = 'Порода';
+  static const pet_page_birthdate = 'Дата на раждане';
+  static const pet_page_weight = 'Тегло';
+  static const pet_page_food = 'Храна';
 
   //  Map page
   static const general_open = 'Оворено';
@@ -56,7 +71,9 @@ class IntlBG {
   static const general_edit_adver_suucess = 'Променихте обявата Успешно';
   static const general_delete_adver_suucess = 'Изтрихте обявата Успешно';
   static const general_warning_advert_delete = 'Сигурни ли сте, че искате да изтриете тази обява?';
+  
   static const general_edit_pet_suucess = 'Променихте информацията за вашия любимец';
+  
   static const general_error = 'Грешка, Опитайте отново';
   static const general_no_data = 'Няма налични данни';
   static const general_no_result = 'Няма намерени резулати';

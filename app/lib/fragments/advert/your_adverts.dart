@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:app/fragments/advert/add_advert.dart';
 import 'package:app/l10n/app_localizations.dart';
 import 'package:app/functions/refresh.dart';
 import 'package:flutter/material.dart';
@@ -27,30 +28,32 @@ class _YourAdvertState extends State<YourAdvert> {
     return Scaffold(
       backgroundColor: Background,
       appBar: AppBar(
-        centerTitle: true,
-        foregroundColor: mainColor,
-        backgroundColor: Background,
+        automaticallyImplyLeading: false,
         elevation: 0.0,
         toolbarHeight: 80,
         leading: IconButton(
           icon: Icon(
             FontAwesomeIcons.chevronLeft,
             size: 18,
+            color: TextColor,
           ),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Image(
-              image: AssetImage('images/logo.png'),
-              height: 65,
+        title: Padding(
+          padding: const EdgeInsets.only(left: 5),
+          child: Text(
+            'Your adverts',
+            style: TextStyle(
+              color: TextColor,
+              fontWeight: FontWeight.w500,
+              fontSize: 24
             ),
-          ],
+          ),
         ),
+        backgroundColor: Background,
+        
       ),
       body: YourAdvertBody(),
     );
@@ -70,9 +73,7 @@ class _YourAdvertBodyState extends State<YourAdvertBody> {
 
   void updateStateWithData(List<dynamic> newData) {
     setState(() {
-      // Update the data with the newly fetched data
-      // Example:
-      // data = newData;
+      
     });
   }
 
@@ -87,29 +88,32 @@ Future<void> _refreshData() async {
     return Stack(
       children: [
         Padding(
-          padding: const EdgeInsets.only(top: 25.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                '${appLocalizations.general_your_adverts}',
-                style: TextStyle(
-                  color: mainColor,
-                  fontSize: 30,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ],
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: 80.0),
+          padding: const EdgeInsets.only(top: 0.0),
           child: RefreshIndicator(
             key: _refreshIndicatorKey,
             onRefresh: _refreshData,
             child: AdvertView(dataFetcher: getAdvertData),
           ),
         ),
+        Positioned(
+              bottom: 16.0,
+              right: 16.0,
+              child: FloatingActionButton(
+                onPressed: () async {
+                  await Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => AddAdvert(),
+                    ),
+                  );
+                },
+                backgroundColor: mainColor, // Set the background color to mainColor
+                child: Icon(
+                  FontAwesomeIcons.plus,
+                  size: 20,
+                ),
+              ),
+            )
       ],
     );
   }
