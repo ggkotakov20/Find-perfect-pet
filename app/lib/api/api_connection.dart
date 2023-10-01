@@ -21,4 +21,5 @@ class API{
   
   static const userPet = "$hostConnection/user_pet/pet_profile.php";
   static const editUserPet = "$hostConnection/user_pet/edit_pet_profile.php";
+  static const addUserPet = "$hostConnection/user_pet/add_pet_profile.php";
 }

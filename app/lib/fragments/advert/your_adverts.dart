@@ -69,12 +69,12 @@ class _YourAdvertBodyState extends State<YourAdvertBody> {
       GlobalKey<RefreshIndicatorState>();
 
   void updateStateWithData(List<dynamic> newData) {
-  setState(() {
-    // Update the data with the newly fetched data
-    // Example:
-    // data = newData;
-  });
-}
+    setState(() {
+      // Update the data with the newly fetched data
+      // Example:
+      // data = newData;
+    });
+  }
 
 Future<void> _refreshData() async {
   await refreshData(getAdvertData, updateStateWithData);

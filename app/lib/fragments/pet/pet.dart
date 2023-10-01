@@ -1,7 +1,8 @@
 import 'dart:convert';
 
-import 'package:app/fragments/error.dart';
 import 'package:app/fragments/pet/edit_pet_page.dart';
+import 'package:app/fragments/pet/add_pet.dart';
+import 'package:app/functions/refresh.dart';
 import 'package:flutter/material.dart';
 import 'package:app/colors.dart';
 import 'package:flutter_map/plugin_api.dart';
@@ -29,10 +30,10 @@ class _PetPageState extends State<PetPage> {
   void initState() {
     super.initState();
     // Fetch data from the API when the widget is created
-    fetchData();
+    getData();
   }
 
-  Future<void> fetchData() async {
+  Future<void> getData() async {
     final CurrentUser _currentUser = Get.put(CurrentUser());
 
     final response = await http.post(
@@ -41,8 +42,6 @@ class _PetPageState extends State<PetPage> {
         'user_id': '4000',
       },
     );
-    
-    print(_currentUser.user.id);
 
     if (response.statusCode == 200) {
       final Map<String, dynamic> responseData = json.decode(response.body);
@@ -64,98 +63,132 @@ class _PetPageState extends State<PetPage> {
         // Handle the case where 'yourPet' key is not found in the response data
         print("No 'yourPet' data found in the response.");
       }
-    } 
+    }
+  }
+  
+  void updateStateWithData(List<dynamic> newData) {
+    setState(() {
+      // Update the data with the newly fetched data
+      // Example:
+      // data = newData;
+    });
   }
 
-   void refreshPetPage() {
-    // Call the fetchData method to refresh data
-    fetchData();
+  Future<void> _refreshData() async {
+    await refreshData(getData, updateStateWithData);
   }
 
   @override
   Widget build(BuildContext context) {
+    final CurrentUser _currentUser = Get.put(CurrentUser());
     return Scaffold(
       backgroundColor: Background,
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            height: 100.0, // Adjust the height as needed
-            child: ListView.builder(
-              itemCount: userPets.length,
-              shrinkWrap: true,
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) {
-                final selectedPet = userPets[index];
-                final isSelected = selectedPet == userPet;
+      body: RefreshIndicator(
+        onRefresh: _refreshData,// Trigger fetchData when refreshing
+        child: Stack(
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  height: 100.0, // Adjust the height as needed
+                  child: ListView.builder(
+                    itemCount: userPets.length,
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) {
+                      final selectedPet = userPets[index];
+                      final isSelected = selectedPet == userPet;
 
-                return Padding(
-                  padding: const EdgeInsets.only(left: 20, top: 15),
-                  child: GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        userPet = selectedPet; // Update the selected userPet
-                      });
-                      print(userPet?.id);
-                    },
-                    child: Column(
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                              color: isSelected ? mainColor : Colors.transparent, // Border color based on selection
-                              width: 2.5, // Border width
-                            ),
-                          ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(100.0),
-                            child: Image.network(
-                              selectedPet.image ?? "https://developers.google.com/static/maps/documentation/maps-static/images/error-image-generic.png", // Add a null check here
-                              height: 60.0,
-                              width: 60.0,
-                              fit: BoxFit.cover,
-                            ),
+                      return Padding(
+                        padding: const EdgeInsets.only(left: 20, top: 15),
+                        child: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              userPet = selectedPet; // Update the selected userPet
+                            });
+                            print(userPet?.id);
+                          },
+                          child: Column(
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
+                                    color: isSelected ? mainColor : Colors.transparent, // Border color based on selection
+                                    width: 2.5, // Border width
+                                  ),
+                                ),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(100.0),
+                                  child: Image.network(
+                                    selectedPet.image ??
+                                        "https://developers.google.com/static/maps/documentation/maps-static/images/error-image-generic.png", // Add a null check here
+                                    height: 60.0,
+                                    width: 60.0,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                              Text(selectedPet.name ?? 'Error'), // Add a null check here
+                            ],
                           ),
                         ),
-                        Text(selectedPet.name ?? 'Error'), // Add a null check here
-                      ],
+                      );
+                    },
+                  ),
+                ),
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: userPet != null
+                          ? PetSheet(
+                              id: userPet?.id.toString() ?? '',
+                              image: userPet?.image ?? '',
+                              name: userPet?.name ?? '',
+                              species: userPet?.species ?? '',
+                              sex: userPet?.sex ?? '',
+                              breed: userPet?.breed ?? '',
+                              birthdate: userPet?.birthdate ?? '',
+                              weight: userPet?.weight ?? '',
+                              food: userPet?.food ?? '',
+                              onSave: getData, // Pass the fetchData callback here
+                            )
+                          : Center(
+                              // Handle the case when userPet is null, for example, show a loading indicator or a message.
+                              child: CircularProgressIndicator(),
+                            ),
                     ),
                   ),
-                );
-              },
+                ),
+              ],
             ),
-          ),
-          Expanded(
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(20),
-                child: userPet != null
-                    ? PetSheet(
-                        id: userPet?.id.toString() ?? '', 
-                        image: userPet?.image ?? '', 
-                        name: userPet?.name ?? '', 
-                        species: userPet?.species ?? '', 
-                        sex: userPet?.sex ?? '', 
-                        breed: userPet?.breed ?? '', 
-                        birthdate: userPet?.birthdate ?? '',
-                        weight: userPet?.weight ?? '', 
-                        food: userPet?.food ?? '',
-                        onSave: fetchData, // Pass the fetchData callback here
-                      )
-                    : Center(
-                        // Handle the case when userPet is null, for example, show a loading indicator or a message.
-                        child: CircularProgressIndicator(),
-                      ),
+            Positioned(
+              bottom: 16.0,
+              right: 16.0,
+              child: FloatingActionButton(
+                onPressed: () async {
+                  await Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => AddPetPage(),
+                    ),
+                  );
+                },
+                backgroundColor: mainColor, // Set the background color to mainColor
+                child: Icon(
+                  FontAwesomeIcons.plus,
+                  size: 20,
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
 }
-
 
 class PetSheet extends StatelessWidget {
   final String id;
@@ -182,7 +215,7 @@ class PetSheet extends StatelessWidget {
     required this.weight,
     required this.food,
     required this.onSave,
-     this.pet,
+    this.pet,
   }) : super(key: key);
 
   @override
@@ -243,7 +276,6 @@ class PetSheet extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            
             Padding(
               padding: const EdgeInsets.only(left: 20, top: 15),
               child: Row(
@@ -255,7 +287,6 @@ class PetSheet extends StatelessWidget {
                       color: TextColor,
                       fontWeight: FontWeight.w500,
                       fontSize: 18,
-                      
                     ),
                   ),
                   TextButton(
@@ -273,6 +304,7 @@ class PetSheet extends StatelessWidget {
                             birthdate: birthdate,
                             weight: weight,
                             food: food,
+                            type: 'Basic',
                             onSave: onSave,
                           ),
                         ),
@@ -299,7 +331,7 @@ class PetSheet extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       PetEachInfo(FontAwesomeIcons.paw, mainColor, 'Name', name),
-                      PetEachInfo(FontAwesomeIcons.codeBranch,mainColor,'Species',species),
+                      PetEachInfo(FontAwesomeIcons.codeBranch, mainColor, 'Species', species),
                       PetEachInfo(FontAwesomeIcons.venusMars, mainColor, 'Sex', sex),
                     ],
                   ),
@@ -355,6 +387,7 @@ class PetSheet extends StatelessWidget {
                             birthdate: birthdate,
                             weight: weight,
                             food: food,
+                            type: 'Diet',
                             onSave: onSave,
                           ),
                         ),
@@ -399,41 +432,44 @@ class PetSheet extends StatelessWidget {
       );
     }
 
-    return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(borderRadius),
-              topRight: Radius.circular(borderRadius),
-            ),
-            child: Image.network(
-              image,
-              height: 160.0,
-              width: double.infinity,
-              fit: BoxFit.cover,
-            ),
-          ),
-          ClipRRect(
-            borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(borderRadius),
-              bottomRight: Radius.circular(borderRadius),
-            ),
-            child: Container(
-              color: CardBG,
-              width: double.infinity,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  BasicInfo(),
-                  Diet(),
-                ],
+    return Stack(
+      children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(borderRadius),
+                topRight: Radius.circular(borderRadius),
+              ),
+              child: Image.network(
+                image,
+                height: 160.0,
+                width: double.infinity,
+                fit: BoxFit.cover,
               ),
             ),
-          ),
-        ],
-      ),
+            ClipRRect(
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(borderRadius),
+                bottomRight: Radius.circular(borderRadius),
+              ),
+              child: Container(
+                color: CardBG,
+                width: double.infinity,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    BasicInfo(),
+                    Diet(),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+        
+      ],
     );
   }
 }
