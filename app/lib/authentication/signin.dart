@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:app/functions/button.dart';
 import 'package:flutter/material.dart';
 import 'package:app/colors.dart';
 import 'package:get/get.dart';
@@ -11,6 +12,8 @@ import 'package:http/http.dart' as http;
 import 'package:app/model/user.dart';
 import 'package:app/authentication/signup.dart';
 import 'package:app/fragments/dashboard_of_fragmens.dart';
+import 'package:app/functions/input_box.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({super.key});
@@ -74,20 +77,7 @@ class _SignInState extends State<SignIn> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Background,
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        //  To remove shadowes
-        elevation: 0.0,
-        toolbarHeight: 80,
-        title: const Center(
-          child: Image(
-            image: AssetImage('images/logo.png'),
-            height: 65,
-          ),
-        ),
-        backgroundColor: Background,
-      ),
+      backgroundColor: Colors.white ,
       body: LayoutBuilder(
         builder: (context, cons) {
           return Column(
@@ -97,13 +87,15 @@ class _SignInState extends State<SignIn> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+
                   SizedBox(height: 10,),
-                  Text('Sign in',style: TextStyle(
-                    color: mainColor,
+                  Text('Log in',style: TextStyle(
+                    color: Colors.black,
                     fontSize: 30,
                     fontWeight: FontWeight.w500
                     ),
                   ),
+                  SizedBox(height: 20,),
                   Container(
                     child: Column(
                       children: [
@@ -112,136 +104,69 @@ class _SignInState extends State<SignIn> {
                           child: Column(
                             children: [
                               //  Email
-          
-                              SizedBox(height: 10,),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 15, right: 15),
-                                child: TextFormField(
-                                  controller: emailController,
-                                  validator: (val) => val == "" ? "Please write email" : null,
-                                  decoration: InputDecoration(
-                                    prefixIcon: Icon(
-                                      FontAwesomeIcons.envelope,
-                                      color: mainColor,
-                                      size: 19,
-                                    ),
-                                    hintText: "Email",
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(30),
-                                      borderSide:  BorderSide(
-                                        color: CardBG,
-                                      ),
-                                    ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(30),
-                                      borderSide: BorderSide(
-                                        color: CardBG,
-                                      ),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(30),
-                                      borderSide:  BorderSide(
-                                        color: CardBG,
-                                      ),
-                                    ),
-                                    disabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(30),
-                                      borderSide:  BorderSide(
-                                        color: CardBG,
-                                      ),
-                                    ),
-                                    contentPadding: const EdgeInsets.symmetric(horizontal: 14,vertical: 6,),
-                                    fillColor: CardBG,
-                                    filled: true
-                                ),
-                                ),
-                              ),
-          
-                              // PASSWORD
-          
-                              SizedBox(height: 10,),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 15, right: 15),
-                                child: TextFormField(
-                                  controller: passwordController,
-                                  obscureText: true,
-                                  validator: (val) => val == "" ? "Please write password" : null,
-                                  decoration: InputDecoration(
-                                    prefixIcon: Icon(
-                                      FontAwesomeIcons.key,
-                                      color: mainColor,
-                                      size: 19,
-                                    ),
-                                    hintText: "Password",
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(30),
-                                      borderSide:  BorderSide(
-                                        color: CardBG,
-                                      ),
-                                    ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(30),
-                                      borderSide: BorderSide(
-                                        color: CardBG,
-                                      ),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(30),
-                                      borderSide:  BorderSide(
-                                        color: CardBG,
-                                      ),
-                                    ),
-                                    disabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(30),
-                                      borderSide:  BorderSide(
-                                        color: CardBG,
-                                      ),
-                                    ),
-                                    contentPadding: const EdgeInsets.symmetric(horizontal: 14,vertical: 6,),
-                                    fillColor: CardBG,
-                                    filled: true
-                                ),
-                                ),
-                              ),
+                              InputTextBox(FontAwesomeIcons.envelope, "Email", emailController, true, Color.fromRGBO(191, 191, 191, 1.0)),
+                              InputTextBox(FontAwesomeIcons.key, "Password", passwordController, true, Color.fromRGBO(191, 191, 191, 1.0)),
                             ],
                           ),
                         )
                       ],
                     ),
                   ),
-                  SizedBox(height: 10,),
-                  
-                  // Sing up btn
-          
+                  SizedBox(height: 30,),
                   Material(
                     color: mainColor,
                     borderRadius: BorderRadius.circular(30),
-                    child: InkWell(
-                      onTap: (){
-                        if(formKey.currentState!.validate()){
+                    child: GestureDetector(
+                      onTap: () {
+                        if (formKey.currentState!.validate()) {
+                          // Perform the login action (e.g., SignInUserNow()) here
                           SignInUserNow();
+
+                          // Navigate to a new screen when the login is successful
+                          Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(
+                              builder: (context) {
+                                // Replace `YourNewScreen()` with the widget for the new screen
+                                return DashboardOfFragments();
+                              },
+                            ),
+                          );
                         }
                       },
-                      borderRadius: BorderRadius.circular(30),
-                      child: const Padding(
-                        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 28),
-                        child: Text("Sing in", style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16
-                        ),),
+                      child: Ink(
+                        decoration: BoxDecoration(
+                          color: mainColor,
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 70),
+                          child: Text(
+                            "Log in",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                            ),
+                          ),
+                        ),
                       ),
                     ),
                   ),
+
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text("Don't have an Account? "),
+                      const Text("I don't have an Account? "),
                       TextButton(
-                        onPressed: (){
-                          Get.to(SignUp());
+                        onPressed: () async {
+                          await Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => SignUp(),
+                            ),
+                          );
                         },
-                        child: Text("Sign up Here", style: TextStyle(
-                          color: mainColor
+                        child: Text("Register", style: TextStyle(
+                            color: mainColor
                         ),),
                       ),
                     ],

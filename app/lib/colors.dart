@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-Color mainColor =  Color.fromRGBO(89, 183, 236, 1);
+Color mainColor =  Color.fromRGBO(0, 179, 183, 1);
+// Color mainColor =  Color.fromRGBO(89, 183, 236, 1);
 
 Color Background =  Color.fromRGBO(242, 244, 245,1);
 Color TextColor = Colors.black;

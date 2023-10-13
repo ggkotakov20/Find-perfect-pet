@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:app/authentication/signin.dart';
+import 'package:app/functions/input_box.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -115,20 +116,7 @@ class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Background,
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        //  To remove shadowes
-        elevation: 0.0,
-        toolbarHeight: 80,
-        title: const Center(
-          child: Image(
-            image: AssetImage('images/logo.png'),
-            height: 65,
-          ),
-        ),
-        backgroundColor: Background,
-      ),
+      backgroundColor: Colors.white,
       body: LayoutBuilder(
         builder: (context, cons) {
           return Column(
@@ -139,12 +127,13 @@ class _SignUpState extends State<SignUp> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(height: 10,),
-                    Text('Sign up',style: TextStyle(
-                      color: mainColor,
-                      fontSize: 30,
-                      fontWeight: FontWeight.w500
-                      ),
+                    Text('Register',style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 30,
+                        fontWeight: FontWeight.w500
                     ),
+                    ),
+                    SizedBox(height: 10,),
                     Container(
                       child: Column(
                         children: [
@@ -152,246 +141,19 @@ class _SignUpState extends State<SignUp> {
                             key: formKey,
                             child: Column(
                               children: [
-                                //  FIRST NAME
-
-                                SizedBox(height: 20,),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 15, right: 15),
-                                  child: TextFormField(
-                                    controller: firstNameController,
-                                    validator: (val) => val == "" ? "Please write first name" : null,
-                                    decoration: InputDecoration(
-                                      prefixIcon: Icon(
-                                        FontAwesomeIcons.user,
-                                        color: mainColor,
-                                        size: 19,
-                                      ),
-                                      hintText: "First name",
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(30),
-                                        borderSide:  BorderSide(
-                                          color: CardBG,
-                                        ),
-                                      ),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(30),
-                                        borderSide: BorderSide(
-                                          color: CardBG,
-                                        ),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(30),
-                                        borderSide:  BorderSide(
-                                          color: CardBG,
-                                        ),
-                                      ),
-                                      disabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(30),
-                                        borderSide:  BorderSide(
-                                          color: CardBG,
-                                        ),
-                                      ),
-                                      contentPadding: const EdgeInsets.symmetric(horizontal: 14,vertical: 6,),
-                                      fillColor: CardBG,
-                                      filled: true
-                                  ),
-                                  ),
-                                ),
-
-                                // LAST NAME
-
-                                SizedBox(height: 10,),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 15, right: 15),
-                                  child: TextFormField(
-                                    controller: lastNameController,
-                                    validator: (val) => val == "" ? "Please write last name" : null,
-                                    decoration: InputDecoration(
-                                      prefixIcon: Icon(
-                                        FontAwesomeIcons.user,
-                                        color: mainColor,
-                                        size: 19,
-                                      ),
-                                      hintText: "Last name",
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(30),
-                                        borderSide:  BorderSide(
-                                          color: CardBG,
-                                        ),
-                                      ),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(30),
-                                        borderSide: BorderSide(
-                                          color: CardBG,
-                                        ),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(30),
-                                        borderSide:  BorderSide(
-                                          color: CardBG,
-                                        ),
-                                      ),
-                                      disabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(30),
-                                        borderSide:  BorderSide(
-                                          color: CardBG,
-                                        ),
-                                      ),
-                                      contentPadding: const EdgeInsets.symmetric(horizontal: 14,vertical: 6,),
-                                      fillColor: CardBG,
-                                      filled: true
-                                  ),
-                                  ),
-                                ),
-                              
-                                //  PHONE
-
-                                SizedBox(height: 10,),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 15, right: 15),
-                                  child: TextFormField(
-                                    controller: phoneController,
-                                    validator: (val) => val == "" ? "Please write phone" : null,
-                                    decoration: InputDecoration(
-                                      prefixIcon: Icon(
-                                        FontAwesomeIcons.phone,
-                                        color: mainColor,
-                                        size: 19,
-                                      ),
-                                      hintText: "Phone",
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(30),
-                                        borderSide:  BorderSide(
-                                          color: CardBG,
-                                        ),
-                                      ),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(30),
-                                        borderSide: BorderSide(
-                                          color: CardBG,
-                                        ),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(30),
-                                        borderSide:  BorderSide(
-                                          color: CardBG,
-                                        ),
-                                      ),
-                                      disabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(30),
-                                        borderSide:  BorderSide(
-                                          color: CardBG,
-                                        ),
-                                      ),
-                                      contentPadding: const EdgeInsets.symmetric(horizontal: 14,vertical: 6,),
-                                      fillColor: CardBG,
-                                      filled: true
-                                  ),
-                                  ),
-                                ),
-
                                 //  Email
-
-                                SizedBox(height: 10,),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 15, right: 15),
-                                  child: TextFormField(
-                                    controller: emailController,
-                                    validator: (val) => val == "" ? "Please write email" : null,
-                                    decoration: InputDecoration(
-                                      prefixIcon: Icon(
-                                        FontAwesomeIcons.envelope,
-                                        color: mainColor,
-                                        size: 19,
-                                      ),
-                                      hintText: "Email",
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(30),
-                                        borderSide:  BorderSide(
-                                          color: CardBG,
-                                        ),
-                                      ),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(30),
-                                        borderSide: BorderSide(
-                                          color: CardBG,
-                                        ),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(30),
-                                        borderSide:  BorderSide(
-                                          color: CardBG,
-                                        ),
-                                      ),
-                                      disabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(30),
-                                        borderSide:  BorderSide(
-                                          color: CardBG,
-                                        ),
-                                      ),
-                                      contentPadding: const EdgeInsets.symmetric(horizontal: 14,vertical: 6,),
-                                      fillColor: CardBG,
-                                      filled: true
-                                  ),
-                                  ),
-                                ),
-
-                                // PASSWORD
-
-                                SizedBox(height: 10,),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 15, right: 15),
-                                  child: TextFormField(
-                                    controller: passwordController,
-                                    obscureText: true,
-                                    validator: (val) => val == "" ? "Please write password" : null,
-                                    decoration: InputDecoration(
-                                      prefixIcon: Icon(
-                                        FontAwesomeIcons.key,
-                                        color: mainColor,
-                                        size: 19,
-                                      ),
-                                      hintText: "Password",
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(30),
-                                        borderSide:  BorderSide(
-                                          color: CardBG,
-                                        ),
-                                      ),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(30),
-                                        borderSide: BorderSide(
-                                          color: CardBG,
-                                        ),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(30),
-                                        borderSide:  BorderSide(
-                                          color: CardBG,
-                                        ),
-                                      ),
-                                      disabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(30),
-                                        borderSide:  BorderSide(
-                                          color: CardBG,
-                                        ),
-                                      ),
-                                      contentPadding: const EdgeInsets.symmetric(horizontal: 14,vertical: 6,),
-                                      fillColor: CardBG,
-                                      filled: true
-                                  ),
-                                  ),
-                                ),
+                                InputTextBox(FontAwesomeIcons.user, "First name", firstNameController, true, Color.fromRGBO(191, 191, 191, 1.0)),
+                                InputTextBox(FontAwesomeIcons.user, "Last name", lastNameController, true, Color.fromRGBO(191, 191, 191, 1.0)),
+                                InputTextBox(FontAwesomeIcons.phone, "Phone", phoneController, true, Color.fromRGBO(191, 191, 191, 1.0)),
+                                InputTextBox(FontAwesomeIcons.envelope, "Email", emailController, true, Color.fromRGBO(191, 191, 191, 1.0)),
+                                InputTextBox(FontAwesomeIcons.key, "Password", passwordController, true, Color.fromRGBO(191, 191, 191, 1.0)),
                               ],
                             ),
                           )
                         ],
                       ),
                     ),
-                    SizedBox(height: 10,),
-                    
-                    // Sing up btn
-
+                    SizedBox(height: 30,),
                     Material(
                       color: mainColor,
                       borderRadius: BorderRadius.circular(30),
@@ -403,10 +165,10 @@ class _SignUpState extends State<SignUp> {
                         },
                         borderRadius: BorderRadius.circular(30),
                         child: const Padding(
-                          padding: EdgeInsets.symmetric(vertical: 10, horizontal: 28),
-                          child: Text("Sing up", style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16
+                          padding: EdgeInsets.symmetric(vertical: 15, horizontal: 60),
+                          child: Text("Register", style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16
                           ),),
                         ),
                       ),
@@ -414,17 +176,23 @@ class _SignUpState extends State<SignUp> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Text("Don't have an Account? "),
+                        const Text("I have an Account? "),
                         TextButton(
-                          onPressed: (){
-                            Get.to(SignIn());
+                          onPressed: () async {
+                            await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => SignIn(),
+                              ),
+                            );
                           },
-                          child: Text("Sign up Here", style: TextStyle(
-                            color: mainColor
+                          child: Text("Log in", style: TextStyle(
+                              color: mainColor
                           ),),
                         ),
                       ],
-                    )
+                    ),
+
                   ],
                 ),
               ),

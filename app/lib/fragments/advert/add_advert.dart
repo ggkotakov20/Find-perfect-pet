@@ -181,11 +181,11 @@ class _AddAdvertBodyState extends State<AddAdvertBody> {
                           child: Column(
                             children: [
                               SizedBox(height: 20,),
-                              TextBox(FontAwesomeIcons.pencil, 'Title', titleController),
+                              InputTextBox(FontAwesomeIcons.pencil, 'Title', titleController, true, TextColor.withOpacity(0.75)),
                               SelectBox(FontAwesomeIcons.codeBranch, 'Type', titleController,speciesItems),
                               SelectBox(FontAwesomeIcons.paw, 'Category', titleController, categoryItems),
-                              NumberBox(FontAwesomeIcons.moneyBill, 'Price', priceController),
-                              TextBox(FontAwesomeIcons.paw, 'Description', descriptionController),
+                              InputNumberBox(FontAwesomeIcons.moneyBill, 'Price', priceController),
+                              InputTextBox(FontAwesomeIcons.paw, 'Description', descriptionController,true, TextColor.withOpacity(0.75),),
                               SizedBox(height: 10,),
                             ],
                           ),

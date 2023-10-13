@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:app/colors.dart';
 
-Container TextBox(IconData icon, String title, var controller) {
+Container InputTextBox(IconData icon, String title, var controller, bool validator, Color color) {
   return Container(
     child: Padding(
       padding: const EdgeInsets.only(top: 15.0, left: 20, right: 20),
@@ -15,40 +15,50 @@ Container TextBox(IconData icon, String title, var controller) {
               title,
               style: TextStyle(
                 fontSize: 14,
+                color: color
               ),
             ),
           ),
           TextFormField(
             controller: controller,
+            validator: validator
+                ? (val) => val == "" ? "Please write ${title.toLowerCase()}" : null
+                : null,
+            style: TextStyle(
+              color: color, // Set inputted text color
+            ),
             decoration: InputDecoration(
               prefixIcon: Icon(
                 icon,
-                color: TextColor.withOpacity(0.75),
+                color: color,
                 size: 19,
               ),
               hintText: title,
+              hintStyle: TextStyle(
+                color: color, // Set hint text color
+              ),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
                 borderSide: BorderSide(
-                  color: Colors.black.withOpacity(0.3),
+                  color: color, // Set border color
                 ),
               ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
                 borderSide: BorderSide(
-                  color: Colors.black.withOpacity(0.3),
+                  color: color, // Set enabled border color
                 ),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
                 borderSide: BorderSide(
-                  color: Colors.black.withOpacity(0.3),
+                  color: color, // Set focused border color
                 ),
               ),
               disabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
                 borderSide: BorderSide(
-                  color: Colors.black.withOpacity(0.3),
+                  color: color, // Set disabled border color
                 ),
               ),
               contentPadding: const EdgeInsets.symmetric(
@@ -58,20 +68,15 @@ Container TextBox(IconData icon, String title, var controller) {
               fillColor: CardBG,
               filled: true,
             ),
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter a value for $title';
-              }
-              return null;
-            },
-          ),
+          )
+
         ],
       ),
     ),
   );
 }
 
-Container NumberBox(IconData icon, String title, var controller) {
+Container InputNumberBox(IconData icon, String title, var controller) {
   return Container(
     child: Padding(
       padding: const EdgeInsets.only(top: 15.0, left: 20, right: 20),

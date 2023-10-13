@@ -242,12 +242,12 @@ class _EditPetPageBodyState extends State<EditPetPageBody> {
                     child: Column(
                       children: [
                         SizedBox(height: 5),
-                        TextBox(FontAwesomeIcons.paw, appLocalizations.pet_page_name, nameController),
+                        InputTextBox(FontAwesomeIcons.paw, appLocalizations.pet_page_name, nameController,true, TextColor.withOpacity(0.75),),
                         SelectBox(FontAwesomeIcons.codeBranch, appLocalizations.pet_page_species, speciesController,speciesItems),
                         SelectBox(FontAwesomeIcons.venusMars, appLocalizations.pet_page_gender, sexController, sexItems),
-                        TextBox(FontAwesomeIcons.dna, appLocalizations.pet_page_breed, breedController),
-                        TextBox(FontAwesomeIcons.cake, appLocalizations.pet_page_birthdate, birthdateController),
-                        TextBox(FontAwesomeIcons.weight, appLocalizations.pet_page_weight, weightController),
+                        InputTextBox(FontAwesomeIcons.dna, appLocalizations.pet_page_breed, breedController, true, TextColor.withOpacity(0.75)),
+                        InputTextBox(FontAwesomeIcons.cake, appLocalizations.pet_page_birthdate, birthdateController, true, TextColor.withOpacity(0.75)),
+                        InputTextBox(FontAwesomeIcons.weight, appLocalizations.pet_page_weight, weightController, true, TextColor.withOpacity(0.75)),
                         SizedBox(height: 20),
                       ],
                     ),

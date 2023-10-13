@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:app/colors.dart';
 import 'package:get/get.dart';
-import 'package:app/functions/option_button.dart';
+import 'package:app/functions/button.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -128,14 +128,14 @@ class Options extends StatelessWidget {
         margin: EdgeInsets.all(10.0),
         child: Column(
           children: [
-            DisableProfileOption(FontAwesomeIcons.user,"Edit your profile information"),
-            DisableProfileOption(FontAwesomeIcons.heart,"Favorite"),
-            DisableProfileOption(FontAwesomeIcons.shoppingBag,"Cart"),
-            ProfileOption(FontAwesomeIcons.layerGroup,"Your adverts",() {Navigator.push( context,MaterialPageRoute(
+            DisableProfileOptionButton(FontAwesomeIcons.user,"Edit your profile information"),
+            DisableProfileOptionButton(FontAwesomeIcons.heart,"Favorite"),
+            DisableProfileOptionButton(FontAwesomeIcons.shoppingBag,"Cart"),
+            ProfileOptionButton(FontAwesomeIcons.layerGroup,"Your adverts",() {Navigator.push( context,MaterialPageRoute(
               builder: (context) => YourAdvert()
             ),);}),
-            DisableProfileOption(FontAwesomeIcons.gear,"Settings"),
-            DisableProfileOption(FontAwesomeIcons.powerOff,"Log out"),
+            DisableProfileOptionButton(FontAwesomeIcons.gear,"Settings"),
+            DisableProfileOptionButton(FontAwesomeIcons.powerOff,"Log out"),
           ],
         ),
       ),
