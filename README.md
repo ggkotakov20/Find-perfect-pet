@@ -1,47 +1,52 @@
+# Find Perfect Pet 🐾
+
+<br/>
+
+<div align="center">
+  <img src="https://github.com/ggkotakov20/Find-perfect-pet/blob/main/app/images/logo.png" alt="Find Perfect Pet Logo" height="60%" width="70%"/>
+</div>
+
+## 🌐 Overview
+
+Welcome to "Find Perfect Pet" - your go-to mobile app for all things related to pets! 🐶🐱 Whether you're searching for a new furry friend, looking for pet supplies, exploring pet-friendly places, or managing your pet's schedule, this app has got you covered.
+
+## 📄 Documentation
+
+For detailed information and guidelines, please refer to our [Documentation](https://github.com/ggkotakov20/Find-perfect-pet/blob/main/Documentation.docx?raw=true).
+
+## 🚀 Features
+
+1. **Adopt a Pet 🏡**
+   - Browse through a variety of pets available for adoption.
+   - Connect with pet owners and make arrangements to bring a new member into your family.
+
+2. **Shop for Supplies 🛍️**
+   - Explore a wide range of pet foods and accessories.
+   - Find the best deals and get everything your pet needs in one place.
+
+3. **Discover Pet-Friendly Places 🗺️**
+   - Use the in-app map to locate pet-friendly places such as zoos, pet hotels, vet clinics, and parks for a delightful walk with your pet.
+
+4. **Create Custom Events 📅**
+   - Schedule vet appointments, playdates, or any other custom events in your personalized calendar.
+   - Vets can also add events relevant to your pet's health and well-being.
+
+## 👀 Preview
 
 
-<h1 align="center">Find perfect pet</h1>
-<p align="center"><img src = "https://github.com/ggkotakov20/Find-perfect-pet/blob/main/app/images/logo.png" height="60%" width = "70%"></p>
 
-# 📝 Table of Contents
+## ⚙️ Used Technologies
 
-+ [Preview](#preview)
-+ [Technologies](#used-technologies)
-+ [Download](#-download)
+- **Mobile App Development:** <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Google-flutter-logo.svg/2560px-Google-flutter-logo.svg.png" alt="Flutter" width="8%"/>
+- **Backend:** <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/PHP-logo.svg/2560px-PHP-logo.svg.png" alt="PHP" width="5%"/>
+- **Database:** <img src="https://upload.wikimedia.org/wikipedia/labs/8/8e/Mysql_logo.png" alt="MySQL" width="6%"/>
+- **Design and Editing:** <img src="https://logos-world.net/wp-content/uploads/2020/11/Adobe-Photoshop-Logo-2019-2020.png" alt="Adobe Photoshop" width="4%"/>, <img src="https://1000logos.net/wp-content/uploads/2020/06/Illustrator-Logo.png" alt="Adobe Illustrator" width="4%"/>
+- **Maps Integration:** <img src="https://img.icons8.com/color/48/000000/google-maps-new.png" alt="Google Maps" width="3%"/>
 
----
+## 🛠️ Installation
 
-<h1>🖼️ Preview of the software</h1> <a name = "preview"></a>
+To run the app locally, follow these steps:
 
-<p align="center">
-  <img src = "https://github.com/ggkotakov20/Find-perfect-pet/blob/main/images/Home.png" height="20%" width = "30%">
-  <img src = "https://github.com/ggkotakov20/Find-perfect-pet/blob/main/images/Pet.png" height="20%" width = "30%">
-  <img src = "https://github.com/ggkotakov20/Find-perfect-pet/blob/main/images/Pet%20card.png" height="20%" width = "30%">
-  <img src = "https://github.com/ggkotakov20/Find-perfect-pet/blob/main/images/Map.png" height="20%" width = "30%">
-  <img src = "https://github.com/ggkotakov20/Find-perfect-pet/blob/main/images/Profile.png" height="20%" width = "30%">
-</p>
-
----
-
-
-# [📄 Documentation](https://github.com/ggkotakov20/Find-perfect-pet/blob/main/Documentation.docx?raw=true)
-
----
-
-# 💻Used technologies
-<p align="center">
-  <img src="https://img.shields.io/static/v1?style=for-the-badge&message=Visual+Studio+Code&color=1A1B27&logo=Visual+Studio+Code&label=">
-  <img src="https://img.shields.io/static/v1?style=for-the-badge&message=Flutter&color=1A1B27&logo=Flutter&logoColor=3FADF2&label=">
-  <img src="https://img.shields.io/static/v1?style=for-the-badge&message=PHP&color=1A1B27&logo=PHP&logoColor=787CB4&label=">
-  <img src="https://img.shields.io/static/v1?style=for-the-badge&message=Adobe+Illustrator&color=1A1B27&logo=Adobe+Illustrator&label=">
-  <img src="https://img.shields.io/static/v1?style=for-the-badge&message=Adobe+PhotoShop&color=1A1B27&logo=Adobe+PhotoShop&label=">
-  <img src="https://img.shields.io/static/v1?style=for-the-badge&message=Google+Maps&color=1A1B27&logo=Google+Maps&label=">
-</p>
-
----
-
-# 📥 Download
-
-<p>To download our project on your machine you just need to clone it. This can be done by pasting this text in your command prompt:</p>
-
-<pre>git clone https://github.com/ggkotakov20/Find-perfect-pet.git</pre>
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/ggkotakov20/find-perfect-pet.git
